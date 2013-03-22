@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$title$</title>
+		<authors>$author$</authors>
+		<owners>$author$</owners>
+		<licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+		<projectUrl>http://code.google.com/p/a-vs-an/</projectUrl>
+		<!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<summary>$description$</summary>
+		<description>AvsAn: Find the english language indeterminate article ("a" or "an") for a word.  Based on real usage patterns extracted from the wikipedia text dump; can therefore even deal with tricky edge cases such as acronyms (FIAT vs. FAA, NASA vs. NSA) and odd symbols.  (Requires .NET 2.0 or higher)
+		</description>
+		<releaseNotes>
+		Initial .NET release.
+		</releaseNotes>
+		<copyright>Copyright 2013 © Eamon Nerbonne</copyright>
+		<tags>english NLP text-processing library indeterminate-article AvsAn</tags>
+	</metadata>
+</package>
