@@ -1,12 +1,8 @@
 ﻿//by Eamon Nerbonne (from http://home.nerbonne.org/A-vs-An)
 //Apache 2.0 license.
-using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace AvsAnLib {
 	public static class AvsAn {
