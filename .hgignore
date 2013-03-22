@@ -1,0 +1,5 @@
+syntax: glob
+*/bin/*
+*/obj/*
+A-vs-An/A-vs-An.v11.suo
+A-vs-An/packages
