@@ -14,7 +14,7 @@
 		<description>AvsAn: Find the english language indeterminate article ("a" or "an") for a word.  Based on real usage patterns extracted from the wikipedia text dump; can therefore even deal with tricky edge cases such as acronyms (FIAT vs. FAA, NASA vs. NSA) and odd symbols.  (Requires .NET 2.0 or higher)
 		</description>
 		<releaseNotes>
-		Initial .NET release.
+		Reimplement backing store using plain arrays and binary search on each node (x10 speedup and less memory).
 		</releaseNotes>
 		<copyright>Copyright 2013 © Eamon Nerbonne</copyright>
 		<tags>english NLP text-processing library indeterminate-article AvsAn</tags>
