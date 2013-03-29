@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{EBF2D8
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvsAn-JsDemo", "AvsAn-JsDemo\AvsAn-JsDemo.csproj", "{C60ED821-A93B-45E1-9B2E-8E4C17AB0A7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{64F4736B-7037-4F2C-B8D9-0B2DB7313E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64F4736B-7037-4F2C-B8D9-0B2DB7313E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64F4736B-7037-4F2C-B8D9-0B2DB7313E0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C60ED821-A93B-45E1-9B2E-8E4C17AB0A7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C60ED821-A93B-45E1-9B2E-8E4C17AB0A7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C60ED821-A93B-45E1-9B2E-8E4C17AB0A7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C60ED821-A93B-45E1-9B2E-8E4C17AB0A7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
