@@ -1,57 +1,87 @@
-﻿//by Eamon Nerbonne (from http://home.nerbonne.org/A-vs-An)
+﻿using System;
+//by Eamon Nerbonne (from http://home.nerbonne.org/A-vs-An)
 //Apache 2.0 license.
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace AvsAnLib {
 	public static class AvsAn {
-		struct Node {
+		struct Node : IComparable<Node> {
 			internal bool isSet { get { return aCount != 0 || anCount != 0; } }
+			char c;
+			public int kids;
 			public int aCount, anCount;
-			SortedList<char, Node> SortedKids;
-			public Node Add(string prefix, Node newNode) {
+			Node[] SortedKids;
+			public void Add(string prefix, Node newNode) {
 				if (prefix == "") {
-					newNode.SortedKids = SortedKids;
-					return newNode;
+					aCount = newNode.aCount;
+					anCount = newNode.anCount;
 				} else {
-					Node kid = default(Node);
 					if (SortedKids == null)
-						SortedKids = new SortedList<char, Node>();
-					else
-						SortedKids.TryGetValue(prefix[0], out kid);
-					SortedKids[prefix[0]] = kid.Add(prefix.Substring(1), newNode);
-					return this;
+						SortedKids = new Node[4];
+					else if (kids == SortedKids.Length)
+						Array.Resize(ref SortedKids, kids * 2);
+
+					int i = 0;
+					while (true) {
+						if (i < kids)
+							if (SortedKids[i].c == prefix[0])
+								break;
+							else
+								i++;
+						else
+							SortedKids[kids++].c = prefix[0];
+					}
+					SortedKids[i].Add(prefix.Substring(1), newNode);
 				}
 			}
-			public Node Minimize() {
+			public void Minimize() {
 				if (SortedKids != null) {
-					SortedKids.Capacity = SortedKids.Count;
-					foreach (var pair in SortedKids)
-						SortedKids[pair.Key] = pair.Value.Minimize();
+					Array.Resize(ref SortedKids, kids);
+					Array.Sort(SortedKids);
+					for (int i = 0; i < SortedKids.Length; i++)
+						SortedKids[i].Minimize();
 				}
-				return this;
 			}
 			public Result Query(string word, int depth) {
-				Node kid;
-				if (!(depth >= word.Length || SortedKids == null || !SortedKids.TryGetValue(word[depth], out kid))) {
-					var match = kid.Query(word, depth + 1);
-					if (match.isSet) return match;
+				if (depth < word.Length && SortedKids != null) {
+					int start = 0, end = kids;
+					char c = word[depth];
+					while (end - start > 1) {
+						int midpoint = end + start >> 1;
+						if (SortedKids[midpoint].c <= c)
+							start = midpoint;
+						else
+							end = midpoint;
+					}
+					if (SortedKids[start].c == c) {
+						var match = SortedKids[start].Query(word, depth + 1);
+						if (match.isSet)
+							return match;
+					}
 				}
 				return isSet ? new Result(aCount, anCount, word.Substring(0, depth)) : default(Result);
 			}
+			public override string ToString() {
+				return c + " " + SortedKids.Length + " " + aCount + "/" + anCount;
+			}
+
+			public int CompareTo(Node other) { return c.CompareTo(other.c); }
 		}
 		static Node root;
 
 		static AvsAn() {
-			foreach (Match m in Regex.Matches(dict, @"([^\[]*)\[([0-9a-f]*):([0-9a-f]*)\]",RegexOptions.CultureInvariant)) {
-				root = root.Add(
-					m.Groups[1].Value, 
-					new Node { 
-						aCount = parseHex(m.Groups[2].Value), 
-						anCount = parseHex(m.Groups[3].Value) 
+			foreach (Match m in Regex.Matches(dict, @"([^\[]*)\[([0-9a-f]*):([0-9a-f]*)\]", RegexOptions.CultureInvariant))
+				root.Add(
+					m.Groups[1].Value,
+					new Node {
+						aCount = parseHex(m.Groups[2].Value),
+						anCount = parseHex(m.Groups[3].Value)
 					});
-			}
+
+			root.Minimize();
 		}
 		static int parseHex(string str) {
 			return str == "" ? 0 : int.Parse(str, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture);

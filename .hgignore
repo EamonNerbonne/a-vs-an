@@ -6,3 +6,6 @@ A-vs-An/packages
 A-vs-An/A-vs-An-DotNet/*.nupkg
 *.csproj.user
 *.pubxml.user
+A-vs-An/PerfTest/354984si.ngl
+*.vsp
+*.psess

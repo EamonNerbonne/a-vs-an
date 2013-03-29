@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,10 +9,8 @@ using AvsAnLib;
 using ExpressionToCodeLib;
 using NUnit.Framework;
 
-namespace AvsAn_Test
-{
-    public class StandardCasesWork
-    {
+namespace AvsAn_Test {
+	public class StandardCasesWork {
 
 		[TestCase("an", "unanticipated result")]
 		[TestCase("a", "unanimous vote")]
@@ -22,8 +22,9 @@ namespace AvsAn_Test
 		[TestCase("an", "NSA analyst")]
 		[TestCase("a", "FIAT car")]
 		[TestCase("an", "FAA policy")]
+		[TestCase("an", "A")]
 		public void DoTest(string article, string word) {
 			PAssert.That(() => AvsAn.Query(word).Article == article);
 		}
-    }
+	}
 }
