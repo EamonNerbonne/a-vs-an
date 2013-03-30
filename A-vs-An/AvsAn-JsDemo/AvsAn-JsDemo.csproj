@@ -63,7 +63,7 @@
     <Content Include="emnicon.ico" />
     <Content Include="emnicon.png" />
     <Content Include="index.html" />
-    <Content Include="index2.html" />
+    <Content Include="benchmark.html" />
     <Content Include="itertrie.js" />
     <Content Include="Web.config" />
   </ItemGroup>

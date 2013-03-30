@@ -63,7 +63,7 @@
 		var inputEl = document.getElementById("searchquery");
 
 		inputEl.onkeyup = inputEl.oninput = function () {
-			var input = document.getElementById("searchquery").value.replace(/^\s+|\s+$/g, "") + " ";
+			var input = document.getElementById("searchquery").value.replace(/^\s+|\s+$/g, "");
 			input = input.replace(/^[\(\"'“‘-]/, ""); //strip initial punctuation symbols
 			var res = AvsAn.query(input);
 			articleEl.replaceChild(document.createTextNode(res.article), articleEl.firstChild);

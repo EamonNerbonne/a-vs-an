@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>A vs An - Determine english indeterminate article</title>
+	<link rel="shortcut icon" href="emnicon.ico" />
+	<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+	<style type="text/css">
+		#articles {
+			white-space: pre-wrap;
+			font-size: small;
+			display: none;
+		}
+
+		#article {
+			min-width: 3em;
+		}
+
+		body {
+			font: 11pt Verdana, sans-serif;
+		}
+	</style>
+</head>
+<body>
+	Benchmark!
+
+	<label>Load Dictionary:
+        <input type="file" id="benchfile" /></label>
+	<button id="benchButton" disabled>bench</button>
+	<button id="benchChadButton" disabled>benchChad</button>
+	<button id="benchSimpleButton" disabled>benchSimple</button>
+	<div style="position:relative;"><textarea id="log" style="width:100%;height:20em;"></textarea></div>
+</body>
+<script src="AvsAn.js"></script>
+<script src="AvsAn-simple.js"></script>
+<script src="itertrie.js"></script>
+<script src="Articles.js"></script>
+<script>
+	(function () {
+		"use strict";
+		var logEl = document.getElementById("log");
+		function log(str) {
+			logEl.appendChild(document.createTextNode(str + "\n"));
+		}
+		document.getElementById("benchfile").addEventListener("change", function (e) {
+			log("file input");
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				window.benchdict = e.target.result.split("\n");
+				log("done loading.");
+				benchButton.disabled = false;
+				benchChadButton.disabled = false;
+				benchSimpleButton.disabled = false;
+			};
+			reader.readAsText(e.target.files[0]);
+		});
+		function bench(q) {
+			return function () {
+				var tr = { a: 0, an: 1 };
+				var sum = 0;
+				var start = (new Date).getTime();
+				for (var k = 0; k < 5; k++) {
+					for (var i = 0; i < benchdict.length; i++)
+						sum += tr[q(benchdict[i])];
+					for (var i = benchdict.length - 1; i >= 0; i--)
+						sum += tr[q(benchdict[i])];
+				}
+				var duration = (new Date).getTime() - start;
+				log(sum + " / " + benchdict.length + " (" + (sum / benchdict.length / 10) + ") an rate.");
+				log("took " + duration);
+			}
+		}
+		benchButton.onclick = bench(function (s) { return AvsAn.query(s).article; });
+		benchChadButton.onclick = bench(Articles.find);
+		benchSimpleButton.onclick = bench(AvsAnSimple.query);
+	})();
+
+
+
+</script>
+
+</html>

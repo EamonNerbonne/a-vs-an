@@ -22,14 +22,20 @@ var AvsAn = (function () {
 		//   article: "an", //the most common article
 		//}
 		query: function (word) {
-			var node = root, data = node.data;
-			var sI = 0;
-			while (ignore[word[sI]]) sI++;
-			while (sI < word.length) {
+			var node = root, data = node.data, sI = 0;
+			while (1)
+				if (sI >= word.length) return data;
+				else if (word[sI] === "(" || word[sI] === "'" || word[sI] === '"') sI++;
+				else break;
+			while (1) {
 				node = node[word[sI]];
 				if (!node) break;
 				if (node.data) data = node.data;
-				sI++;
+				if (++sI == word.length) {
+					node = node[" "];
+					if (node && node.data) data = node.data;
+					break;
+				}
 			}
 			return data;
 		}
