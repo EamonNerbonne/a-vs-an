@@ -49,4 +49,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+    <Target Name="AfterBuild" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Exec Command="..\.nuget\nuget pack -sym AvsAn.csproj" />
+  </Target>
 </Project>
