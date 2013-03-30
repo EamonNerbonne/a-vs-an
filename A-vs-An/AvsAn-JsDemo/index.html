@@ -26,7 +26,7 @@
 		<input id="searchquery" type="text" name="q" placeholder="enter word here" autofocus="autofocus" />
 		<span id="articleDetail">&nbsp;</span></p>
 	<h3>Details: </h3>
-	<p>This page determines whether "a" or "an" should precede a word.  It does this using the method described in <a href="http://stackoverflow.com/questions/1288291/how-can-i-correctly-prefix-a-word-with-a-and-an/1288473#1288473">this stackoverflow response</a>.  The dataset used is the wikipedia-article-text dump.  Some additional preprocessing was done to remove as much wiki-markup as possible and extract only things vague resembling sentences using regular expressions.  If the word following 'a' or 'an' started with a quote or parenthesis, the initial quote or parenthesis was ignored.  The resulting prefix-list with the code to query it is less than 10KB in size; excluding the actual counts would reduce the size still further.
+	<p>This page determines whether "a" or "an" should precede a word.  It does this using the method described in <a href="http://stackoverflow.com/questions/1288291/how-can-i-correctly-prefix-a-word-with-a-and-an/1288473#1288473">this stackoverflow response</a>.  The dataset used is the wikipedia-article-text dump.  Some additional preprocessing was done to remove as much wiki-markup as possible and extract only things vaguely resembling sentences using regular expressions.  If the word following 'a' or 'an' started with a quote or parenthesis, the initial quote or parenthesis was ignored.  The resulting prefix-list with the code to query it is less than 10KB in size; excluding the actual counts would reduce the size still further.
 	</p>
 	<p>Try...</p>
 	<ul>
@@ -50,7 +50,7 @@
 		<li><b>JS:</b> Variant including only which article is more common: <a href="AvsAn-simple.js">AvsAn-simple.js</a> (4823 bytes, minified+gzipped it's 2553 bytes)</li>
 		<li><b>node.js package:</b> (alternative implementation by Chad Kirby) <a href="https://github.com/uplake/Articles">github: uplake / Articles</a></li>
 	</ul>
-	The implementations are efficient: on a single thread of a Q9300 classifying all words of an english dictionary takes slightly less than 50 nanoseconds per words; that's just 150 clock cycles.  The javascript implementations were benchmarked on chrome 26, firefox 22 and IE10, and are about 5-10 times slower (which is still 2-4 million classifications per second).
+	The implementations are efficient: on a single thread of a Q9300 classifying all words of an english dictionary takes slightly less than 50 nanoseconds per word; that's just 150 clock cycles.  The javascript implementations were benchmarked on chrome 26, firefox 22, IE 10, and opera 12, and are about 5-10 times slower (which is still 2-4 million classifications per second).
 	<p>--Eamon Nerbonne
 	</p>
 </body>
