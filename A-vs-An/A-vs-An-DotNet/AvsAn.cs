@@ -9,7 +9,7 @@ namespace AvsAnLib {
 	public static class AvsAn {
 		struct Ratio {
 			public int aCount, anCount;
-			public bool isSet { get { return aCount != 0 || anCount != 0; } }
+			public bool isSet { get { return (aCount | anCount) != 0; } }
 		}
 		class MutableNode {
 			//static readonly Node[] EmptyNodeArr = new Node[0];
@@ -29,7 +29,7 @@ namespace AvsAnLib {
 			}
 			public Node Finish(char key) {
 				Node[] sortedKids = null;
-				if (Kids !=null) {
+				if (Kids != null) {
 					sortedKids = new Node[Kids.Count];
 					int i = 0;
 					foreach (var kv in Kids)
@@ -49,26 +49,39 @@ namespace AvsAnLib {
 
 		static Result Query(Node node, string word, int depth) {
 			Ratio result = node.ratio;
-			while (depth < word.Length && node.SortedKids != null) {
-				int start = 0, end = node.SortedKids.Length;
-				char c = word[depth];
-				while (end - start > 1) {
-					int midpoint = end + start >> 1;
-					if (node.SortedKids[midpoint].c <= c)
-						start = midpoint;
-					else
-						end = midpoint;
-				}
-				if (node.SortedKids[start].c == c) {
-					node = node.SortedKids[start];
+			while (true)
+				if (depth >= word.Length) return new Result(result.aCount, result.anCount, word, depth);
+				else if (word[depth] == '(' || word[depth] == '\'' || word[depth] == '"') depth++;
+				else break;
+			while (true) {
+				if (BinarySearch(ref node, word[depth])) {
 					depth++;
 					if (node.ratio.isSet)
 						result = node.ratio;
 				} else {
 					break;
 				}
+
+				if (depth >= word.Length) {
+					if (BinarySearch(ref node, ' ') && node.ratio.isSet)
+						result = node.ratio;
+					break;
+				}
 			};
 			return new Result(result.aCount, result.anCount, word, depth);
+		}
+		static bool BinarySearch(ref Node node, char c) {
+			if (node.SortedKids == null) return false;
+			int start = 0, end = node.SortedKids.Length;
+			while (end - start > 1) {
+				int midpoint = end + start >> 1;
+				if (node.SortedKids[midpoint].c <= c)
+					start = midpoint;
+				else
+					end = midpoint;
+			}
+			node = node.SortedKids[start];
+			return node.c == c;
 		}
 
 		static Node root;
