@@ -41,15 +41,16 @@
 		<li>FIAT car</li>
 		<li>FAA policy</li>
 	</ul>
-	<p>You may use, modify, redistribute and do whatever you want with the data+script used on this page, but please don't misrepresent its source.  If you've any questions, you can mail me at firstname@lastname.org.  
+	<p>You may use, modify, redistribute and do whatever you want with the data+script used on this page, but please don't misrepresent its source (license: <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a>).  If you've any questions, you can mail me at &lt;firstname&gt;@&lt;lastname&gt;.org.  
 	</p>
 	<p>Downloads:</p>
 	<ul>
+		<li><b>.NET</b> <a href="https://www.nuget.org/packages/AvsAn/">nuget package AvsAn</a> (.NET 2.0 or later); <a href="http://code.google.com/p/a-vs-an/">C# is source on code.google.com/p/a-vs-an</a>; as are <a href="http://code.google.com/p/a-vs-an/downloads/list">the binaries</a>.</li>
 		<li><b>JS:</b> Variant including counts of a's and an's : <a href="AvsAn.js">AvsAn.js</a> (10111 bytes, minified+gzipped it's 5434 bytes)</li>
 		<li><b>JS:</b> Variant including only which article is more common: <a href="AvsAn-simple.js">AvsAn-simple.js</a> (4823 bytes, minified+gzipped it's 2553 bytes)</li>
 		<li><b>node.js package:</b> (alternative implementation by Chad Kirby) <a href="https://github.com/uplake/Articles">github: uplake / Articles</a></li>
-		<li><b>.NET</b> nuget package <a href="https://www.nuget.org/packages/AvsAn/">AvsAn</a> (.NET 2.0 or later); source on <a href="http://code.google.com/p/a-vs-an/">code.google.com/p/a-vs-an</a>.</li>
 	</ul>
+	The implementations are efficient: on a single thread of a Q9300 classifying all words of an english dictionary takes slightly less than 50 nanoseconds per words; that's just 150 clock cycles.  The javascript implementations were benchmarked on chrome 26, firefox 22 and IE10, and are about 5-10 times slower (which is still 2-4 million classifications per second).
 	<p>--Eamon Nerbonne
 	</p>
 </body>
