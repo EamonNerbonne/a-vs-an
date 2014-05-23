@@ -19,6 +19,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{80E21813-AD4B-42DC-9ADD-BA5BE20CD006}"
 	ProjectSection(SolutionItems) = preProject
 		Performance1.psess = Performance1.psess
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfTest", "PerfTest\PerfTest.csproj", "{7350BDA2-DBB9-4334-A488-0867145E83DB}"

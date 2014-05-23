@@ -37,7 +37,7 @@ namespace PerfTest {
 
 			Console.WriteLine(clockrateMHz *microseconds +" cycles per lookup @ " + clockrateMHz+"MHz");
 			
-			Console.WriteLine("took " + duration);
+			Console.WriteLine("took " + duration + "ms");
 		}
 	}
 }

@@ -65,8 +65,10 @@
 						sum += tr[q(benchdict[i])];
 				}
 				var duration = (new Date).getTime() - start;
-				log(sum + " / " + benchdict.length + " (" + (sum / benchdict.length / 10) + ") an rate.");
-				log("took " + duration);
+				log(sum + " / " + benchdict.length + " (" + (sum / benchdict.length / 5 / 2) + ") an rate.");
+				var nanoseconds = duration / benchdict.length / 5 / 2 * 1000.0 * 1000.0;
+				log(nanoseconds + " nanoseconds per lookup");
+				log("took " + duration + "ms");
 			}
 		}
 		benchButton.onclick = bench(function (s) { return AvsAn.query(s).article; });
