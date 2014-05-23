@@ -128,7 +128,7 @@ namespace AvsAnLib {
 		/// <summary>
 		/// Determines whether an english word should be preceded by the indefinite article "a" or "an".
 		/// 
-		/// By Eamon Nerbonne; feedback can be reported to http://code.google.com/p/a-vs-an/
+		/// By Eamon Nerbonne; feedback can be reported to https://github.com/EamonNerbonne/a-vs-an/
 		/// </summary>
 		/// <param name="word">The word to test.  AvsAn assumes this is a complete word; in some cases word-prefixes may result in a differing classification that complete words.  If you wish to classify an incomplete word (a prefix), append a non-word, non-space character such as the underscore "_" as a placeholder for further letters.</param>
 		/// <returns>A classification result indicating "a" or "an" with some wikipedia-derived statistics.</returns>
