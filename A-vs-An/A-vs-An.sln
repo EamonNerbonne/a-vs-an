@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvsAn", "A-vs-An-DotNet\AvsAn.csproj", "{CB925C3D-7ECE-48DE-AA24-A3FA2D00159E}"
 EndProject
@@ -18,7 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvsAn-JsDemo", "AvsAn-JsDem
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{80E21813-AD4B-42DC-9ADD-BA5BE20CD006}"
 	ProjectSection(SolutionItems) = preProject
-		Performance1.psess = Performance1.psess
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
