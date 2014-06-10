@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Threading;
@@ -11,39 +9,42 @@ using System.Xml.Linq;
 using System.Xml;
 using System.Reflection;
 using WikiParser;
+using System.Diagnostics;
 
 namespace AvsAnTrie {
-	class Program {
+    static class Program {
 		const string dictFileName = "english.ngl";
-		static void Main(string[] args) {
-			FileInfo exeFile = new FileInfo(Assembly.GetEntryAssembly().Location);
+		static void Main() {
+			var exeFile = new FileInfo(Assembly.GetEntryAssembly().Location);
 			var dir = exeFile.Directory;
 			while (dir != null && !dir.GetFiles(dictFileName).Any())
 				dir = dir.Parent;
 			RegexTextUtils.LoadDictionary(dir.GetFiles(dictFileName).First());
 
-			var wikiPath = new FileInfo(@"D:\EamonLargeDocs\wikipedia\enwiki-latest-pages-articles.xml");
-			BlockingCollection<Entry[]> entriesTodo = new BlockingCollection<Entry[]>(10000);
-			BlockingCollection<XElement> pagesTodo = new BlockingCollection<XElement>(10000);
+			var wikiPath = new FileInfo(@"F:\wikipedia\enwiki-latest-pages-articles.xml");
+			var entriesTodo = new BlockingCollection<Entry[]>(1000);
+			var pagesTodo = new BlockingCollection<XElement>(1000);
 			int wordCount = 0;
-			Task.Factory.StartNew(() => {
+			Task.Factory.StartNew(() =>
+			{
+			    Stopwatch sw = Stopwatch.StartNew();
 				while (!entriesTodo.IsCompleted) {
 					Thread.Sleep(5000);
-					Console.WriteLine("Entrycache: " + entriesTodo.Count + "; pagecache: " + pagesTodo.Count + "; wordcount: " + wordCount);
+					Console.WriteLine("Entrycache: " + entriesTodo.Count + "; pagecache: " + pagesTodo.Count + "; wordcount: " + wordCount + "; words/sec: " + (wordCount/sw.Elapsed.TotalSeconds).ToString("f1") );
 				}
 			});
 
-			var pageReader = Task.Factory.StartNew(() => {
+			Task.Factory.StartNew(() => {
 				using (var stream = wikiPath.OpenRead())
 				using (var reader = XmlReader.Create(stream))
 					while (reader.Read())
 						if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "page")
-							pagesTodo.Add((XElement)XElement.ReadFrom(reader));
+							pagesTodo.Add((XElement)XNode.ReadFrom(reader));
 				pagesTodo.CompleteAdding();
 			});
 
 			var trieBuilder = Task.Factory.StartNew(() => {
-				AnnotatedTrie trie = new AnnotatedTrie();
+				var trie = new AnnotatedTrie();
 				foreach (var entries in entriesTodo.GetConsumingEnumerable())
 					foreach (var entry in entries) {
 						trie.AddEntry(entry.PrecededByAn, entry.Word, 0);
@@ -54,9 +55,7 @@ namespace AvsAnTrie {
 
 			Task.WaitAll(
 				Enumerable.Range(0, 32).Select(i =>
-					Task.Factory.StartNew(() => {
-						ExtractEntriesFromPages(pagesTodo, entriesTodo);
-					})
+					Task.Factory.StartNew(() => ExtractEntriesFromPages(pagesTodo, entriesTodo))
 				).ToArray()
 			);
 
@@ -74,7 +73,7 @@ namespace AvsAnTrie {
 		}
 
 		static void ExtractEntriesFromPages(BlockingCollection<XElement> pagesTodo, BlockingCollection<Entry[]> entriesTodo) {
-			RegexTextUtils ms = new RegexTextUtils();
+			var ms = new RegexTextUtils();
 			foreach (var page in pagesTodo.GetConsumingEnumerable())
 				ProcessPage(entriesTodo, page, ms);
 		}
