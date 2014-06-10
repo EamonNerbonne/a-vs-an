@@ -84,7 +84,7 @@ namespace AvsAnTrie {
 
 			Entry[] entries = (
 				from sentence in ms.FindEnglishSentences(pageWSnormal)
-				where ms.GradeEnglishSentence(sentence) > 2.2
+				where ms.GradeEnglishSentence(sentence) > 2.5
 				from entry in ms.ExtractWordsPrecededByAOrAn(sentence)
 				select entry).ToArray();
 			entriesTodo.Add(entries);
