@@ -22,8 +22,8 @@ namespace AvsAnTrie {
 			RegexTextUtils.LoadDictionary(dir.GetFiles(dictFileName).First());
 
 			var wikiPath = new FileInfo(@"F:\wikipedia\enwiki-latest-pages-articles.xml");
-			var entriesTodo = new BlockingCollection<Entry[]>(1000);
-			var pagesTodo = new BlockingCollection<XElement>(1000);
+			var entriesTodo = new BlockingCollection<Entry[]>(3000);
+			var pagesTodo = new BlockingCollection<XElement>(3000);
 			int wordCount = 0;
 			Task.Factory.StartNew(() =>
 			{
