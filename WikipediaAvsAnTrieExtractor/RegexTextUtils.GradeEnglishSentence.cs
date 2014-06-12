@@ -19,9 +19,9 @@ namespace AvsAnTrie {
             double pref = 0.0;
             if (dictionary != null) {
                 int inDictCount = 0;
-                int ignore;
                 foreach (Match m in wordMatches) {
                     var word = m.Value;
+                    int ignore;
                     inDictCount +=
                         dictionary.Contains(m.Value) ? 2
                         : int.TryParse(m.Value, out ignore) ? 1 //numbers aren't quite valid words in the dictionary, but they're not nonsense either.

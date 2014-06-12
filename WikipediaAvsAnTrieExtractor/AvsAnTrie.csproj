@@ -125,7 +125,6 @@
     <Compile Include="RegexTextUtils.ExtractWordsAfterAOrAn.cs" />
     <Compile Include="WhitespaceNormalizer.cs" />
     <Compile Include="RegexTextUtils.cs" />
-    <Compile Include="WikiXmlReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

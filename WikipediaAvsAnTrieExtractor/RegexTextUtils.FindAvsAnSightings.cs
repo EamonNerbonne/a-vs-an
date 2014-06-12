@@ -1,21 +1,35 @@
-﻿using System.Text.RegularExpressions;
-using System.Linq;
+﻿using System.Linq;
 using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace AvsAnTrie {
     public partial class RegexTextUtils {
-        public AvsAnSighting[] FindAvsAnSightings(XElement page) {
-            string pagetext = StripWikiMarkupMarkup(WikiXmlReader.GetArticleText(page));
-            string pageWSnormal = WhitespaceNormalizer.Normalize(pagetext);
+        public AvsAnSighting[] FindAvsAnSightings(XElement page)
+        {
+            var pageTextContent = GetPagePlainTextContent(page);
 
             return (
-                from sentence in FindEnglishSentences(pageWSnormal)
+                from sentence in FindEnglishSentences(pageTextContent)
                 where GradeEnglishSentence(sentence) > 2.5
                 from entry in ExtractWordsPrecededByAOrAn(sentence)
                 select entry).ToArray();
+        }
+
+        string GetPagePlainTextContent(XElement page)
+        {
+//Don't use an explicit namespace.  It's changed several times in the past, and it's never been necessary to update the query.
+            //static readonly XNamespace ns = XNamespace.Get("http://www.mediawiki.org/xml/export-0.8/");
+
+            var textEl =
+                page.Elements()
+                    .Where(el => el.Name.LocalName == "revision")
+                    .SelectMany(el => el.Elements())
+                    .FirstOrDefault(el => el.Name.LocalName == "text");
+            string pagetext = StripWikiMarkupMarkup(textEl == null ? null : textEl.Value);
+
+            string pageWSnormal = WhitespaceNormalizer.Normalize(pagetext);
+            return pageWSnormal;
         }
     }
 }
