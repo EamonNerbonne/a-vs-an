@@ -9,37 +9,29 @@ namespace AvsAnTrie {
     public partial class RegexTextUtils {
         const string sentenceRegex = @"
             (?<=[.?!]\s+|^)
-                    (?<sentence>
-                        [\(""]?
-                        (?=[A-Z])
+                (?<sentence>
+                    [\(""]?
+                    (?=[A-Z])
+                    (
                         (
-                            [ ]
-                                (
-                                    [Ss]t
-                                    |Mrs?
-                                    |[dD]r
-                                    |ed
-                                    |c
-                                    |v(s|ol)?
-                                    |[nN]o(?=\s+[0-9])
-                                    |et[ ]al
-                                )\.
-                            |\(\w+\.
-                            |([A-Z]\.)+[ ]
-                            |\.
-                                (
-                                    [\w\d]
-                                    |[ ]
-                                        (
-                                            \w\.([ ]\w\.)*
-                                            |[a-z]
-                                        )
-                                )
-                            |[^\.\n\?!]
-                        )+
-                        [.?!\n]
-                        [)""]?
-                    )
+                            [Ss]t
+                            |Mrs?
+                            |[dD]r
+                            |Mt
+                            |ed
+                            |c
+                            |v(s|ol)?
+                            |[nN]o(?=\s+[0-9])
+                            |et[ ]al
+                            |[A-Z](\.[A-Z])*
+                            |\(\w+
+                        )\.[ ]
+                        |\.[\w\d]
+                        |[^\.\n\?!]
+                    )+
+                    [.?!\n]
+                    [)""]?
+                )
             (?=\s|$)";
         readonly Regex sentenceFinderRegex = new Regex(sentenceRegex, options | RegexOptions.IgnorePatternWhitespace);
 
