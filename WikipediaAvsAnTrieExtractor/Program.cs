@@ -8,7 +8,6 @@ using System.Threading;
 using System.Xml.Linq;
 using System.Xml;
 using System.Reflection;
-using WikiParser;
 using System.Diagnostics;
 
 namespace AvsAnTrie {

@@ -121,6 +121,7 @@ namespace AvsAnTrie {
                 where m.Success
                 select m.Groups["sentence"].Value;
         }
+
         static readonly Regex firstLetter = new Regex(@"(?<=^[^\s\w]*)\w", RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.CultureInvariant);
         static string Capitalize(string word) {
             return firstLetter.Replace(word, m => m.Value.ToUpperInvariant());

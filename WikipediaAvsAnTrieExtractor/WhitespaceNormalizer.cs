@@ -1,9 +1,7 @@
 ﻿using System.Text;
 
-namespace WikiParser
-{
-    public static class WhitespaceNormalizer
-    {
+namespace AvsAnTrie {
+    public static class WhitespaceNormalizer {
         /// <summary>
         /// This normalizes a string such that consecutive whitespace and tabs are replaced by a single space,
         /// and such that any leading or trailing whitespace on any line gets trimmed.  Sequences of empty lines 
@@ -17,11 +15,10 @@ namespace WikiParser
         /// </summary>
         public static string Normalize(string text) {
 
-            StringBuilder s = new StringBuilder(text.Length);
-            char c;
+            var s = new StringBuilder(text.Length);
 
             for (int i = 0; i < text.Length; i++) {
-                c = text[i];
+                char c = text[i];
 
                 if (c == ' ' || c == '\t') {
                     while (true) {
