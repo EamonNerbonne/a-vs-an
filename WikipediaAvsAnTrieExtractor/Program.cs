@@ -11,15 +11,34 @@ using System.Diagnostics;
 
 namespace AvsAnTrie {
     static class Program {
-        static void Main() {
-            var wikiPath = new FileInfo(@"F:\wikipedia\enwiki-latest-pages-articles.xml");
+        static int Main(string[] args) {
+            if (args.Length != 2) {
+                Console.Error.WriteLine("Usage: AvsAnTrie <wikidumpfile> <outputfile>\nThe dump is available at http://dumps.wikimedia.org/enwiki/latest/");
+                return 1;
+            }
+            var wikiPath = args[0];
+            if (!File.Exists(wikiPath)) {
+                Console.Error.WriteLine("The wikipedia dump file could not be found at " + args[0]);
+                return 1;
+            }
+            if (File.Exists(args[1])) {
+                Console.Error.WriteLine("The output file " + args[1] + "already exists; delete it or pick another location.");
+                return 1;
+            }
+            var outputFilePath = args[1];
+
+            CreateAvsAnStatistics(wikiPath, outputFilePath);
+            return 0;
+        }
+
+        static void CreateAvsAnStatistics(string wikiPath, string outputFilePath) {
             var wikiPageQueue = LoadWikiPagesAsync(wikiPath);
             var entriesTodo = ExtractAvsAnSightingsAsync(wikiPageQueue);
             var trieBuilder = BuildAvsAnTrie(entriesTodo, () => wikiPageQueue.Count);
             AnnotatedTrie result = trieBuilder.Result;
             Console.WriteLine("Before simplification: trie of # nodes" + trieBuilder.Result.CountParallel);
             result.Simplify();
-            File.AppendAllText(@"D:\test.log", result.Readable());
+            File.AppendAllText(outputFilePath, result.Readable());
             Console.WriteLine("After simplification: trie of # nodes" + trieBuilder.Result.CountParallel);
         }
 
@@ -64,11 +83,11 @@ namespace AvsAnTrie {
             return trieBuilder;
         }
 
-        static BlockingCollection<XElement> LoadWikiPagesAsync(FileInfo wikiPath) {
+        static BlockingCollection<XElement> LoadWikiPagesAsync(string wikiPath) {
             var pagesTodo = new BlockingCollection<XElement>(3000);
 
             Task.Factory.StartNew(() => {
-                using (var stream = wikiPath.OpenRead())
+                using (var stream = File.OpenRead(wikiPath))
                 using (var reader = XmlReader.Create(stream))
                     while (reader.Read())
                         if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "page")
