@@ -12,6 +12,7 @@ namespace AvsAnTrie {
 			var textEl = page.Element(ns + "revision").Element(ns + "text");
 			return textEl == null ? null : textEl.Value;
 		}
+
 		public static string GetArticleTitle(XElement page) {
 		    return page.Element(ns + "title").Value;
 		}
