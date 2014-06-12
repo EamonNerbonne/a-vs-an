@@ -129,14 +129,11 @@ namespace AvsAnTrie {
 
         static HashSet<string> dictionary;
         public static void LoadDictionary(FileInfo fileInfo) {
-            if (fileInfo == null)
-                dictionary = null;
-            else {
-                var dictElems =
-                    fileInfo.GetLines().Select(line => line.Trim())
+            var dictElems =
+                File.ReadAllLines(fileInfo.FullName)
+                    .Select(line => line.Trim())
                     .SelectMany(word => new[] { word, Capitalize(word) });
-                dictionary = new HashSet<string>(dictElems);
-            }
+            dictionary = new HashSet<string>(dictElems);
         }
 
         readonly Regex words = new Regex(@"(?<=(^|\s)[^\w\s]*)\w+", RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.CultureInvariant);
