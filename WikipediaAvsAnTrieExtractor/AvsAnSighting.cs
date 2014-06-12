@@ -1,6 +1,6 @@
 namespace AvsAnTrie
 {
-    public struct Entry {
+    public struct AvsAnSighting {
         public string Word;
         public bool PrecededByAn;
     }

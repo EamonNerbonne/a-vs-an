@@ -11,10 +11,10 @@ namespace AvsAnTrie {
         //This code is bottlenecked by regexes, so this really matters, here.
 
         readonly Regex followingAn = new Regex(@"\b(?<article>a|an) [\(""'“‘-]?(?<word>\S+)", RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.CultureInvariant);
-        public IEnumerable<Entry> ExtractWordsPrecededByAOrAn(string text) {
+        public IEnumerable<AvsAnSighting> ExtractWordsPrecededByAOrAn(string text) {
             return
                 from Match m in followingAn.Matches(text)
-                select new Entry { Word = m.Groups["word"].Value + " ", PrecededByAn = m.Groups["article"].Value.Length == 2 };
+                select new AvsAnSighting { Word = m.Groups["word"].Value + " ", PrecededByAn = m.Groups["article"].Value.Length == 2 };
         }
     }
 }

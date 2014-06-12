@@ -7,18 +7,11 @@ using System.Collections.Concurrent;
 using System.Threading;
 using System.Xml.Linq;
 using System.Xml;
-using System.Reflection;
 using System.Diagnostics;
 
 namespace AvsAnTrie {
     static class Program {
-        const string dictFileName = "english.ngl";
         static void Main() {
-            var exeFile = new FileInfo(Assembly.GetEntryAssembly().Location);
-            var dir = exeFile.Directory;
-            while (dir != null && !dir.GetFiles(dictFileName).Any())
-                dir = dir.Parent;
-            RegexTextUtils.LoadDictionary(dir.GetFiles(dictFileName).First());
             var wikiPath = new FileInfo(@"F:\wikipedia\enwiki-latest-pages-articles.xml");
             var wikiPageQueue = LoadWikiPagesAsync(wikiPath);
             var entriesTodo = ExtractAvsAnSightingsAsync(wikiPageQueue);

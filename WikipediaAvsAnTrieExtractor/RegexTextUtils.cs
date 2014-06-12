@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Linq;
 using System;
 using System.IO;
@@ -16,12 +17,22 @@ namespace AvsAnTrie {
         }
 
         static HashSet<string> dictionary;
-        public static void LoadDictionary(FileInfo fileInfo) {
+        static void LoadDictionary(FileInfo fileInfo) {
             var dictElems =
                 File.ReadAllLines(fileInfo.FullName)
                     .Select(line => line.Trim())
                     .SelectMany(word => new[] { word, Capitalize(word) });
             dictionary = new HashSet<string>(dictElems);
+        }
+
+        const string dictFileName = "english.ngl";
+        static RegexTextUtils() {
+            var searchDir = new FileInfo(Assembly.GetEntryAssembly().Location).Directory;
+            while (searchDir != null && !searchDir.GetFiles(dictFileName).Any())
+                searchDir = searchDir.Parent;
+            if(searchDir==null)
+                throw new Exception("Cannot find english.ngl dictionary; must be in an ancestor directory of this executable.");
+            LoadDictionary(searchDir.GetFiles(dictFileName).First());
         }
     }
 }

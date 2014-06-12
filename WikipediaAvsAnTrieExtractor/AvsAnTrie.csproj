@@ -115,9 +115,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnnotatedTrie.cs" />
-    <Compile Include="Entry.cs" />
+    <Compile Include="AvsAnSighting.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegexTextUtils.FindAvsAnSightings.cs" />
     <Compile Include="RegexTextUtils.GradeEnglishSentence.cs" />
     <Compile Include="RegexTextUtils.ExtractEnglighSentences.cs" />
     <Compile Include="RegexTextUtils.StripWikiMarkup.cs" />
