@@ -78,7 +78,7 @@ namespace AvsAnTrie {
 		}
 
 		static void ProcessPage(BlockingCollection<Entry[]> entriesTodo, XElement page, RegexTextUtils ms) {
-			string pagetext = ms.StripMarkup(WikiXmlReader.GetArticleText(page));
+			string pagetext = ms.StripWikiMarkupMarkup(WikiXmlReader.GetArticleText(page));
 			string pageWSnormal = WhitespaceNormalizer.Normalize(pagetext);
 
 			Entry[] entries = (
