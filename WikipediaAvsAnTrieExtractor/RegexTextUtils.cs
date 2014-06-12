@@ -13,7 +13,7 @@ namespace AvsAnTrie {
     }
 
     public class RegexTextUtils {
-        Regex followingAn = new Regex(@"\b(?<article>a|an) [\(""'“‘-]?(?<word>\S+)", RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.CultureInvariant);
+        readonly Regex followingAn = new Regex(@"\b(?<article>a|an) [\(""'“‘-]?(?<word>\S+)", RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.CultureInvariant);
         public IEnumerable<Entry> ExtractWordsPrecededByAOrAn(string text) {
             return
                 from Match m in followingAn.Matches(text)
@@ -21,29 +21,23 @@ namespace AvsAnTrie {
         }
 
         public string StripMarkup(string wikiMarkedUpText) {
-            string text2 = markupReplace2.Replace(CutBraces(markupStripper2.Replace(wikiMarkedUpText, "")), m => m.Groups["txt"].Value);
-            //string text = markupReplace.Replace(CutBraces(markupStripper.Replace(wikiMarkedUpText, "")), "${txt}");
-            //if (text != text2) {
-            //    File.WriteAllText(@"C:\Users\Eamon\Desktop\new.txt", text2);
-            //    File.WriteAllText(@"C:\Users\Eamon\Desktop\orig.txt", text);
-            //}
-            return text2;
+            return markupToReplaceRegex.Replace(CutBraces(markupToStripRegex.Replace(wikiMarkedUpText, "")), m => m.Groups["txt"].Value);
         }
 
         static string CutBraces(string wikiMarkedUpText) {
             int numOpen = 0;
-            int nextOpen = wikiMarkedUpText.IndexOf("{{");
-            int nextClose = wikiMarkedUpText.IndexOf("}}");
+            int nextOpen = wikiMarkedUpText.IndexOf("{{", StringComparison.Ordinal);
+            int nextClose = wikiMarkedUpText.IndexOf("}}", StringComparison.Ordinal);
             nextOpen = nextOpen == -1 ? int.MaxValue : nextOpen;
             nextClose = nextClose == -1 ? int.MaxValue : nextClose;
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             int startAt = 0;
             while (true) {
                 if (nextOpen < nextClose) {
                     if (numOpen == 0)
                         sb.Append(wikiMarkedUpText.Substring(startAt, nextOpen - startAt));
                     numOpen++;
-                    nextOpen = wikiMarkedUpText.IndexOf("{{", nextOpen + 2);
+                    nextOpen = wikiMarkedUpText.IndexOf("{{", nextOpen + 2, StringComparison.Ordinal);
                     nextOpen = nextOpen == -1 ? int.MaxValue : nextOpen;
                 } else if (nextClose < nextOpen) {
                     //if (numOpen == 0) 
@@ -51,7 +45,7 @@ namespace AvsAnTrie {
                     numOpen = Math.Max(numOpen - 1, 0);
                     if (numOpen == 0)
                         startAt = nextClose + 2;
-                    nextClose = wikiMarkedUpText.IndexOf("}}", nextClose + 2);
+                    nextClose = wikiMarkedUpText.IndexOf("}}", nextClose + 2, StringComparison.Ordinal);
                     nextClose = nextClose == -1 ? int.MaxValue : nextClose;
                 } else if (numOpen == 0) { // nextOpen==nextClose implies both are not present.
                     sb.Append(wikiMarkedUpText.Substring(startAt, wikiMarkedUpText.Length - startAt));
@@ -65,22 +59,9 @@ namespace AvsAnTrie {
             return sb.ToString();
         }
 
-        static readonly string[] regexes1 = {
-            @"(?>'')'*",
-            @"(?><)(!--([^-]|-[^-]|--[^>])*-->|([mM][aA][tT][hH]|[rR][eE][fF]|[sS][mM][aA][lL][lL]).*?(/>|</([mM][aA][tT][hH]|[rR][eE][fF]|[sS][mM][aA][lL][lL])>))",
-            @"^((?>#)[rR][eE][dD][iI][rR][eE][cC][tT].*$|(?>\*)\**|(?>=)=*)",
-            @"(?<=&)(?>[aA])[mM][pP];",
-            @"&(?>[nN])([bB][sS][pP]|[dD][aA][sS][hH]);",
-            @"=+ *$",
-        };
-        static readonly string[] regexesReplace = {
-            @"\{\|([^\|]|\|[^\}])*\|\}",
-            @"(?>\[\[([^\[:\|\]]+):)([^\[\]]|\[\[[^\[\]]*\]\])*\]\]",
-            @"\[([^ \[\]]+( (?<txt>[^\[\]]*))?|\[((?<txt>:[^\[\]]*)|(?<txt>[^\[\]:\|]*)|[^\[\]:\|]*\|(?<txt>[^\[\]]*))\])\]",
-            @"</?[a-zA-Z]+( [^>]*?)?/?>",
-        };
+        const RegexOptions options = RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.Singleline | RegexOptions.CultureInvariant;
 
-        static readonly string[] regexes2 = {
+        static readonly string[] markupToStripRegexes = {
             @"(?>'')'*",
             @"(?><)(!--([^-]|-[^-]|--[^>])*-->|([mM][aA][tT][hH]|[rR][eE][fF]|[sS][mM][aA][lL][lL]).*?(/>|</([mM][aA][tT][hH]|[rR][eE][fF]|[sS][mM][aA][lL][lL])>))",
             @"^((?>#)[rR][eE][dD][iI][rR][eE][cC][tT].*$|(?>\*)\**|(?>=)=*)",
@@ -90,10 +71,13 @@ namespace AvsAnTrie {
             @"\{\|([^\|]|\|[^\}])*\|\}",
             @"</?[a-zA-Z]+( [^>]*?)?/?>",
         };
-        static readonly string[] regexes2Replace = {
+        readonly Regex markupToStripRegex = new Regex(string.Join("|", markupToStripRegexes.Select(r => "(" + r + ")").ToArray()), options);
+
+        static readonly string[] markupToReplaceRegexes = {
             @"(?>\[\[([^\[:\|\]]+):)([^\[\]]|\[\[[^\[\]]*\]\])*\]\]",
 			@"\[([^ \[\]]+( (?<txt>[^\[\]]*))?|\[((?<txt>:[^\[\]]*)|(?<txt>[^\[\]:\|]*)|[^\[\]:\|]*\|(?<txt>[^\[\]]*))\])\]",
         };
+        readonly Regex markupToReplaceRegex = new Regex(string.Join("|", markupToReplaceRegexes.Select(r => "(" + r + ")").ToArray()), options);
 
         const string sentenceRegex = @"
             (?<=[.?!]\s+|^)
@@ -129,21 +113,11 @@ namespace AvsAnTrie {
                         [)""]?
                     )
             (?=\s|$)";
-
-
-
-        const RegexOptions options = RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.Singleline | RegexOptions.CultureInvariant;
-        Regex markupStripper = new Regex(string.Join("|", regexes1.Select(r => "(" + r + ")").ToArray()), options);
-        Regex markupReplace = new Regex(string.Join("|", regexesReplace.Select(r => "(" + r + ")").ToArray()), options);
-        Regex markupStripper2 = new Regex(string.Join("|", regexes2.Select(r => "(" + r + ")").ToArray()), options);
-        Regex markupReplace2 = new Regex(string.Join("|", regexes2Replace.Select(r => "(" + r + ")").ToArray()), options);
-        Regex sentenceFinder = new Regex(sentenceRegex, options | RegexOptions.IgnorePatternWhitespace);
-
-
+        readonly Regex sentenceFinderRegex = new Regex(sentenceRegex, options | RegexOptions.IgnorePatternWhitespace);
 
         public IEnumerable<string> FindEnglishSentences(string text) {
             return
-                from Match m in sentenceFinder.Matches(text)
+                from Match m in sentenceFinderRegex.Matches(text)
                 where m.Success
                 select m.Groups["sentence"].Value;
         }
@@ -178,13 +152,12 @@ namespace AvsAnTrie {
             if (dictionary != null) {
                 int inDictCount = 0;
                 int ignore;
-                foreach (Match m in wordMatches)
-                {
+                foreach (Match m in wordMatches) {
                     var word = m.Value;
-                    inDictCount += 
+                    inDictCount +=
                         dictionary.Contains(m.Value) ? 2
                         : int.TryParse(m.Value, out ignore) ? 1 //numbers aren't quite valid words in the dictionary, but they're not nonsense either.
-                        : word[0] >='A' && word[0] <= 'Z' ? 1 //don't quite expect proper nouns to be in the dictionary.
+                        : word[0] >= 'A' && word[0] <= 'Z' ? 1 //don't quite expect proper nouns to be in the dictionary.
                         : 0;
                 }
                 pref = (inDictCount - wordCount) / (double)wordCount;
@@ -193,7 +166,7 @@ namespace AvsAnTrie {
             int charCount = sentenceCandidate.Length;
 
             double lineCost = sentenceCandidate.Length == 0 || sentenceCandidate[sentenceCandidate.Length - 1] == '\n' ? -0.4 : 0.0; //if they don't end with punctuation... hmmm.
-            
+
             double capRate = wordCount == 1 ? 0.5 :
                 capWordCount / (double)(wordCount - 1);
 
