@@ -37,8 +37,9 @@ namespace AvsAnTrie {
             var trieBuilder = BuildAvsAnTrie(entriesTodo, () => wikiPageQueue.Count);
             AnnotatedTrie result = trieBuilder.Result;
             Console.WriteLine("Before simplification: trie of # nodes" + trieBuilder.Result.CountParallel);
+            File.WriteAllText(outputFilePath+".large", result.Readable());
             result.Simplify();
-            File.AppendAllText(outputFilePath, result.Readable());
+            File.WriteAllText(outputFilePath, result.Readable());
             Console.WriteLine("After simplification: trie of # nodes" + trieBuilder.Result.CountParallel);
         }
 
@@ -46,7 +47,7 @@ namespace AvsAnTrie {
             var entriesTodo = new BlockingCollection<AvsAnSighting[]>(3000);
 
             var sightingExtractionTask = Task.WhenAll(
-                Enumerable.Range(0, 32).Select(i =>
+                Enumerable.Range(0, Environment.ProcessorCount).Select(i =>
                     Task.Factory.StartNew(() => {
                         var ms = new RegexTextUtils();
                         foreach (var page in wikiPageQueue.GetConsumingEnumerable())
@@ -55,7 +56,11 @@ namespace AvsAnTrie {
                     ).ToArray()
                 );
 
-            sightingExtractionTask.ContinueWith(_ => entriesTodo.CompleteAdding());
+            sightingExtractionTask.ContinueWith(t => {
+                if (t.IsFaulted)
+                    Console.WriteLine(t.Exception);
+                entriesTodo.CompleteAdding();
+            });
             return entriesTodo;
         }
 
