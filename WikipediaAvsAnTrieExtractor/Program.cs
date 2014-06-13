@@ -9,7 +9,7 @@ using System.Xml.Linq;
 using System.Xml;
 using System.Diagnostics;
 
-namespace AvsAnTrie {
+namespace WikipediaAvsAnTrieExtractor {
     static class Program {
         static int Main(string[] args) {
             if (args.Length != 2) {

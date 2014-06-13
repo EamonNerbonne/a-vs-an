@@ -5,7 +5,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AvsAnTrie {
+namespace WikipediaAvsAnTrieExtractor {
     public partial class RegexTextUtils {
         const string sentenceRegex = @"
             (?<=[.?!]\s+|^)

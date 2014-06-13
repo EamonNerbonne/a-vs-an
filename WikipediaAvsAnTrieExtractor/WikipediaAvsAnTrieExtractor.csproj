@@ -8,8 +8,8 @@
     <ProjectGuid>{41D551C9-7343-455A-ABC4-26C02D41855E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AvsAnTrie</RootNamespace>
-    <AssemblyName>AvsAnTrie</AssemblyName>
+    <RootNamespace>WikipediaAvsAnTrieExtractor</RootNamespace>
+    <AssemblyName>WikipediaAvsAnTrieExtractor</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>

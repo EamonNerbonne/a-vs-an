@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace AvsAnTrie {
+namespace WikipediaAvsAnTrieExtractor {
 	class AnnotatedTrie {
 		int count_an;
 		int count_a;

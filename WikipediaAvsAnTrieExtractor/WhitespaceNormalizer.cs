@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace AvsAnTrie {
+namespace WikipediaAvsAnTrieExtractor {
     public static class WhitespaceNormalizer {
         /// <summary>
         /// This normalizes a string such that consecutive whitespace and tabs are replaced by a single space,

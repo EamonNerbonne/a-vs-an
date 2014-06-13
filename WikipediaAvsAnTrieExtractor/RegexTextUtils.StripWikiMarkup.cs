@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AvsAnTrie {
+namespace WikipediaAvsAnTrieExtractor {
     public partial class RegexTextUtils {
         //Note: regexes are NOT static and shared between threads because of... http://stackoverflow.com/questions/7585087/multithreaded-use-of-regex
         //This code is bottlenecked by regexes, so this really matters, here.

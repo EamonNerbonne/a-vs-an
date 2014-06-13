@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace AvsAnTrie {
+namespace WikipediaAvsAnTrieExtractor {
     public partial class RegexTextUtils {
         public AvsAnSighting[] FindAvsAnSightings(XElement page)
         {

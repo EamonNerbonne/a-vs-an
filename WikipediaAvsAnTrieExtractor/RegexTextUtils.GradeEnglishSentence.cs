@@ -3,7 +3,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 
-namespace AvsAnTrie {
+namespace WikipediaAvsAnTrieExtractor {
     public partial class RegexTextUtils {
 
         readonly Regex words = new Regex(@"(?<=(^|\s)[^\w\s]*)\w+", RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.CultureInvariant);

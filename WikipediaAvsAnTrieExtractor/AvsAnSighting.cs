@@ -1,4 +1,4 @@
-namespace AvsAnTrie
+namespace WikipediaAvsAnTrieExtractor
 {
     public struct AvsAnSighting {
         public string Word;
