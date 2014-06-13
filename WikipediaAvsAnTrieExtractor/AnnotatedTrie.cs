@@ -21,6 +21,7 @@ namespace AvsAnTrie {
 		public void AddEntry(bool isAn, string word, int level) {
 			if (isAn) ++count_an;
 			else ++count_a;
+
 			if (level < 40 && word.Length > level)
 				GetChild(word[level]).AddEntry(isAn, word, level + 1);
 		}
