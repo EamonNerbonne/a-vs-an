@@ -36,7 +36,7 @@
   </PostinstrumentEvent>
   <Binaries>
     <ProjBinary>
-      <Path>obj\Debug\AvsAnTrie.exe</Path>
+      <Path>obj\Release\WikipediaAvsAnTrieExtractor.exe</Path>
       <ArgumentTimestamp>01/01/0001 00:00:00</ArgumentTimestamp>
       <Instrument>true</Instrument>
       <Sample>true</Sample>
@@ -48,10 +48,9 @@
       <LaunchProject>true</LaunchProject>
       <OverrideProjectSettings>false</OverrideProjectSettings>
       <LaunchMethod>Executable</LaunchMethod>
-      <ExecutablePath>bin\Debug\AvsAnTrie.exe</ExecutablePath>
-      <StartupDirectory>bin\Debug\</StartupDirectory>
-      <Arguments>
-      </Arguments>
+      <ExecutablePath>bin\Release\WikipediaAvsAnTrieExtractor.exe</ExecutablePath>
+      <StartupDirectory>bin\Release\</StartupDirectory>
+      <Arguments>F:\wikipedia\enwiki-latest-pages-articles.xml E:\tmpout.log</Arguments>
       <NetAppHost>IIS</NetAppHost>
       <NetBrowser>InternetExplorer</NetBrowser>
       <ExcludeSmallFuncs>true</ExcludeSmallFuncs>
@@ -62,9 +61,9 @@
       <PostinstrumentEvent>
         <InstrEventExclude>false</InstrEventExclude>
       </PostinstrumentEvent>
-      <ProjRef>{41D551C9-7343-455A-ABC4-26C02D41855E}|AvsAnTrie.csproj</ProjRef>
-      <ProjPath>AvsAnTrie.csproj</ProjPath>
-      <ProjName>AvsAnTrie</ProjName>
+      <ProjRef>{41D551C9-7343-455A-ABC4-26C02D41855E}|WikipediaAvsAnTrieExtractor.csproj</ProjRef>
+      <ProjPath>WikipediaAvsAnTrieExtractor.csproj</ProjPath>
+      <ProjName>WikipediaAvsAnTrieExtractor</ProjName>
     </ProjBinary>
   </Binaries>
   <Reports>
@@ -74,10 +73,16 @@
     <Report>
       <Path>AvsAnTrie140610(4).vspx</Path>
     </Report>
+    <Report>
+      <Path>WikipediaAvsAnTrieExtractor140613.vspx</Path>
+    </Report>
+    <Report>
+      <Path>WikipediaAvsAnTrieExtractor140613(1).vspx</Path>
+    </Report>
   </Reports>
   <Launches>
     <ProjBinary>
-      <Path>:PB:{41D551C9-7343-455A-ABC4-26C02D41855E}|AvsAnTrie.csproj</Path>
+      <Path>:PB:{41D551C9-7343-455A-ABC4-26C02D41855E}|WikipediaAvsAnTrieExtractor.csproj</Path>
     </ProjBinary>
   </Launches>
 </VSPerformanceSession>

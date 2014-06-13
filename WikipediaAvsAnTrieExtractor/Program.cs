@@ -29,7 +29,7 @@ namespace WikipediaAvsAnTrieExtractor {
             Task.Factory.StartNew(() => {
 
                 while (true) {
-                    Thread.Sleep(5000);
+                    Thread.Sleep(1000);
                     Console.WriteLine(string.Join("; ", ProgressReporters.Select(f => f())));
                 }
             }, TaskCreationOptions.LongRunning);
@@ -39,11 +39,14 @@ namespace WikipediaAvsAnTrieExtractor {
         }
 
         static readonly List<Func<string>> ProgressReporters = new List<Func<string>>();
+        const int PageBlocksQueueSize = 10;
+        const int SightingBlocksQueueSize= 100;
+        const int PagesPerBlock = 50;
 
         static void CreateAvsAnStatistics(string wikiPath, string outputFilePath) {
             var wikiPageQueue = LoadWikiPagesAsync(wikiPath);
             var entriesTodo = ExtractAvsAnSightingsAsync(wikiPageQueue);
-            var trieBuilder = BuildAvsAnTrie(entriesTodo, () => wikiPageQueue.Count);
+            var trieBuilder = BuildAvsAnTrie(entriesTodo);
             AnnotatedTrie result = trieBuilder.Result;
             Console.WriteLine("Before simplification: trie of # nodes" + trieBuilder.Result.CountParallel);
             File.WriteAllText(outputFilePath + ".large", result.Readable());
@@ -52,16 +55,17 @@ namespace WikipediaAvsAnTrieExtractor {
             Console.WriteLine("After simplification: trie of # nodes" + trieBuilder.Result.CountParallel);
         }
 
-        static BlockingCollection<AvsAnSighting[]> ExtractAvsAnSightingsAsync(BlockingCollection<XElement> wikiPageQueue) {
-            var entriesTodo = new BlockingCollection<AvsAnSighting[]>(3000);
+        static BlockingCollection<AvsAnSighting[]> ExtractAvsAnSightingsAsync(BlockingCollection<string[]> wikiPageQueue) {
+            var entriesTodo = new BlockingCollection<AvsAnSighting[]>(SightingBlocksQueueSize);
             ProgressReporters.Add(() => "word queue: " + entriesTodo.Count);
 
             var sightingExtractionTask = Task.WhenAll(
-                Enumerable.Range(0, Environment.ProcessorCount).Select(i =>
+                Enumerable.Range(0, Math.Max(2,Environment.ProcessorCount-1)).Select(i =>
                     Task.Factory.StartNew(() => {
                         var ms = new RegexTextUtils();
-                        foreach (var page in wikiPageQueue.GetConsumingEnumerable())
-                            entriesTodo.Add(ms.FindAvsAnSightings(page));
+                        foreach (var pageSet in wikiPageQueue.GetConsumingEnumerable())
+                            foreach (var page in pageSet)
+                                entriesTodo.Add(ms.FindAvsAnSightings(page));
                     }, TaskCreationOptions.LongRunning)
                     ).ToArray()
                 );
@@ -74,7 +78,7 @@ namespace WikipediaAvsAnTrieExtractor {
             return entriesTodo;
         }
 
-        static Task<AnnotatedTrie> BuildAvsAnTrie(BlockingCollection<AvsAnSighting[]> entriesTodo, Func<int> wikiPageQueueLength) {
+        static Task<AnnotatedTrie> BuildAvsAnTrie(BlockingCollection<AvsAnSighting[]> entriesTodo) {
             int wordCount = 0;
 
             Stopwatch sw = Stopwatch.StartNew();
@@ -93,8 +97,8 @@ namespace WikipediaAvsAnTrieExtractor {
             return trieBuilder;
         }
 
-        static BlockingCollection<XElement> LoadWikiPagesAsync(string wikiPath) {
-            var wikiPageQueue = new BlockingCollection<XElement>(3000);
+        static BlockingCollection<string[]> LoadWikiPagesAsync(string wikiPath) {
+            var wikiPageQueue = new BlockingCollection<string[]>(PageBlocksQueueSize);
 
             ProgressReporters.Add(() => "page queue: " + wikiPageQueue.Count);
 
@@ -102,18 +106,31 @@ namespace WikipediaAvsAnTrieExtractor {
             Task.Factory.StartNew(() => {
                 var sw = Stopwatch.StartNew();
                 using (var stream = File.OpenRead(wikiPath))
-                using (var reader = XmlReader.Create(stream))
-                {
+                using (var reader = XmlReader.Create(stream)) {
                     bool stopped = false;
-                    try
-                    {
-                        ProgressReporters.Add(() => stopped ? "" : "MB/s: " + (stream.Position/1024.0/1024.0 / sw.Elapsed.TotalSeconds).ToString("f1"));
-                        while (reader.Read())
-                            if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "page")
-                                wikiPageQueue.Add((XElement) XNode.ReadFrom(reader));
-                    }
-                    finally
-                    {
+                    try {
+                        long pageCount = 0;
+                        ProgressReporters.Add(() => stopped ? "" : "MB/s: " + (stream.Position / 1024.0 / 1024.0 / sw.Elapsed.TotalSeconds).ToString("f1"));
+                        ProgressReporters.Add(() => stopped ? "" : "pages/ms: " + (pageCount / sw.Elapsed.TotalMilliseconds).ToString("f1"));
+                        var pages = new string[1];
+                        int i = 0;
+
+                        while (reader.Read()) {
+                            if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "page") {
+                                if (reader.ReadToDescendant("text") && reader.Read() && reader.Value!=null) {
+                                    pageCount++;
+                                    pages[i] = reader.Value;
+                                    i++;
+                                    if (i == pages.Length) {
+                                        wikiPageQueue.Add(pages);
+                                        pages = new string[Math.Min(pages.Length+1,PagesPerBlock)];
+                                        i = 0;
+                                    }
+                                }
+                            }
+                        }
+                        wikiPageQueue.Add(pages.Take(i).ToArray());
+                    } finally {
                         stopped = true;
                     }
                 }
