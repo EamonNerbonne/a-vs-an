@@ -21,10 +21,10 @@ namespace WikipediaAvsAnTrieExtractor {
                 Console.Error.WriteLine("The wikipedia dump file could not be found at " + args[0]);
                 return 1;
             }
-            if (File.Exists(args[1])) {
-                Console.Error.WriteLine("The output file " + args[1] + "already exists; delete it or pick another location.");
-                return 1;
-            }
+            //if (File.Exists(args[1])) {
+            //    Console.Error.WriteLine("The output file " + args[1] + "already exists; delete it or pick another location.");
+            //    return 1;
+            //}
             var outputFilePath = args[1];
             Task.Factory.StartNew(() => {
 

@@ -12,6 +12,9 @@ namespace WikipediaAvsAnTrieExtractor {
         /// which arrise from the matching of consecutive empty lines (which might contain white space).  The purpose of this 
         /// implementation is to essentially remove superfluous spaces being those that lead or trail any line and to remove
         /// superflous empty lines, such that a single empty line is still permitted (being a wikipedia paragraph break).
+        /// 
+        /// Details: carriage returns aren't processed as whitespace (wikipedia doesn't contain these), and it's possible
+        /// though weird to have a single paragraph break before the text
         /// </summary>
         public static string Normalize(string text) {
 

@@ -1,9 +1,6 @@
 syntax: glob
 */bin/*
 */obj/*
-A-vs-An/A-vs-An.v11.suo
-A-vs-An/packages
-A-vs-An/A-vs-An-DotNet/*.nupkg
 *.csproj.user
 *.pubxml.user
 A-vs-An/PerfTest/354984si.ngl
@@ -11,3 +8,6 @@ A-vs-An/PerfTest/354984si.ngl
 *.psess
 *.suo
 *.vspx
+packages/
+*.DotSettings.user
+*.nupkg
