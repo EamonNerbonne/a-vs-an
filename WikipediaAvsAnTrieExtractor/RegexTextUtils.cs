@@ -17,22 +17,25 @@ namespace WikipediaAvsAnTrieExtractor {
         }
 
         static HashSet<string> dictionary;
-        static void LoadDictionary(FileInfo fileInfo) {
+        static void LoadDictionary(TextReader reader) {
             var dictElems =
-                File.ReadAllLines(fileInfo.FullName)
+                ReadLines(reader)
                     .Select(line => line.Trim())
                     .SelectMany(word => new[] { word, Capitalize(word) });
             dictionary = new HashSet<string>(dictElems);
         }
 
+        static IEnumerable<string> ReadLines(TextReader reader) {
+            for (var line = reader.ReadLine(); line != null; line = reader.ReadLine())
+                yield return line;
+        }
+
         const string dictFileName = "english.ngl";
         static RegexTextUtils() {
-            var searchDir = new FileInfo(Assembly.GetEntryAssembly().Location).Directory;
-            while (searchDir != null && !searchDir.GetFiles(dictFileName).Any())
-                searchDir = searchDir.Parent;
-            if(searchDir==null)
-                throw new Exception("Cannot find english.ngl dictionary; must be in an ancestor directory of this executable.");
-            LoadDictionary(searchDir.GetFiles(dictFileName).First());
+            var assembly = typeof(RegexTextUtils).Assembly;
+            using (var dictStream = assembly.GetManifestResourceStream(typeof(RegexTextUtils).Namespace + ".english.ngl"))
+            using (var reader = new StreamReader(dictStream))
+                LoadDictionary(reader);
         }
     }
 }
