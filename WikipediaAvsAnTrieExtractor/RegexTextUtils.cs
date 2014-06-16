@@ -16,26 +16,21 @@ namespace WikipediaAvsAnTrieExtractor {
             return firstLetter.Replace(word, m => m.Value.ToUpperInvariant());
         }
 
-        static HashSet<string> dictionary;
-        static void LoadDictionary(TextReader reader) {
-            var dictElems =
-                ReadLines(reader)
-                    .Select(line => line.Trim())
-                    .SelectMany(word => new[] { word, Capitalize(word) });
-            dictionary = new HashSet<string>(dictElems);
+        static readonly HashSet<string> dictionary;
+
+        static IEnumerable<string> ReadWordsFromDictionary(TextReader reader) {
+            for (var line = reader.ReadLine(); line != null; line = reader.ReadLine()) {
+                var word = line.Trim();
+                yield return word;
+                yield return Capitalize(word);
+            }
         }
 
-        static IEnumerable<string> ReadLines(TextReader reader) {
-            for (var line = reader.ReadLine(); line != null; line = reader.ReadLine())
-                yield return line;
-        }
-
-        const string dictFileName = "english.ngl";
         static RegexTextUtils() {
-            var assembly = typeof(RegexTextUtils).Assembly;
-            using (var dictStream = assembly.GetManifestResourceStream(typeof(RegexTextUtils).Namespace + ".english.ngl"))
+            var myType = typeof(RegexTextUtils);
+            using (var dictStream = myType.Assembly.GetManifestResourceStream(myType.Namespace + ".english.ngl"))
             using (var reader = new StreamReader(dictStream))
-                LoadDictionary(reader);
+                dictionary = new HashSet<string>(ReadWordsFromDictionary(reader));
         }
     }
 }
