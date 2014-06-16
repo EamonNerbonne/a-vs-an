@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MarkupStripperTests.cs" />
+    <Compile Include="SentenceFinderTest.cs" />
     <Compile Include="WhitespaceNormalizerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

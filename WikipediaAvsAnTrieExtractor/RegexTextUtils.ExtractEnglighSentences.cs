@@ -1,9 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System.Linq;
 using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Text;
 
 namespace WikipediaAvsAnTrieExtractor {
     public partial class RegexTextUtils {
@@ -13,32 +11,69 @@ namespace WikipediaAvsAnTrieExtractor {
                     [\(""]?
                     (?=[A-Z])
                     (
-                        (
-                            [Ss]t
-                            |Mrs?
-                            |[dD]r
-                            |Mt
-                            |ed
+                        ((?<=[)""\s])|^)(
+                            \(\w+
                             |c
-                            |v(s|ol)?
+                            |[dD]r
+                            |e(t[ ]al|d|\.g)
+                            |Gov
+                            |i\.e
+							|Lt
+                            |M(rs?|t)
                             |[nN]o(?=\s+[0-9])
-                            |et[ ]al
+                            |[Ss]t
+                            |[vV](s|ol)?
                             |[A-Z](\.[A-Z])*
-                            |\(\w+
-                        )\.[ ]
+                        )\.
+                        |\.[\w\d]
+                        |[^\.\n\?!]
+                        |\.(?=[)""]*[ ]+[a-z])
+                    )+
+                    [.?!\n]
+                    [)""]*
+                )
+            (?=\s|$)";
+        readonly Regex sentenceFinderRegex = new Regex(sentenceRegex, options | RegexOptions.IgnorePatternWhitespace);
+        //readonly Regex oldSentenceFinderRegex = new Regex(@"(?<=[\.\?!]\s+|^)((?<sentence>(\(|" + "\"" + @")?[A-Z]( ([Ss]t|Mrs?|dr|ed|c|v(s|ol)?|[nN]o(?=\s+[0-9])|et al)\.|\(\w+\.|[A-Z]\. |\.([\w\d]| (\w\.( \w\.)*|[a-z]))|[^\.\n\?!])+[\.\?!\n](\)|" + "\"" + @")?))(?=\s|$)", options);
+        
+        readonly Regex oldSentenceFinderRegex = new Regex(@"
+            (?<=[.?!]\s+|^)
+                (?<sentence>
+                    [\(""]?
+                    (?=[A-Z])
+                    (
+                        (\s|^)(
+                            \(\w+
+                            |c
+                            |[dD]r
+                            |e(t[ ]al|d|\.g)
+                            |Gov
+                            |i\.e
+							|Lt
+                            |M(rs?|t)
+                            |[nN]o(?=\s+[0-9])
+                            |[Ss]t
+                            |[vV](s|ol)?
+                            |[A-Z](\.[A-Z])*
+                        )\.
                         |\.[\w\d]
                         |[^\.\n\?!]
                     )+
                     [.?!\n]
-                    [)""]?
+                    [)""]*
                 )
-            (?=\s|$)";
-        readonly Regex sentenceFinderRegex = new Regex(sentenceRegex, options | RegexOptions.IgnorePatternWhitespace);
+            (?=\s|$)", options | RegexOptions.IgnorePatternWhitespace);
+        //                        |\.(?=[)""]*[ ]+[a-z])
 
-        public IEnumerable<string> FindEnglishSentences(string text) {
-            return
-                from Match m in sentenceFinderRegex.Matches(text)
-                select m.Groups["sentence"].Value;
+        public IEnumerable<string> FindEnglishSentencesOld(string text) {
+            foreach (Match m in oldSentenceFinderRegex.Matches(text))
+                yield return m.Groups["sentence"].Value;
+        }
+        //consider allowing \w{0,4}\.(?=\s+[a-z]), so probable shorthands not followed by a capital.
+        public IEnumerable<string> FindEnglishSentences(string text)
+        {
+            foreach (Match m in sentenceFinderRegex.Matches(text))
+                yield return m.Groups["sentence"].Value;
         }
     }
 }
