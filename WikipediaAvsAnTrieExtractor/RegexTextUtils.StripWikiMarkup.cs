@@ -10,7 +10,7 @@ namespace WikipediaAvsAnTrieExtractor {
         //This code is bottlenecked by regexes, so this really matters, here.
 
 
-        public string StripWikiMarkupMarkup(string wikiMarkedUpText) {
+        public string StripWikiMarkup(string wikiMarkedUpText) {
             return markupToReplaceRegex.Replace(CutBraces(markupToStripRegex.Replace(wikiMarkedUpText, "")), m => m.Groups["txt"].Value);
         }
 

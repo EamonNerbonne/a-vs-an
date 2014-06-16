@@ -7,7 +7,7 @@ namespace WikipediaAvsAnTrieExtractor {
     public partial class RegexTextUtils {
         public AvsAnSighting[] FindAvsAnSightings(string page)
         {
-            var pageTextContent = WhitespaceNormalizer.Normalize(page);
+            var pageTextContent = WhitespaceNormalizer.Normalize(StripWikiMarkup(page));
             var retval=  new List<AvsAnSighting>();
             foreach (var sentence in FindEnglishSentences(pageTextContent))
                 if(GradeEnglishSentence(sentence) > 2.5)
