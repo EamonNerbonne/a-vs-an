@@ -5,7 +5,6 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Threading;
-using System.Xml.Linq;
 using System.Xml;
 using System.Diagnostics;
 
@@ -27,11 +26,11 @@ namespace WikipediaAvsAnTrieExtractor {
             //}
             var outputFilePath = args[1];
             Task.Factory.StartNew(() => {
-
                 while (true) {
                     Thread.Sleep(1000);
                     Console.WriteLine(string.Join("; ", ProgressReporters.Select(f => f())));
                 }
+                // ReSharper disable once FunctionNeverReturns
             }, TaskCreationOptions.LongRunning);
 
             CreateAvsAnStatistics(wikiPath, outputFilePath);
@@ -110,6 +109,7 @@ namespace WikipediaAvsAnTrieExtractor {
                     bool stopped = false;
                     try {
                         long pageCount = 0;
+// ReSharper disable once AccessToDisposedClosure
                         ProgressReporters.Add(() => stopped ? "" : "MB/s: " + (stream.Position / 1024.0 / 1024.0 / sw.Elapsed.TotalSeconds).ToString("f1"));
                         ProgressReporters.Add(() => stopped ? "" : "pages/ms: " + (pageCount / sw.Elapsed.TotalMilliseconds).ToString("f1"));
                         var pages = new string[1];
