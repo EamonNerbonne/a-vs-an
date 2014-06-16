@@ -1,0 +1,27 @@
+﻿A disperser is a one-sided extractor. Where an extractor requires that every event gets the same probability under the uniform distribution and the extracted distribution, only the latter is required for a disperser. So for a disperser, an event  we have:
+
+
+Definition (Disperser): A -disperser is a function
+
+
+
+such that for every distribution  on  with  the support of the distribution  is of size at least .
+
+Graph Theory==
+An (N, M, D, K, e)-disperser is a bipartite
+graph with N vertices on the left side, each with degree D, and M vertices on the right side, such that every subset of K vertices on the left side is connected to more than (1&minus;e)M vertices on the right.
+
+An extractor is a related type of graph that guarantees an even stronger property; every (N, M, D, K, e)-extractor is also an (N, M, D, K, e)-disperser.
+
+Other meanings==
+A disperser is a high-speed mixing device used to disperse or dissolve pigments and other solids into a liquid.
+
+See also==
+Expander graph
+
+References==
+
+
+
+
+

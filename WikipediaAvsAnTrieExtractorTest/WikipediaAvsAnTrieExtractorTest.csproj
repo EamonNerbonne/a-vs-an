@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApprovalTests">
+      <HintPath>..\WikipediaAvsAnTrieExtractor\packages\ApprovalTests.3.0.5\lib\net40\ApprovalTests.dll</HintPath>
+    </Reference>
+    <Reference Include="ApprovalUtilities">
+      <HintPath>..\WikipediaAvsAnTrieExtractor\packages\ApprovalUtilities.3.0.5\lib\net35\ApprovalUtilities.dll</HintPath>
+    </Reference>
     <Reference Include="ExpressionToCodeLib">
       <HintPath>..\WikipediaAvsAnTrieExtractor\packages\ExpressionToCodeLib.1.4.5.0\lib\net40-Client\ExpressionToCodeLib.dll</HintPath>
     </Reference>

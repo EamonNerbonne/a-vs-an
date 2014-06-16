@@ -11,3 +11,5 @@ A-vs-An/PerfTest/354984si.ngl
 packages/
 *.DotSettings.user
 *.nupkg
+*.received.txt
+*.approved.txt.bak

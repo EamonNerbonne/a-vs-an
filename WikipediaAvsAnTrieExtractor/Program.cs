@@ -59,7 +59,7 @@ namespace WikipediaAvsAnTrieExtractor {
             ProgressReporters.Add(() => "word queue: " + entriesTodo.Count);
 
             var sightingExtractionTask = Task.WhenAll(
-                Enumerable.Range(0, Math.Max(2,Environment.ProcessorCount-1)).Select(i =>
+                Enumerable.Range(0, Math.Max(2,Environment.ProcessorCount)).Select(i =>
                     Task.Factory.StartNew(() => {
                         var ms = new RegexTextUtils();
                         foreach (var pageSet in wikiPageQueue.GetConsumingEnumerable())
