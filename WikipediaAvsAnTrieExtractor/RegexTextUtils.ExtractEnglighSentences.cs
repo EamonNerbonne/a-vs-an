@@ -10,7 +10,13 @@ namespace WikipediaAvsAnTrieExtractor {
 [\(""]?
 (?=[A-Z])
 (
-    ((?<=[(""\s])|^)(
+    [^\.\n\?!]
+    |\.(
+      [\w\d]
+      |(?=[)""]*[ ]+[a-z])
+      |(?<=
+        (^|[(""\s])
+        (
         \(\w+
         |c
         |[dD]r
@@ -23,9 +29,10 @@ namespace WikipediaAvsAnTrieExtractor {
         |[Ss]t
         |[vV](s|ol)?
         |[A-Z](\.[A-Z])*
-    )\.
-    |[^\.\n\?!]
-    |\.([\w\d]|(?=[)""]*[ ]+[a-z]))
+        )
+        \.
+        )
+      )
 )+
 [.?!\n]
 [)""]*
