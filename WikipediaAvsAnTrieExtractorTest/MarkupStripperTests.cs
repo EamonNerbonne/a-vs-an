@@ -16,6 +16,18 @@ namespace WikipediaAvsAnTrieExtractorTest {
             Assert.Equal("", utils.StripWikiMarkup(@"#REDIRECT [[Foreign relations of the Czech Republic]]"));
         }
 
+        [Fact]
+        public void StripsHtml() {
+            Assert.Equal("test", utils.StripWikiMarkup(@"<b>test</b>"));
+        }
+        [Fact]
+        public void StripsMathEntirelyHtml() {
+            Assert.Equal("atest", utils.StripWikiMarkup(@"a<math><nested></x></math>test"));
+        }
+        [Fact]
+        public void StripsCommentsEntirelyHtml() {
+            Assert.Equal("atest", utils.StripWikiMarkup(@"a<!--<math>x</math>y--z-->test"));
+        }
 
         [Fact]
         public void Wikipage_AaRiver() {

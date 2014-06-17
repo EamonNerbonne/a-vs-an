@@ -1,7 +1,7 @@
 ﻿
 The glottis is defined as the combination of the vocal folds and the space in between the folds (the rima glottidis).
 
-Function==
+Function
 As the vocal folds vibrate, the resulting vibration produces a "buzzing" quality to the speech, called voice or voicing or pronunciation. 
 
 Sound production involving only the glottis is called glottal. English has a voiceless glottal fricative spelled "h". In many accents of English the glottal stop (made by pressing the folds together) is used as a variant allophone of the phoneme  (and in some dialects, occasionally of  and ); in some languages, this sound is a phoneme of its own.
@@ -16,20 +16,20 @@ The glottis is also important in the valsalva maneuver.
 Voiced consonants include 
 Voiceless consonants include 
 
-Additional images==
+Additional images
 
  Image:Illu07 larynx01.jpg|Larynx
  Image:Gray955.png|The entrance to the larynx, viewed from behind.
  Image:Gray1204.png|The entrance to the larynx.
 
 
-See also==
+See also
 Phonation
 
-References==
+References
 
 
-References of Glottis Simulator===
+References of Glottis Simulator
 de Menezes Lyra R. Glottis simulator. Anesth Analg. 1999 Jun;88(6):1422-3.
 
 Smith, N Ty. Simulation in anesthesia: the merits of large simulators versus small simulators. Current Opinion in Anaesthesiology. 13(6):659-665, December 2000.
