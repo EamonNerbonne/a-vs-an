@@ -9,6 +9,7 @@ namespace WikipediaAvsAnTrieExtractor {
 (?<=[.?!]\s+|^)
 [\(""]?
 (?=[A-Z])
+(?>
 (
     [^\.\n\?!]
     |\.(
@@ -34,6 +35,7 @@ namespace WikipediaAvsAnTrieExtractor {
         )
       )
 )+
+)
 [.?!\n]
 [)""]*
 (?=\s|$)
