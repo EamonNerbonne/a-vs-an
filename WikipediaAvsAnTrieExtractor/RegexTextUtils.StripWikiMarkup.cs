@@ -10,8 +10,13 @@ namespace WikipediaAvsAnTrieExtractor {
         //This code is bottlenecked by regexes, so this really matters, here.
 
 
-        public string StripWikiMarkup(string wikiMarkedUpText) {
-            return markupToReplaceRegex.Replace(CutBraces(markupToStripRegex.Replace(wikiMarkedUpText, "")), m => m.Groups["txt"].Value);
+        public string StripWikiMarkup(string wikiMarkedUpText)
+        {
+            var withoutNonTrivialMarkup = markupToStripRegex.Replace(wikiMarkedUpText, "");
+            var withoutBraces = CutBraces(withoutNonTrivialMarkup);
+            var plainTextMarkupReplacedByContent =
+                markupToReplaceRegex.Replace(withoutBraces, m => m.Groups["txt"].Value);
+            return plainTextMarkupReplacedByContent;
         }
 
         static string CutBraces(string wikiMarkedUpText) {
@@ -51,21 +56,58 @@ namespace WikipediaAvsAnTrieExtractor {
 
 
         static readonly string[] markupToStripRegexes = {
-            @"(?>'')'*",
-            @"(?><)(!--([^-]|-[^-]|--[^>])*-->|([mM][aA][tT][hH]|[rR][eE][fF]|[sS][mM][aA][lL][lL]).*?(/>|</([mM][aA][tT][hH]|[rR][eE][fF]|[sS][mM][aA][lL][lL])>))",
+            @"(?>'''*)",
+            @"(?><)(!--([^-]|-[^-]|--[^>])*-->|([mM][aA][tT][hH]|[rR][eE][fF]|[sS][mM][aA][lL][lL]).*?(/>|</([mM][aA][tT][hH]|[rR][eE][fF]|[sS][mM][aA][lL][lL])>)|/?[a-zA-Z]+[^>]*>)",
             @"^((?>#)[rR][eE][dD][iI][rR][eE][cC][tT].*$|(?>\*)\**|(?>=)=*)",
-            @"(?<=&)(?>[aA])[mM][pP];",
-            @"&(?>[nN])([bB][sS][pP]|[dD][aA][sS][hH]);",
-            @"=+ *$",
-            @"\{\|([^\|]|\|[^\}])*\|\}",
-            @"</?[a-zA-Z]+( [^>]*?)?/?>",
+            @"(?>=+ *$)",
+            @"(?<=&)[aA][mM][pP];",
+            @"&[nN](?>[bB][sS][pP]|[dD][aA][sS][hH]);",
+            @"\{\|(?>(?>[^\|]|\|[^\}])*)\|\}",
         };
-        readonly Regex markupToStripRegex = new Regex(string.Join("|", markupToStripRegexes.Select(r => "(" + r + ")").ToArray()), options);
+        readonly Regex markupToStripRegex0 = new Regex(string.Join("|", markupToStripRegexes.Select(r => "(" + r + ")")), options);
 
-        static readonly string[] markupToReplaceRegexes = {
-            @"(?>\[\[([^\[:\|\]]+):)([^\[\]]|\[\[[^\[\]]*\]\])*\]\]",
-			@"\[([^ \[\]]+( (?<txt>[^\[\]]*))?|\[((?<txt>:[^\[\]]*)|(?<txt>[^\[\]:\|]*)|[^\[\]:\|]*\|(?<txt>[^\[\]]*))\])\]",
-        };
-        readonly Regex markupToReplaceRegex = new Regex(string.Join("|", markupToReplaceRegexes.Select(r => "(" + r + ")").ToArray()), options);
+        readonly Regex markupToStripRegex = new Regex(@"
+(?>
+'''*
+|<(
+  !--.*?-->
+  |(
+    [mM][aA][tT][hH]
+    |[rR][eE][fF]
+    |[sS][mM][aA][lL][lL]
+    ).*?(
+      />
+      |</(
+        [mM][aA][tT][hH]
+        |[rR][eE][fF]
+        |[sS][mM][aA][lL][lL]
+        )>
+      )
+  |[^>]*>
+  )
+|=+[ ]*$
+|&[nN]([bB][sS][pP]|[dD][aA][sS][hH]);
+|\{\|([^\|]|\|[^\}])*\|\}
+|(?<=&)[aA][mM][pP];
+|^(\#[rR][eE][dD][iI][rR][eE][cC][tT][^\n]*|\*+|=+)
+)
+", options | RegexOptions.IgnorePatternWhitespace);
+
+        readonly Regex markupToReplaceRegex = new Regex(@"
+  \[
+    (
+      [^ \[\]]+
+        ([ ](?<txt>[^\[\]]*))?
+      |\[(
+        (?<txt>:[^\[\]]*)
+        |(?<txt>[^\[\]:\|]*)
+        |[^\[\]:\|]*\|(?<txt>[^\[\]]*)
+        |([^\[:\|\]]+):
+		([^\[\]]|\[\[[^\[\]]*\]\])*   #support one level of nesting.
+        )
+        \]
+    )
+  \]
+", options | RegexOptions.IgnorePatternWhitespace);
     }
 }
