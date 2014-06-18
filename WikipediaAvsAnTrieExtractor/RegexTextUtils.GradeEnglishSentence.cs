@@ -49,14 +49,11 @@ namespace WikipediaAvsAnTrieExtractor {
                     var word = sentenceCandidate.Substring(wordStart, i - wordStart);
                     int ignore;
                     inDictScore +=
-                        dictionary.Contains(word)
-                            ? 2
-                            : int.TryParse(word, out ignore)
-                                ? 1
+                        dictionary.Contains(word) ? 2
+                        : int.TryParse(word, out ignore) ? 1
                         //numbers aren't quite valid words in the dictionary, but they're not nonsense either.
-                                : word[0] >= 'A' && word[0] <= 'Z'
-                                    ? 1 //don't quite expect proper nouns to be in the dictionary.
-                                    : 0;
+                        : word[0] >= 'A' && word[0] <= 'Z' ? 1 //don't quite expect proper nouns to be in the dictionary.
+                        : 0;
                     wordCount++;
                     if (seenWord) {
                         if (word[0] >= 'A' && word[0] <= 'Z')
@@ -80,7 +77,7 @@ namespace WikipediaAvsAnTrieExtractor {
                            - 0.3 * capRate
                            + pref
                            + lineCost
-                           + 0.75 * Math.Tanh(0.5*(spaceCount - 3.0)) 
+                           + 0.75 * Math.Tanh(0.5 * (spaceCount - 3.0))
                            ) / 3.0;
             return grade;
         }
