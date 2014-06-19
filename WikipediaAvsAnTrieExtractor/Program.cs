@@ -39,9 +39,9 @@ namespace WikipediaAvsAnTrieExtractor {
         }
 
         static readonly List<Func<string>> ProgressReporters = new List<Func<string>>();
-        const int PageBlocksQueueSize = 10;
-        const int SightingBlocksQueueSize= 100;
-        const int PagesPerBlock = 50;
+        const int PageBlocksQueueSize = 20;
+        const int SightingBlocksQueueSize = 200;
+        const int PagesPerBlock = 1000;
 
         static void CreateAvsAnStatistics(string wikiPath, string outputFilePath) {
             var wikiPageQueue = LoadWikiPagesAsync(wikiPath);
