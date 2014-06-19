@@ -11,7 +11,7 @@ using AvsAnLib;
 namespace PerfTest {
 	class Program {
 		static void Main(string[] args) {
-			var words = File.ReadAllLines(@"..\..\..\354984si.ngl").Where(w => w != "").ToArray();
+            var words = File.ReadAllLines(@"..\..\..\AvsAn-Test\354984si.ngl").Where(w => w != "").ToArray();
 
 			var tr = new Dictionary<string, int> { { "a", 0 }, { "an", 1 } };
 			long sum = 0;
