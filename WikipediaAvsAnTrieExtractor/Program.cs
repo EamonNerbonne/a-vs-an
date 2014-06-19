@@ -48,9 +48,9 @@ namespace WikipediaAvsAnTrieExtractor {
             var trieBuilder = BuildAvsAnTrie(entriesTodo);
             AnnotatedTrie result = trieBuilder.Result;
             Console.WriteLine("Before simplification: trie of # nodes" + trieBuilder.Result.CountParallel);
-            File.WriteAllText(outputFilePath + ".large", result.Readable());
-            result.Simplify();
-            File.WriteAllText(outputFilePath, result.Readable());
+            File.WriteAllText(outputFilePath + ".large", result.Readable(), Encoding.UTF8);
+            result = result.Simplify();
+            File.WriteAllText(outputFilePath, result.Readable(), Encoding.UTF8);
             Console.WriteLine("After simplification: trie of # nodes" + trieBuilder.Result.CountParallel);
         }
 
