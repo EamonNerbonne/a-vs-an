@@ -41,7 +41,6 @@ namespace WikipediaAvsAnTrieExtractorTest {
     utils.FindEnglishSentences(
 @"Each frame was drawn on paper; which invariably required backgrounds and characters to be redrawn and animated. Among McCay's most noted films are Little Nemo (1911), Gertie the Dinosaur (1914) and The Sinking of the Lusitania (1918)."
 ));
-
         }
 
         [Fact]
