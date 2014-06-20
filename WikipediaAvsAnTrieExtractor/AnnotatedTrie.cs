@@ -39,7 +39,7 @@ namespace WikipediaAvsAnTrieExtractor {
 
         public AnnotatedTrie Simplify() {
             Dictionary<char, AnnotatedTrie> simpleChildren = null;
-            if(HasChildren)
+            if (HasChildren)
                 foreach (var child_kv in children) {
                     var child = child_kv.Value;
                     if (child.Occurence < MinOccurence) continue;
@@ -58,23 +58,21 @@ namespace WikipediaAvsAnTrieExtractor {
             };
         }
 
-        public string Readable() {
+        public string SerializeToReadable() {
             var sb = new StringBuilder();
-            RepresentSelf(sb, "", 0);
+            SerializeToReadableImpl(sb, "");
             return sb.ToString();
         }
-        void RepresentSelf(StringBuilder sb, string prefix, int parentAnnot) {
+        void SerializeToReadableImpl(StringBuilder sb, string prefix) {
             if (HasChildren)
                 foreach (var child_kv in children.OrderBy(kv => kv.Key.ToString(), StringComparer.InvariantCultureIgnoreCase))
-                    child_kv.Value.RepresentSelf(sb, prefix + child_kv.Key, Annotation);
-            //if (Annotation != parentAnnot) {
-                sb.Append(prefix);
-                sb.Append(Annotation < 0 ? "[a:" : Annotation > 0 ? "[an:" : "[?:");
-                sb.Append(count_an);
-                sb.Append(':');
-                sb.Append(count_a);
-                sb.Append("]\n");
-            //}
+                    child_kv.Value.SerializeToReadableImpl(sb, prefix + child_kv.Key);
+            sb.Append(prefix);
+            sb.Append(Annotation < 0 ? "[a:" : Annotation > 0 ? "[an:" : "[?:");
+            sb.Append(count_an);
+            sb.Append(':');
+            sb.Append(count_a);
+            sb.Append("]\n");
         }
     }
 }

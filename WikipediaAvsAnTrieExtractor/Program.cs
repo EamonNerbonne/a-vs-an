@@ -48,11 +48,8 @@ namespace WikipediaAvsAnTrieExtractor {
             var entriesTodo = ExtractAvsAnSightingsAsync(wikiPageQueue);
             var trieBuilder = BuildAvsAnTrie(entriesTodo);
             AnnotatedTrie result = trieBuilder.Result;
-            Console.WriteLine("Before simplification: trie of # nodes" + trieBuilder.Result.CountParallel);
-            File.WriteAllText(outputFilePath + ".large", result.Readable(), Encoding.UTF8);
-            result = result.Simplify();
+            Console.WriteLine("Raw trie of # nodes" + trieBuilder.Result.CountParallel);
             File.WriteAllText(outputFilePath, result.Readable(), Encoding.UTF8);
-            Console.WriteLine("After simplification: trie of # nodes" + trieBuilder.Result.CountParallel);
         }
 
         static BlockingCollection<AvsAnSighting[]> ExtractAvsAnSightingsAsync(BlockingCollection<string[]> wikiPageQueue) {
