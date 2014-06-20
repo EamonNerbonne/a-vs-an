@@ -5,6 +5,10 @@ using System.Text;
 
 namespace WikipediaAvsAnTrieExtractor {
     class AnnotatedTrie {
+        const int MinOccurence = 19;
+        const int MinDiff = 9;
+        const double MinRatio = 0.1;//e.g. 0.45 to 0.55
+
         int count_an;
         int count_a;
         Dictionary<char, AnnotatedTrie> children;
@@ -33,9 +37,6 @@ namespace WikipediaAvsAnTrieExtractor {
         public int Count { get { return 1 + (children == null ? 0 : children.Values.Sum(child => child.Count)); } }
         public int CountParallel { get { return 1 + (children == null ? 0 : children.Values.AsParallel().Sum(child => child.Count)); } }
 
-        const int MinOccurence = 10;
-        const int MinDiff = 5;
-        const double MinRatio = 0.1;//e.g. 0.45 to 0.55
         public AnnotatedTrie Simplify() {
             Dictionary<char, AnnotatedTrie> simpleChildren = null;
             if(HasChildren)
