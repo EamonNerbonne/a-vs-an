@@ -6,47 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace AvsAnLib {
     public static class AvsAn {
-        struct Ratio {
-            public int aCount, anCount;
-            public bool isSet { get { return (aCount | anCount) != 0; } }
-        }
-        class MutableNode {
-            //static readonly Node[] EmptyNodeArr = new Node[0];
-            Ratio ratio;
-            Dictionary<char, MutableNode> Kids;
-            public void Add(string prefix, int depth, Ratio prefixRatio) {
-                if (prefix.Length == depth) {
-                    ratio = prefixRatio;
-                } else {
-                    MutableNode kid;
-                    if (Kids == null)
-                        Kids = new Dictionary<char, MutableNode>();
-                    if (!Kids.TryGetValue(prefix[depth], out kid))
-                        Kids[prefix[depth]] = kid = new MutableNode();
-                    kid.Add(prefix, depth + 1, prefixRatio);
-                }
-            }
-            public Node Finish(char key) {
-                Node[] sortedKids = null;
-                if (Kids != null) {
-                    sortedKids = new Node[Kids.Count];
-                    int i = 0;
-                    foreach (var kv in Kids)
-                        sortedKids[i++] = kv.Value.Finish(kv.Key);
-                    Array.Sort(sortedKids);
-                }
-                return new Node { c = key, ratio = ratio, SortedKids = sortedKids };
-            }
-        }
-
-        struct Node : IComparable<Node> {
-            public char c;
-            public Ratio ratio;
-            public Node[] SortedKids;
-            public int CompareTo(Node other) { return c.CompareTo(other.c); }
-        }
-
-        static Result Query(Node node, string word, int depth) {
+        internal static Result Query(Node node, string word, int depth) {
             Ratio result = node.ratio;
             while (true)
                 if (depth >= word.Length) return new Result(result.aCount, result.anCount, word, depth);
