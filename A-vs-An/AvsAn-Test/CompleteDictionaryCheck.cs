@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -15,7 +16,8 @@ namespace AvsAn_Test {
     public class CompleteDictionaryCheck {
         [Test, MethodImpl(MethodImplOptions.NoInlining)]
         public void DictionaryClassifications() {
-            using (var stream = this.GetType().Assembly.GetManifestResourceStream(this.GetType(), "354984si.ngl"))
+            // ReSharper disable once AssignNullToNotNullAttribute
+            using (var stream = GetType().Assembly.GetManifestResourceStream(GetType(), "354984si.ngl"))
             using (var reader = new StreamReader(stream)) {
                 var content = reader.ReadToEnd();
                 var dictionary = content.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
@@ -27,7 +29,7 @@ namespace AvsAn_Test {
 
         [Test, MethodImpl(MethodImplOptions.NoInlining)]
         public void NumberClassifications() {
-            var numbers = Enumerable.Range(0, 100000).Select(i => i.ToString());
+            var numbers = Enumerable.Range(0, 100000).Select(i => i.ToString(CultureInfo.InvariantCulture));
             var mappedNumbers = string.Join("\n", numbers.Select(word => word + " => " + AvsAn.Query(word).Article));
             Approvals.Verify(mappedNumbers);
         }
@@ -47,7 +49,6 @@ namespace AvsAn_Test {
                         ).ToArray())
                 select acronym;
 
-            Enumerable.Range(0, 100000).Select(i => i.ToString());
             var mappedAcronyms = string.Join("\n", acronyms.Select(word => word + " => " + AvsAn.Query(word).Article));
             Approvals.Verify(mappedAcronyms);
         }
