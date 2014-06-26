@@ -59,7 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnnotatedTrie.cs" />
+    <Compile Include="MutableNodeExtensions.cs" />
     <Compile Include="AvsAnSighting.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,6 +74,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <EmbeddedResource Include="english.ngl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\A-vs-An-DotNet\AvsAn.csproj">
+      <Project>{cb925c3d-7ece-48de-aa24-a3fa2d00159e}</Project>
+      <Name>AvsAn</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Threading;
 using System.Xml;
 using System.Diagnostics;
+using AvsAnLib;
 
 namespace WikipediaAvsAnTrieExtractor {
     static class Program {
@@ -47,8 +48,8 @@ namespace WikipediaAvsAnTrieExtractor {
             var wikiPageQueue = LoadWikiPagesAsync(wikiPath);
             var entriesTodo = ExtractAvsAnSightingsAsync(wikiPageQueue);
             var trieBuilder = BuildAvsAnTrie(entriesTodo);
-            AnnotatedTrie result = trieBuilder.Result;
-            Console.WriteLine("Raw trie of # nodes" + trieBuilder.Result.CountParallel);
+            MutableNode result = trieBuilder.Result;
+            Console.WriteLine("Raw trie of # nodes" + trieBuilder.Result.Count());
             File.WriteAllText(outputFilePath, result.SerializeToReadable(), Encoding.UTF8);
         }
 
@@ -75,7 +76,7 @@ namespace WikipediaAvsAnTrieExtractor {
             return entriesTodo;
         }
 
-        static Task<AnnotatedTrie> BuildAvsAnTrie(BlockingCollection<AvsAnSighting[]> entriesTodo) {
+        static Task<MutableNode> BuildAvsAnTrie(BlockingCollection<AvsAnSighting[]> entriesTodo) {
             int wordCount = 0;
 
             Stopwatch sw = Stopwatch.StartNew();
@@ -83,10 +84,10 @@ namespace WikipediaAvsAnTrieExtractor {
 
 
             var trieBuilder = Task.Factory.StartNew(() => {
-                var trie = new AnnotatedTrie();
+                var trie = new MutableNode();
                 foreach (var entries in entriesTodo.GetConsumingEnumerable())
                     foreach (var entry in entries) {
-                        trie.AddEntry(entry.PrecededByAn, entry.Word, 0);
+                        trie.IncrementPrefix(entry.PrecededByAn, entry.Word, 0);
                         wordCount++;
                     }
                 return trie;

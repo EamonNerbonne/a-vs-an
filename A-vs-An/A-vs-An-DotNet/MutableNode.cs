@@ -4,9 +4,10 @@ using System.Collections.Generic;
 namespace AvsAnLib {
     class MutableNode {
         //static readonly Node[] EmptyNodeArr = new Node[0];
-        Ratio ratio;
-        Dictionary<char, MutableNode> Kids;
-        public void Add(string prefix, int depth, Ratio prefixRatio) {
+        internal Ratio ratio;
+        internal Dictionary<char, MutableNode> Kids;
+        
+        public void LoadPrefixRatio(string prefix, int depth, Ratio prefixRatio) {
             if (prefix.Length == depth) {
                 ratio = prefixRatio;
             } else {
@@ -15,7 +16,7 @@ namespace AvsAnLib {
                     Kids = new Dictionary<char, MutableNode>();
                 if (!Kids.TryGetValue(prefix[depth], out kid))
                     Kids[prefix[depth]] = kid = new MutableNode();
-                kid.Add(prefix, depth + 1, prefixRatio);
+                kid.LoadPrefixRatio(prefix, depth + 1, prefixRatio);
             }
         }
         public Node Finish(char key) {

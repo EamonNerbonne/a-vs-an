@@ -42,7 +42,7 @@ namespace AvsAnLib {
         static AvsAn() {
             var mutableRoot = new MutableNode();
             foreach (Match m in Regex.Matches(dict, @"([^\[]*)\[([0-9a-f]*):([0-9a-f]*)\]", RegexOptions.CultureInvariant))
-                mutableRoot.Add(
+                mutableRoot.LoadPrefixRatio(
                     m.Groups[1].Value,
                     0,
                     new Ratio {

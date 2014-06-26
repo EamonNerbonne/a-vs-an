@@ -36,7 +36,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AvsAn.cs" />
+    <Compile Include="MutableNode.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ratio.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AvsAn.nuspec">
