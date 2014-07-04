@@ -51,7 +51,7 @@ namespace WikipediaAvsAnTrieExtractor {
 
         public static void IncrementPrefix(this MutableNode node, bool isAn, string word, int level) {
             if (isAn) node.ratio.anCount++;
-            else node.ratio.anCount++;
+            else node.ratio.aCount++;
 
             if (level < 40 && word.Length > level)
                 GetChild(node, word[level]).IncrementPrefix(isAn, word, level + 1);
