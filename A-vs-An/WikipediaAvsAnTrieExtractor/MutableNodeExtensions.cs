@@ -29,9 +29,9 @@ namespace WikipediaAvsAnTrieExtractor {
             sb.Append(prefix);
 
             sb.Append(node.ratio.anCount < node.ratio.aCount ? "[a:" : node.ratio.anCount > node.ratio.aCount ? "[an:" : "[?:");
-            sb.Append(node.ratio.anCount);
-            sb.Append(':');
             sb.Append(node.ratio.aCount);
+            sb.Append(':');
+            sb.Append(node.ratio.anCount);
             sb.Append("]\n");
         }
 
@@ -43,8 +43,8 @@ namespace WikipediaAvsAnTrieExtractor {
                     m.Groups[1].Value,
                     0,
                     new Ratio {
-                        aCount = int.Parse(m.Groups[3].Value),
-                        anCount = int.Parse(m.Groups[2].Value)
+                        aCount = int.Parse(m.Groups[2].Value),
+                        anCount = int.Parse(m.Groups[3].Value)
                     });
             return mutableRoot;
         }
