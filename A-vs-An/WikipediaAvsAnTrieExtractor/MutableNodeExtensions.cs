@@ -9,8 +9,7 @@ namespace WikipediaAvsAnTrieExtractor {
         public static int Count(this MutableNode node) {
             int count = 1;
             if (node.Kids != null)
-                // ReSharper disable once LoopCanBeConvertedToQuery
-                foreach (MutableNode kid in node.Kids.Values)
+                foreach (var kid in node.Kids.Values)
                     count += Count(kid);
             return count;
         }
