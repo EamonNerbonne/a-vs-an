@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 namespace AvsAnLib {
-    class MutableNode {
+    public class MutableNode {
         //static readonly Node[] EmptyNodeArr = new Node[0];
         internal Ratio ratio;
         internal Dictionary<char, MutableNode> Kids;

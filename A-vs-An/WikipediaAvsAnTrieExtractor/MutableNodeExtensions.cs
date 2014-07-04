@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using AvsAnLib;
 
 namespace WikipediaAvsAnTrieExtractor {
-    internal static class MutableNodeExtensions {
+
+    public static class MutableNodeExtensions {
         public static int Count(this MutableNode node) {
             int count = 1;
             if (node.Kids != null)
@@ -21,7 +24,7 @@ namespace WikipediaAvsAnTrieExtractor {
         }
         static void SerializeToReadableImpl(this MutableNode node, StringBuilder sb, string prefix) {
             if (node.Kids != null)
-                foreach (var kidEntry in node.Kids.OrderBy(kv => kv.Key.ToString(), StringComparer.InvariantCultureIgnoreCase))
+                foreach (var kidEntry in node.Kids.OrderBy(kv => kv.Key.ToString(CultureInfo.InvariantCulture), StringComparer.InvariantCultureIgnoreCase))
                     kidEntry.Value.SerializeToReadableImpl(sb, prefix + kidEntry.Key);
             sb.Append(prefix);
 
@@ -30,6 +33,20 @@ namespace WikipediaAvsAnTrieExtractor {
             sb.Append(':');
             sb.Append(node.ratio.aCount);
             sb.Append("]\n");
+        }
+
+        public static MutableNode DeserializeReadable(string readableRepresentation) {
+            var mutableRoot = new MutableNode();
+            foreach (Match m in Regex.Matches(readableRepresentation,
+                @"^(.*?)\[an?:([0-9]*):([0-9]*)\]$", RegexOptions.Multiline))
+                mutableRoot.LoadPrefixRatio(
+                    m.Groups[1].Value,
+                    0,
+                    new Ratio {
+                        aCount = int.Parse(m.Groups[3].Value),
+                        anCount = int.Parse(m.Groups[2].Value)
+                    });
+            return mutableRoot;
         }
 
         public static void IncrementPrefix(this MutableNode node, bool isAn, string word, int level) {
@@ -58,17 +75,17 @@ namespace WikipediaAvsAnTrieExtractor {
         }
         static int Annotation(this MutableNode node) { return Math.Sign(node.ratio.anCount - node.ratio.aCount); }
 
-        const int MinOccurence = 19;
-        const int MinDiff = 9;
-        const double MinRatio = 0.1;//e.g. 0.45 to 0.55
+        //const int MinOccurence = 19;
+        //const int MinDiff = 9;
+        //const double MinRatio = 0.1;//e.g. 0.45 to 0.55
 
-        public static MutableNode Simplify(MutableNode node) {
+        public static MutableNode Simplify(this MutableNode node, int MinOccurence, int MinDiff, double MinRatio) {
             Dictionary<char, MutableNode> simpleKids = null;
             if (node.Kids != null)
                 foreach (var kidEntry in node.Kids) {
                     var kid = kidEntry.Value;
                     if (kid.Occurence() < MinOccurence) continue;
-                    var simpleKid = Simplify(kid);
+                    var simpleKid = kid.Simplify(MinOccurence, MinDiff, MinRatio);
                     if (simpleKid.Kids != null ||
                         simpleKid.Diff() >= MinDiff && simpleKid.DiffRatio() >= MinRatio && kid.Annotation() != node.Annotation()) {
 

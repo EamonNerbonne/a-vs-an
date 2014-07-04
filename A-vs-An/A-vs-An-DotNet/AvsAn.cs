@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace AvsAnLib {
     public static class AvsAn {
-        internal static Result Query(Node node, string word, int depth) {
+        public static Result Query(Node node, string word, int depth) {
             Ratio result = node.ratio;
             while (true)
                 if (depth >= word.Length) return new Result(result.aCount, result.anCount, word, depth);
