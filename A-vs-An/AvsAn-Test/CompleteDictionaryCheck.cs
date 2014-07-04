@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -16,42 +14,22 @@ namespace AvsAn_Test {
     public class CompleteDictionaryCheck {
         [Test, MethodImpl(MethodImplOptions.NoInlining)]
         public void DictionaryClassifications() {
-            // ReSharper disable once AssignNullToNotNullAttribute
-            using (var stream = GetType().Assembly.GetManifestResourceStream(GetType(), "354984si.ngl"))
-            using (var reader = new StreamReader(stream)) {
-                var content = reader.ReadToEnd();
-                var dictionary = content.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                var mappedDictionary = string.Join("\n", dictionary.Select(word => word + " => " + AvsAn.Query(word).Article));
-
-                Approvals.Verify(mappedDictionary);
-            }
+            var dictionary = Dictionaries.LoadEnglishDictionary();
+            var mappedDictionary = string.Join("\n", dictionary.Select(word => word + " => " + AvsAn.Query(word).Article));
+            Approvals.Verify(mappedDictionary);
         }
 
         [Test, MethodImpl(MethodImplOptions.NoInlining)]
         public void NumberClassifications() {
-            var numbers = Enumerable.Range(0, 100000).Select(i => i.ToString(CultureInfo.InvariantCulture));
+            var numbers = Dictionaries.SmallNumberStrings();
             var mappedNumbers = string.Join("\n", numbers.Select(word => word + " => " + AvsAn.Query(word).Article));
             Approvals.Verify(mappedNumbers);
         }
 
         [Test, MethodImpl(MethodImplOptions.NoInlining)]
         public void AcronymClassifications() {
-            var letters = Enumerable.Range('A', 'Z' - 'A' + 1).Select(i => (char)i).ToArray();
-            var acronyms =
-                from len in new[] { 1, 2, 3, 4 }
-                from acronym in
-                    Enumerable.Repeat(letters, len)
-                        .Aggregate(new[] { "" },
-                        (prefixes, chars) => (
-                        from prefix in prefixes
-                        from suffix in chars
-                        select prefix + suffix
-                        ).ToArray())
-                select acronym;
-
-            var mappedAcronyms = string.Join("\n", acronyms.Select(word => word + " => " + AvsAn.Query(word).Article));
+            var mappedAcronyms = string.Join("\n", Dictionaries.AcronymsWithUpto4Letters().Select(word => word + " => " + AvsAn.Query(word).Article));
             Approvals.Verify(mappedAcronyms);
         }
-
     }
 }
