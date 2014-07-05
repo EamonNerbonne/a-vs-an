@@ -54,18 +54,6 @@ namespace WikipediaAvsAnTrieExtractor {
             return sb.ToString();
         }
 
-
-        static readonly string[] markupToStripRegexes = {
-            @"(?>'''*)",
-            @"(?><)(!--([^-]|-[^-]|--[^>])*-->|([mM][aA][tT][hH]|[rR][eE][fF]|[sS][mM][aA][lL][lL]).*?(/>|</([mM][aA][tT][hH]|[rR][eE][fF]|[sS][mM][aA][lL][lL])>)|/?[a-zA-Z]+[^>]*>)",
-            @"^((?>#)[rR][eE][dD][iI][rR][eE][cC][tT].*$|(?>\*)\**|(?>=)=*)",
-            @"(?>=+ *$)",
-            @"(?<=&)[aA][mM][pP];",
-            @"&[nN](?>[bB][sS][pP]|[dD][aA][sS][hH]);",
-            @"\{\|(?>(?>[^\|]|\|[^\}])*)\|\}",
-        };
-        readonly Regex markupToStripRegex0 = new Regex(string.Join("|", markupToStripRegexes.Select(r => "(" + r + ")")), options);
-
         readonly Regex markupToStripRegex = new Regex(@"
 (?>
 '''*
