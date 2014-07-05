@@ -74,6 +74,7 @@ namespace WikipediaAvsAnTrieExtractor {
   |[^>]*>
   )
 |=+[ ]*$
+|''+.''+            #For a vs. an: also strip single-letter emphasized things since these are likely variables, not articles
 |&[nN]([bB][sS][pP]|[dD][aA][sS][hH]);
 |\{\|([^\|]|\|[^\}])*\|\}
 |(?<=&)[aA][mM][pP];
