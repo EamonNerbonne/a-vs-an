@@ -85,8 +85,8 @@ namespace WikipediaAvsAnTrieExtractor {
         readonly Regex markupToReplaceRegex = new Regex(@"
   \[
     (
-      [^ \[\]]+
-        ([ ](?<txt>[^\[\]]*))?
+      [a-z][a-z][a-z]+://[^ \[\]]+
+        ([ ](?<txt>[^\[\]]*))
       |\[(
         (?!Category:|[a-z][a-z][a-z-]*:)(?<txt>[^\[\]\|]*)
         |[^\[\]\|]*\|(?<txt>[^\[\]]*)
