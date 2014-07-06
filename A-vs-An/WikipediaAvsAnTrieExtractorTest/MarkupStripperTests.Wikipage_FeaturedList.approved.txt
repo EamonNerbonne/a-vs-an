@@ -1,0 +1,29 @@
+﻿
+A featured list exemplifies our very best work. It covers a topic that lends itself to list format (see WP:List) and, in addition to meeting the requirements for all Wikipedia content (particularly naming conventions, neutrality, no original research, verifiability, citations, reliable sources, living persons, non-free content and what Wikipedia is not) a featured list has the following attributes:
+
+ Prose. It features professional standards of writing.
+ Lead. It has an engaging lead that introduces the subject and defines the scope and inclusion criteria.
+ Comprehensiveness.
+  (a) It comprehensively covers the defined scope, providing at least all of the major items and, where practical, a complete set of items; where appropriate, it has annotations that provide useful and appropriate information about the items.
+  (b) In length and/or topic, it meets all of the requirements for stand-alone lists; does not violate the content-forking guideline, does not largely duplicate material from another article, and could not reasonably be included as part of a related article.
+ 
+ Structure. It is easy to navigate and includes, where helpful, section headings and table sort facilities.
+ Style. It complies with the Manual of Style and its supplementary pages.
+  (a) Visual appeal. It makes suitable use of text layout, formatting, tables, and colour; and a minimal proportion of items are redlinked. 
+  (b) Media files. It has images and other media, if appropriate to the topic, that follow Wikipedia's usage policies, with succinct captions. Non-free images and other media satisfy the criteria for the inclusion of non-free content and are labeled accordingly.
+ 
+ Stability. It is not the subject of ongoing edit wars and its content does not change significantly from day to day, except in response to the featured list process.
+
+
+See also==
+ Featured criteria:
+ featured articles
+ featured pictures
+ featured portals
+ featured sounds
+ featured topics
+
+
+
+
+

@@ -215,6 +215,43 @@ A disperser is a high-speed mixing device used to disperse or dissolve pigments 
         }
 
         [Fact]
+        public void Wikipage_FeaturedList() {
+            Approvals.Verify(utils.StripWikiMarkup(@"<noinclude>{| style=""float:right; padding:1em; border:1px solid #A3B1BF; background-color:#E6F2FF; margin:0 0 0.5em 1em""
+|{{Shortcut|WP:WIAFL|WP:FL?|WP:FLCR}}
+{{FLpages}}
+|}
+A [[WP:Featured lists|featured list]] exemplifies our very best work. It covers a topic that lends itself to list format (see [[WP:List]]) and, in addition to meeting the requirements for all Wikipedia content (particularly [[WP:Naming conventions|naming conventions]], [[WP:Neutral point of view|neutrality]], [[WP:No original research|no original research]], [[WP:Verifiability|verifiability]], [[WP:Citing sources|citations]], [[WP:Reliable sources|reliable sources]], [[WP:Biographies of living persons|living persons]], [[WP:Non-free content criteria|non-free content]] and [[WP:What Wikipedia is not|what Wikipedia is not]]) a featured list has the following attributes:</noinclude>
+<ol>
+ <li>'''Prose.''' It features professional standards of writing.</li>
+ <li>'''Lead.''' It has an engaging [[WP:Lead section|lead]] that introduces the subject and defines the scope and inclusion criteria.</li>
+ <li>'''Comprehensiveness.'''<ul>
+  <li>(a) It comprehensively covers the defined scope, providing at least all of the major items and, where practical, a complete set of items; where appropriate, it has annotations that provide useful and appropriate information about the items.</li>
+  <li>(b) In length and/or topic, it meets all of the requirements for [[WP:SAL|stand-alone lists]]; does not violate the [[WP:Content forking|content-forking guideline]], does not largely duplicate material from another article, and could not reasonably be included as part of a related article.</li>
+ </ul></li>
+ <li>'''Structure.''' It is easy to navigate and includes, where helpful, [[Help:Section|section]] headings and [[Help:Sorting|table sort]] facilities.</li>
+ <li>'''Style.''' It complies with the [[Wikipedia:Manual of Style|Manual of Style]] and its supplementary pages.<ul>
+  <li>(a) ''Visual appeal.'' It makes suitable use of text layout, formatting, [[Help:Table|tables]], and [[Wikipedia:Colours|colour]]; and a minimal proportion of items are redlinked. </li>
+  <li>(b) ''Media files.'' It has [[Wikipedia:Images|images]] and other media, if appropriate to the topic, that follow Wikipedia's [[Wikipedia:Image use policy|usage policies]], with succinct [[Wikipedia:Captions|captions]]<!--  and [[Wikipedia:Alternative text for images|alternative (alt) text]] if necessary -->. [[Wikipedia:Non-free content|Non-free]] images and other media satisfy the [[Wikipedia:Non-free content criteria|criteria for the inclusion of non-free content]] and [[Wikipedia:Image copyright tags/Non-free content|are labeled accordingly]].</li>
+ </ul></li>
+ <li>'''Stability.''' It is not the subject of ongoing [[Wikipedia:Edit war|edit wars]] and its content does not change significantly from day to day, except in response to the featured list process.</li>
+</ol><noinclude>
+
+==See also==
+* Featured criteria:
+** [[Wikipedia:Featured article criteria|featured articles]]
+** [[Wikipedia:Featured picture criteria|featured pictures]]
+** [[Wikipedia:Featured portal criteria|featured portals]]
+** [[Wikipedia:Featured sound criteria|featured sounds]]
+** [[Wikipedia:Featured topic criteria|featured topics]]
+
+{{List navbox}}
+
+[[Category:Wikipedia featured content|{{PAGENAME}}]]
+
+</noinclude>"));
+        }
+
+        [Fact]
         public void Wikipage_Glottis() {
             Approvals.Verify(utils.StripWikiMarkup(@"{{Infobox Anatomy |
   Name         = Glottis |
