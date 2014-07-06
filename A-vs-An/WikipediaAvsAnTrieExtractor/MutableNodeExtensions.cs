@@ -86,16 +86,20 @@ namespace WikipediaAvsAnTrieExtractor {
         //const int MinDiff = 9;
         //const double MinRatio = 0.1;//e.g. 0.45 to 0.55
 
-        public static MutableNode Simplify(this MutableNode node, int MinOccurence, int MinDiff, double MinRatio) {
+        public static MutableNode Simplify(this MutableNode node, int scaleFactor) {
             Dictionary<char, MutableNode> simpleKids = null;
             if (node.Kids != null)
                 foreach (var kidEntry in node.Kids) {
                     var kid = kidEntry.Value;
-                    if (kid.Occurence() < MinOccurence) continue;
-                    var simpleKid = kid.Simplify(MinOccurence, MinDiff, MinRatio);
+                    var diff = kid.ratio.anCount - kid.ratio.aCount;
+                    var occurence = kid.Occurence();
+                    if(Math.Abs(occurence) <= scaleFactor)
+                        continue;
+                    var simpleKid = kid.Simplify(scaleFactor);
                     if (simpleKid.Kids != null ||
-                        simpleKid.Diff() >= MinDiff && simpleKid.DiffRatio() >= MinRatio && kid.Annotation() != node.Annotation()) {
-
+                        diff * (long)diff > scaleFactor * (long)occurence
+                        //&& simpleKid.Annotation() != node.Annotation()
+                        ) {
                         simpleKids = simpleKids ?? new Dictionary<char, MutableNode>();
                         simpleKids.Add(kidEntry.Key, simpleKid);
                     }
