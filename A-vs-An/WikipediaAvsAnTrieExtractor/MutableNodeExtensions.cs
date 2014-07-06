@@ -53,8 +53,15 @@ namespace WikipediaAvsAnTrieExtractor {
             if (isAn) node.ratio.anCount++;
             else node.ratio.aCount++;
 
-            if (level < 40 && word.Length > level)
-                GetChild(node, word[level]).IncrementPrefix(isAn, word, level + 1);
+            if (level < 40)
+                if(word.Length > level)
+                    GetChild(node, word[level]).IncrementPrefix(isAn, word, level + 1);
+                else if(word.Length == level)
+                    GetChild(node, ' ').IncrementTerminator(isAn);
+        }
+        static void IncrementTerminator(this MutableNode node, bool isAn) {
+            if (isAn) node.ratio.anCount++;
+            else node.ratio.aCount++;
         }
 
         public static MutableNode GetChild(this MutableNode node, char c) {
