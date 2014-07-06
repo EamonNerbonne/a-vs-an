@@ -20,6 +20,9 @@ namespace AvsAn_Test {
         [TestCase("a", "FIAT car")]
         [TestCase("an", "FAA policy")]
         [TestCase("an", "A")]
+        [TestCase("a", "uniformed agent")]
+        [TestCase("an", "unissued permit")]
+        [TestCase("an", "unilluminating argument")]
         public void DoTest(string article, string word) {
             PAssert.That(() => AvsAn.Query(word).Article == article);
         }
