@@ -39,7 +39,7 @@ namespace WikipediaAvsAnTrieExtractor {
             return 0;
         }
 
-        static readonly List<Func<string>> ProgressReporters = new List<Func<string>>();
+        static readonly ConcurrentBag<Func<string>> ProgressReporters = new ConcurrentBag<Func<string>>();
         const int PageBlocksQueueSize = 20;
         const int SightingBlocksQueueSize = 200;
         const int PagesPerBlock = 1000;
