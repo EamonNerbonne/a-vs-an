@@ -93,7 +93,7 @@ namespace WikipediaAvsAnTrieExtractor {
                     var kid = kidEntry.Value;
                     var diff = kid.ratio.anCount - kid.ratio.aCount;
                     var occurence = kid.Occurence();
-                    if(Math.Abs(occurence) <= scaleFactor)
+                    if(Math.Abs(occurence) < scaleFactor)
                         continue;
                     var simpleKid = kid.Simplify(scaleFactor);
                     if (simpleKid.Kids != null ||
