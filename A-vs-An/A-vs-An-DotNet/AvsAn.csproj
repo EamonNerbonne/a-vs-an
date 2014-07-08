@@ -36,10 +36,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AvsAn.cs" />
-    <Compile Include="MutableNode.cs" />
-    <Compile Include="Node.cs" />
+    <Compile Include="AvsAn.Result.cs" />
+    <Compile Include="BuiltInDictionary.cs" />
+    <Compile Include="Internals\MutableNode.cs" />
+    <Compile Include="Internals\Node.cs" />
+    <Compile Include="Internals\WordQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ratio.cs" />
+    <Compile Include="Internals\Ratio.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AvsAn.nuspec">
