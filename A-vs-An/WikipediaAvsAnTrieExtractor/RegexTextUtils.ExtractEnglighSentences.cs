@@ -40,7 +40,7 @@ namespace WikipediaAvsAnTrieExtractor {
 [)""]*
 (?=\s|$)
 ";
-        readonly Regex sentenceFinderRegex = new Regex(sentenceRegex, options | RegexOptions.IgnorePatternWhitespace);
+        readonly Regex sentenceFinderRegex = new Regex(sentenceRegex, options);
         //readonly Regex oldSentenceFinderRegex = new Regex(@"(?<=[\.\?!]\s+|^)((?<sentence>(\(|" + "\"" + @")?[A-Z]( ([Ss]t|Mrs?|dr|ed|c|v(s|ol)?|[nN]o(?=\s+[0-9])|et al)\.|\(\w+\.|[A-Z]\. |\.([\w\d]| (\w\.( \w\.)*|[a-z]))|[^\.\n\?!])+[\.\?!\n](\)|" + "\"" + @")?))(?=\s|$)", options);
         
 //        readonly Regex oldSentenceFinderRegex = new Regex(@"

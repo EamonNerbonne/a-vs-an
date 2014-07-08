@@ -89,7 +89,7 @@ namespace WikipediaAvsAnTrieExtractor {
 |(?<=&)[aA][mM][pP];
 |^(\#[rR][eE][dD][iI][rR][eE][cC][tT][^\n]*|\*+|=+)
 )
-", options | RegexOptions.IgnorePatternWhitespace);
+", options);
 
         readonly Regex markupToReplaceRegex = new Regex(@"
   \[
@@ -105,6 +105,6 @@ namespace WikipediaAvsAnTrieExtractor {
         \]
     )
   \]
-", options | RegexOptions.IgnorePatternWhitespace);
+", options);
     }
 }
