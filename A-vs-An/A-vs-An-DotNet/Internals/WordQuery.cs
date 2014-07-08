@@ -3,7 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace AvsAnLib.Internals {
-    static class WordQuery {
+    public static class WordQuery {
+        /// <summary>
+        /// Determines the article for a given prefix by looking it up in the prefix trie.  Recursive.
+        /// </summary>
+        /// <param name="node">The root of the (remaining) prefix-trie to check</param>
+        /// <param name="word">The word being checked</param>
+        /// <param name="depth">The depth within the word/trie (initially 0).</param>
         public static AvsAn.Result Query(Node node, string word, int depth) {
             Ratio result = node.ratio;
             while (true)

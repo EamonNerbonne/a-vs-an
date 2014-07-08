@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 
 namespace AvsAnLib.Internals {
+    /// <summary>
+    /// A mutable node representing an article prefix-trie during construction.
+    /// </summary>
     public class MutableNode {
-        //static readonly Node[] EmptyNodeArr = new Node[0];
         internal Ratio ratio;
         internal Dictionary<char, MutableNode> Kids;
         
