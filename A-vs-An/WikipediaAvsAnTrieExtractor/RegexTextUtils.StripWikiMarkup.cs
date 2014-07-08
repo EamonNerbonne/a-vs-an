@@ -30,7 +30,13 @@ namespace WikipediaAvsAnTrieExtractor {
             while (true) {
                 if (nextOpen < nextClose) {
                     if (numOpen == 0)
+                    {
                         sb.Append(wikiMarkedUpText.Substring(startAt, nextOpen - startAt));
+                        sb.Append("__");
+                        //we replace templated content by "something" so that later interpretation
+                        //doesn't mistakenly think the word right before and right after the template
+                        //are actually adjacent in the text.
+                    }
                     numOpen++;
                     nextOpen = wikiMarkedUpText.IndexOf("{{", nextOpen + 2, StringComparison.Ordinal);
                     nextOpen = nextOpen == -1 ? int.MaxValue : nextOpen;
