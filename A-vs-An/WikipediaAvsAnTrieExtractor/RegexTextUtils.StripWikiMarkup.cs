@@ -81,7 +81,8 @@ namespace WikipediaAvsAnTrieExtractor {
         |[sS][mM][aA][lL][lL]
         )>
       )
-  |[^>]*>
+  |[a-z0-9]+(?<=<(
+h1|h2|h3|h4|h5|h6|p|br|hr|comment|abbr|b|bdi|blockquote|cite|code|data|del|dfn|em|i|ins|kbd|mark|pre|rb|rp|rt|ruby|s|samp|small|strong|sub|sup|time|u|var|wbr|dl|dt|dd|ol|ul|li|div|span|table|td|tr|th|caption|thead|tfoot|tbody|elements|big|center|font|strike|tt))( [^>]*)?>
   )
 |=+[ ]*$
 |&[nN]([bB][sS][pP]|[dD][aA][sS][hH]);
