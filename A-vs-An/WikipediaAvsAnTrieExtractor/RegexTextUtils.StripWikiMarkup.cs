@@ -10,9 +10,9 @@ namespace WikipediaAvsAnTrieExtractor {
         //This code is bottlenecked by regexes, so this really matters, here.
 
 
-        public string StripWikiMarkup(string wikiMarkedUpText)
-        {
-            var withoutNonTrivialMarkup = markupToStripRegex.Replace(wikiMarkedUpText, "");
+        public string StripWikiMarkup(string wikiMarkedUpText) {
+            var markupWithQuotesNotEmphasis = markupToReplaceWithQuotes.Replace(wikiMarkedUpText, "\"");
+            var withoutNonTrivialMarkup = markupToStripRegex.Replace(markupWithQuotesNotEmphasis, "");
             var withoutBraces = CutBraces(withoutNonTrivialMarkup);
             var plainTextMarkupReplacedByContent =
                 markupToReplaceRegex.Replace(withoutBraces, m => m.Groups["txt"].Value);
@@ -54,6 +54,10 @@ namespace WikipediaAvsAnTrieExtractor {
             return sb.ToString();
         }
 
+        readonly Regex markupToReplaceWithQuotes = new Regex(@"
+    ''+ #For a vs. an: important that emphasis isn't around article
+    |</?code>
+", options);
         readonly Regex markupToStripRegex = new Regex(@"
 (?>
 '''*
