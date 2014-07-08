@@ -9,8 +9,15 @@ namespace WikipediaAvsAnTrieExtractor {
         //This code is bottlenecked by regexes, so this really matters, here.
 
         readonly Regex followingAn = new Regex(@"(^(?<article>An?)|[\s""()‘’“”](?<article>an?)) [""‘’“”$']*(?<word>[^\s""()‘’“”$-]+)", RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.CultureInvariant);
-        //watch out for dashes before "A" because of things like "Triple-A annotation"
-        //Be careful of words like Chang'an - ' is not a seperator here.
+        //general notes:
+        //words consist of anything BUT spaces and delimiters "()‘’“”-
+        //dash is a word delimiter in pronunciation, which is all we care about here
+        //$ isn't a delimiter, but its an unpronounced prefix ($3 is "three dollars"), so 
+        //we exclude $ from words too.
+        
+        //Some tricky corner-cases:
+        //watch out for dashes *before* "A" because of things like "Triple-A annotation"
+        //Be careful of words like Chang'an - ' is not a separator here.
         //Prefer a few false negatives over false positives when it comes to article detection.
         //In particular, some symbolic math and logic expressions use the word "a" followed by things
         //like parentheses and that throws the statistics a little (but enough in rarely occuring 
