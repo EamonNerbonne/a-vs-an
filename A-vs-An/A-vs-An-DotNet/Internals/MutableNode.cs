@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AvsAnLib {
+namespace AvsAnLib.Internals {
     public class MutableNode {
         //static readonly Node[] EmptyNodeArr = new Node[0];
         internal Ratio ratio;

@@ -9,6 +9,7 @@ using System.Threading;
 using System.Xml;
 using System.Diagnostics;
 using AvsAnLib;
+using AvsAnLib.Internals;
 
 namespace WikipediaAvsAnTrieExtractor {
     static class Program {

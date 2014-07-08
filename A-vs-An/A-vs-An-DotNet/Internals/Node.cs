@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AvsAnLib {
+namespace AvsAnLib.Internals {
     public struct Node : IComparable<Node> {
         public char c;
         public Ratio ratio;

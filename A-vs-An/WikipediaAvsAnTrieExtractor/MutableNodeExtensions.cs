@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using AvsAnLib;
+using AvsAnLib.Internals;
 
 namespace WikipediaAvsAnTrieExtractor {
 
