@@ -7,12 +7,12 @@
   <Reference Relative="A-vs-An\AvsAn-Test\bin\Release\ExpressionToCodeLib.dll">C:\VCS\remote\a-vs-an\A-vs-An\AvsAn-Test\bin\Release\ExpressionToCodeLib.dll</Reference>
   <Reference Relative="A-vs-An\AvsAn-Test\bin\Release\nunit.framework.dll">C:\VCS\remote\a-vs-an\A-vs-An\AvsAn-Test\bin\Release\nunit.framework.dll</Reference>
   <Reference Relative="A-vs-An\WikipediaAvsAnTrieExtractor\bin\Release\WikipediaAvsAnTrieExtractor.exe">C:\VCS\remote\a-vs-an\A-vs-An\WikipediaAvsAnTrieExtractor\bin\Release\WikipediaAvsAnTrieExtractor.exe</Reference>
-  <NuGetReference>AvsAn</NuGetReference>
   <NuGetReference>ExpressionToCodeLib</NuGetReference>
   <NuGetReference>morelinq</NuGetReference>
   <NuGetReference>ValueUtils</NuGetReference>
   <Namespace>AvsAn_Test</Namespace>
   <Namespace>AvsAnLib</Namespace>
+  <Namespace>AvsAnLib.Internals</Namespace>
   <Namespace>EmnExtensions</Namespace>
   <Namespace>EmnExtensions.Algorithms</Namespace>
   <Namespace>EmnExtensions.MathHelpers</Namespace>
@@ -30,12 +30,12 @@
 </Query>
 
 var node = MutableNodeExtensions.DeserializeReadable(File.ReadAllText(@"E:\avsan.log",Encoding.UTF8));
-var newLookup = node.Simplify(8).Finish(' ');
+var newLookup = node.Simplify(6).Finish(' ');  
 var dict = Dictionaries.LoadEnglishDictionary();
 var badset= new HashSet<string>(@"
 contains each either enough enoughs exists ft fth fthm ftncmd ftnerr including includible 
-indicate instead instealing insteam it iud iuds 
-abouchement aboudikro aboulia an are if on than un
+indicate instead instealing insteam it iud iuds dich
+abouchement aboudikro aboulia an are if on than un honed onza states
 ".Split(" \r\n".ToCharArray(),StringSplitOptions.RemoveEmptyEntries));
 var badprefixes = @"
 abou
@@ -46,20 +46,28 @@ usur
 hong
 anot
 hond
+honi
+onf
+lvalue
+yl
 herbal
 ona
+and
 unillu
+ukiyo
+unanc
 ust
 unissu
+unidiomatic
 onei
 haut
 ".Split(" \r\n".ToCharArray(),StringSplitOptions.RemoveEmptyEntries);
-
+//sf?x?
 (from word in dict
  where !badset.Contains(word)
  where !badprefixes.Any(p=>word.StartsWith(p))
  let classification = AvsAn.Query(word)
- let newclassification= AvsAn.Query(newLookup,word,0)
+ let newclassification= WordQuery.Query(newLookup,word,0)
  where classification.Article != newclassification.Article
  where classification.aCount+classification.anCount > 40
  select new {word, 
@@ -69,4 +77,3 @@ haut
  
  //an durin (59/46)
  //a exemplifie (23/)
- 
