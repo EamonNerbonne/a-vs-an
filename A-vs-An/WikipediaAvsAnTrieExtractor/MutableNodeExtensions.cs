@@ -4,11 +4,9 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using AvsAnLib;
 using AvsAnLib.Internals;
 
 namespace WikipediaAvsAnTrieExtractor {
-
     public static class MutableNodeExtensions {
         public static int Count(this MutableNode node) {
             int count = 1;
@@ -98,7 +96,7 @@ namespace WikipediaAvsAnTrieExtractor {
                         continue;
                     var simpleKid = kid.Simplify(scaleFactor);
                     if (simpleKid.Kids != null ||
-                        diff * (long)diff > scaleFactor * (long)occurence
+                        diff * (long)diff >= scaleFactor * (long)occurence
                         //&& simpleKid.Annotation() != node.Annotation()
                         ) {
                         simpleKids = simpleKids ?? new Dictionary<char, MutableNode>();
