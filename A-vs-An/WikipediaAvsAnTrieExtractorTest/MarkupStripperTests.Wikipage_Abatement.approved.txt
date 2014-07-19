@@ -1,14 +1,14 @@
-﻿
+﻿__
 
 
-Abatement may refer to:
+"Abatement" may refer to:
 
 Abatement of debts and legacies, a common law doctrine of wills
 Abatement in pleading, a legal defence to civil and criminal actions based purely on procedural and technical issues involving the death of parties
 Abatement (heraldry), a modification of the shield or coat of arms that supposedly can be imposed by authority (in England supposedly by the Court of Chivalry) for misconduct
  Bird abatement, driving or removing undesired birds from an area
  Dust abatement, the process of inhibiting the creation of excess soil dust, a pollutant that contributes to excess levels of particulate matter
-Tax Abatement (aka Tax holiday) is used in the field of economic development to encourage businesses to relocate, expand, and more currently to retain facilities in a community
+"Tax Abatement" (aka Tax holiday) is used in the field of economic development to encourage businesses to relocate, expand, and more currently to retain facilities in a community
 
-
+__
 

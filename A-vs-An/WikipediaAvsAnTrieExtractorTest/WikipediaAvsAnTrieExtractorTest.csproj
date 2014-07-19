@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MarkupStripperUnitTests.cs" />
     <Compile Include="SerializeToDenseHexTest.cs" />
     <Compile Include="MarkupStripperTests.cs" />
     <Compile Include="SentenceFinderTest.cs" />

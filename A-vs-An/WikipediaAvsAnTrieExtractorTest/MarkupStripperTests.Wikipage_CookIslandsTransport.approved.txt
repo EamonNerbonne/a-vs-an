@@ -1,6 +1,6 @@
-﻿
+﻿__
 
-This article lists transport in the Cook Islands.
+This article lists "transport in the Cook Islands".
 
 ; Railways:
 : 0.1 km (Rarotonga Steam Railway)
@@ -11,7 +11,7 @@ This article lists transport in the Cook Islands.
 ; Ports and harbours:
 : Avarua, Avatiu
 ; Merchant marine:
-:* Total: 1 ship (1,000 GRT or over) totalling 2,310 GRT/
+:* Total: 1 ship (1,000 GRT or over) totalling 2,310 GRT/__
 :* Ships by type: Cargo 1 (1999 est.)
 ; Airports:
 : 7 (1999 est.)
@@ -29,8 +29,9 @@ This article lists transport in the Cook Islands.
 External links
  Airports and Ports in the Cook Islands
 
-
-
+__
+__
 
  
 
+__
