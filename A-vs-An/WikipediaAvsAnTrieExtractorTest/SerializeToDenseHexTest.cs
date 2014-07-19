@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AvsAnLib.Internals;
+using WikipediaAvsAnTrieExtractor;
+using Xunit;
+
+namespace WikipediaAvsAnTrieExtractorTest {
+    public class SerializeToDenseHexTest {
+        [Fact]
+        public void SingleNodeWorks() {
+            var node = new Node { c = ' ', ratio = { aCount = 0x2468ad, anCount = 0x12345 } };
+            Assert.Equal(@"[2468ad:12345]", node.SerializeToDenseHex());
+        }
+
+        [Fact]
+        public void RootNodeWithKidsWorks() {
+            var node = new Node {
+                c = ' ',
+                ratio = { aCount = 1, anCount = 11 },
+                SortedKids = new[] {
+                    new Node {
+                        c = 'b',
+                        ratio = {aCount = 5, anCount = 0}
+                    },
+                    new Node {
+                        c = 'u',
+                        ratio = {aCount = 2, anCount = 15}
+                    },
+                }
+            };
+
+            Assert.Equal(@"[1:b]b[5:0]u[2:f]", node.SerializeToDenseHex());
+        }
+
+        [Fact]
+        public void FourLevelTree() {
+            var node = new Node {
+                c = ' ',
+                ratio = { aCount = 1, anCount = 11 },
+                SortedKids = new[] {
+                    new Node {
+                        c = 'b',
+                        ratio = {aCount = 5, anCount = 0},
+                        SortedKids = new[] {
+                            new Node {
+                                c = 'u',
+                                ratio = {aCount = 2, anCount = 15}
+                            },
+                            new Node {
+                                c = 'c',
+                                ratio = {aCount = 3, anCount = 4},
+                                SortedKids = new[] {
+                                    new Node {
+                                        c = 'd',
+                                        ratio = {aCount = 0x100, anCount = 0x80}
+                                    },
+                                },
+                            },
+                        },
+                    },
+                }
+            };
+
+
+            Assert.Equal(@"[1:b]b[5:0]bu[2:f]bc[3:4]bcd[100:80]", node.SerializeToDenseHex());
+        }
+    }
+}

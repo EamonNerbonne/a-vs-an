@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SerializeToDenseHexTest.cs" />
     <Compile Include="MarkupStripperTests.cs" />
     <Compile Include="SentenceFinderTest.cs" />
     <Compile Include="WhitespaceNormalizerTest.cs" />
@@ -63,6 +64,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\A-vs-An-DotNet\AvsAn.csproj">
+      <Project>{CB925C3D-7ECE-48DE-AA24-A3FA2D00159E}</Project>
+      <Name>AvsAn</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WikipediaAvsAnTrieExtractor\WikipediaAvsAnTrieExtractor.csproj">
       <Project>{41d551c9-7343-455a-abc4-26c02d41855e}</Project>
       <Name>WikipediaAvsAnTrieExtractor</Name>

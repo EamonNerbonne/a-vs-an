@@ -16,18 +16,42 @@ namespace WikipediaAvsAnTrieExtractor {
             return count;
         }
 
+        public static string SerializeToDenseHex(this Node node) {
+            var sb = new StringBuilder();
+            SerializeToDenseHex(node, sb, "");
+            return sb.ToString();
+        }
+
+        static void SerializeToDenseHex(this Node node, StringBuilder sb, string prefix) {
+            sb.Append(prefix);
+            sb.Append('[');
+            sb.Append(node.ratio.aCount.ToString("x"));
+            sb.Append(':');
+            sb.Append(node.ratio.anCount.ToString("x"));
+            sb.Append(']');
+            if (node.SortedKids != null)
+                foreach (var kidEntry in node.SortedKids)
+                    kidEntry.SerializeToDenseHex(sb, prefix + kidEntry.c);
+        }
+
         public static string SerializeToReadable(this MutableNode node) {
             var sb = new StringBuilder();
             SerializeToReadableImpl(node, sb, "");
             return sb.ToString();
         }
-        static void SerializeToReadableImpl(this MutableNode node, StringBuilder sb, string prefix) {
+
+        private static void SerializeToReadableImpl(this MutableNode node, StringBuilder sb, string prefix) {
             if (node.Kids != null)
-                foreach (var kidEntry in node.Kids.OrderBy(kv => kv.Key.ToString(CultureInfo.InvariantCulture), StringComparer.InvariantCultureIgnoreCase))
+                foreach (
+                    var kidEntry in
+                        node.Kids.OrderBy(kv => kv.Key.ToString(CultureInfo.InvariantCulture),
+                            StringComparer.InvariantCultureIgnoreCase))
                     kidEntry.Value.SerializeToReadableImpl(sb, prefix + kidEntry.Key);
             sb.Append(prefix);
 
-            sb.Append(node.ratio.anCount < node.ratio.aCount ? "[a:" : node.ratio.anCount > node.ratio.aCount ? "[an:" : "[?:");
+            sb.Append(node.ratio.anCount < node.ratio.aCount
+                ? "[a:"
+                : node.ratio.anCount > node.ratio.aCount ? "[an:" : "[?:");
             sb.Append(node.ratio.aCount);
             sb.Append(':');
             sb.Append(node.ratio.anCount);
@@ -53,12 +77,13 @@ namespace WikipediaAvsAnTrieExtractor {
             else node.ratio.aCount++;
 
             if (level < 40)
-                if(word.Length > level)
+                if (word.Length > level)
                     GetChild(node, word[level]).IncrementPrefix(isAn, word, level + 1);
-                else if(word.Length == level)
+                else if (word.Length == level)
                     GetChild(node, ' ').IncrementTerminator(isAn);
         }
-        static void IncrementTerminator(this MutableNode node, bool isAn) {
+
+        private static void IncrementTerminator(this MutableNode node, bool isAn) {
             if (isAn) node.ratio.anCount++;
             else node.ratio.aCount++;
         }
@@ -72,14 +97,21 @@ namespace WikipediaAvsAnTrieExtractor {
             return kid;
         }
 
-        static int Occurence(this MutableNode node) {
+        private static int Occurence(this MutableNode node) {
             return node.ratio.anCount + node.ratio.aCount;
         }
-        static int Diff(this MutableNode node) { return Math.Abs(node.ratio.anCount - node.ratio.aCount); }
-        static double DiffRatio(this MutableNode node) {
+
+        private static int Diff(this MutableNode node) {
+            return Math.Abs(node.ratio.anCount - node.ratio.aCount);
+        }
+
+        private static double DiffRatio(this MutableNode node) {
             return node.Diff() / (double)node.Occurence();
         }
-        static int Annotation(this MutableNode node) { return Math.Sign(node.ratio.anCount - node.ratio.aCount); }
+
+        private static int Annotation(this MutableNode node) {
+            return Math.Sign(node.ratio.anCount - node.ratio.aCount);
+        }
 
         //const int MinOccurence = 19;
         //const int MinDiff = 9;
@@ -92,7 +124,7 @@ namespace WikipediaAvsAnTrieExtractor {
                     var kid = kidEntry.Value;
                     var diff = kid.ratio.anCount - kid.ratio.aCount;
                     var occurence = kid.Occurence();
-                    if(Math.Abs(occurence) < scaleFactor)
+                    if (Math.Abs(occurence) < scaleFactor)
                         continue;
                     var simpleKid = kid.Simplify(scaleFactor);
                     if (simpleKid.Kids != null ||
