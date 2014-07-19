@@ -9,10 +9,35 @@ using Xunit;
 
 namespace WikipediaAvsAnTrieExtractorTest {
     public class SerializeToDenseHexTest {
+        static readonly NodeEqC NodeEq = new NodeEqC();
+        class NodeEqC : IEqualityComparer<Node> {
+            public bool Equals(Node x, Node y) {
+                return
+                    x.c == y.c
+                    && x.ratio.aCount == y.ratio.aCount
+                       && x.ratio.anCount == y.ratio.anCount
+                       && (x.SortedKids == null) == (y.SortedKids == null)
+                       && (x.SortedKids == null ||
+                       x.SortedKids.Length == y.SortedKids.Length
+                       && x.SortedKids.SequenceEqual(y.SortedKids, NodeEq)
+                       )
+                       ;
+            }
+
+            public int GetHashCode(Node obj) {
+                return obj.c;
+            }
+        }
+
         [Fact]
         public void SingleNodeWorks() {
             var node = new Node { c = ' ', ratio = { aCount = 0x2468ad, anCount = 0x12345 } };
-            Assert.Equal(@"[2468ad:12345]", node.SerializeToDenseHex());
+            const string serializedNode = @"[2468ad:12345]";
+            Assert.Equal(serializedNode, node.SerializeToDenseHex());
+            Assert.Equal(serializedNode, node.SerializeToDenseHex());
+            Assert.Equal(node,
+                Node.CreateFromMutable(MutableNode.DeserializeDenseHex(serializedNode)));
+
         }
 
         [Fact]
@@ -32,11 +57,13 @@ namespace WikipediaAvsAnTrieExtractorTest {
                 }
             };
 
-            Assert.Equal(@"[1:b]b[5:0]u[2:f]", node.SerializeToDenseHex());
+            const string serializedNode = @"[1:b]b[5:0]u[2:f]";
+            Assert.Equal(serializedNode, node.SerializeToDenseHex());
+            Assert.Equal(node, Node.CreateFromMutable(MutableNode.DeserializeDenseHex(serializedNode)));
         }
 
         [Fact]
-        public void FourLevelTree() {
+        public void SerializeFourLevelTree() {
             var node = new Node {
                 c = ' ',
                 ratio = { aCount = 1, anCount = 11 },
@@ -63,9 +90,12 @@ namespace WikipediaAvsAnTrieExtractorTest {
                     },
                 }
             };
+            const string serializedNode = @"[1:b]b[5:0]bu[2:f]bc[3:4]bcd[100:80]";
 
+            Assert.Equal(serializedNode, node.SerializeToDenseHex());
+            Assert.Equal(node, 
+                Node.CreateFromMutable(MutableNode.DeserializeDenseHex(serializedNode)));
 
-            Assert.Equal(@"[1:b]b[5:0]bu[2:f]bc[3:4]bcd[100:80]", node.SerializeToDenseHex());
         }
     }
 }
