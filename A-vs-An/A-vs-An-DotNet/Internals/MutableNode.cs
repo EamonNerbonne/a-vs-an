@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace AvsAnLib.Internals {
     /// <summary>
@@ -21,16 +23,25 @@ namespace AvsAnLib.Internals {
                 kid.LoadPrefixRatio(prefix, depth + 1, prefixRatio);
             }
         }
-        public Node Finish(char key) {
-            Node[] sortedKids = null;
-            if (Kids != null) {
-                sortedKids = new Node[Kids.Count];
-                int i = 0;
-                foreach (var kv in Kids)
-                    sortedKids[i++] = kv.Value.Finish(kv.Key);
-                Array.Sort(sortedKids);
-            }
-            return new Node { c = key, ratio = ratio, SortedKids = sortedKids };
+
+
+        public static MutableNode DeserializeDenseHex(string rawDict) {
+            var mutableRoot = new MutableNode();
+            foreach (
+                Match m in Regex.Matches(rawDict, @"([^\[]*)\[([0-9a-f]*):([0-9a-f]*)\]", RegexOptions.CultureInvariant)
+                )
+                mutableRoot.LoadPrefixRatio(
+                    m.Groups[1].Value,
+                    0,
+                    new Ratio {
+                        aCount = parseHex(m.Groups[2].Value),
+                        anCount = parseHex(m.Groups[3].Value)
+                    });
+            return mutableRoot;
         }
+        static int parseHex(string str) {
+            return str == "" ? 0 : int.Parse(str, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture);
+        }
+
     }
 }
