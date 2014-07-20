@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using ApprovalTests;
 using ApprovalTests.Reporters;
 using WikipediaAvsAnTrieExtractor;
@@ -11,7 +12,7 @@ namespace WikipediaAvsAnTrieExtractorTest {
     public class MarkupStripperTests {
         readonly RegexTextUtils utils = new RegexTextUtils();
 
-        [Fact]
+        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
         public void Wikipage_AaRiver() {
             Approvals.Verify(utils.StripWikiMarkup(@"'''Aa River''' may refer to:
 
@@ -35,7 +36,7 @@ namespace WikipediaAvsAnTrieExtractorTest {
 [[zh:阿河]]"));
         }
 
-        [Fact]
+        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
         public void Wikipage_AfrikaIslam() {
             Approvals.Verify(utils.StripWikiMarkup(@"'''Afrika Islam''' (born Charles Glenn, 1968, [[New York City]]) also known as the ""''Son of [[Afrika Bambaataa|Bambaataa]]''"", is an American [[hip hop production|hip-hop producer]] <ref>{{cite web|url=http://www.thedjlist.com/djs/AFRIKA_ISLAM/ |title=Afrika Islam |publisher=thedjlist.com |accessdate=2009-07-21}}</ref>. 
 
@@ -61,7 +62,7 @@ In the late 1990s, Afrika Islam joined German [[techno music|techno]] icon [[Wes
 [[pl:Afrika Islam]]"));
         }
 
-        [Fact]
+        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
         public void Wikipage_Abatement() {
             Approvals.Verify(utils.StripWikiMarkup(@"{{wiktionarypar|abatement}}
 <!--{{Wikisource1911Enc|Abatement}}-->
@@ -82,7 +83,7 @@ In the late 1990s, Afrika Islam joined German [[techno music|techno]] icon [[Wes
 
 
         //TODO: support definition lists.
-        [Fact]
+        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
         public void Wikipage_CookIslandsTransport() {
             Approvals.Verify(utils.StripWikiMarkup(@"{{CIA}}
 
@@ -124,7 +125,7 @@ This article lists '''[[transport]] in the [[Cook Islands]]'''.
         }
 
 
-        [Fact]
+        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
         public void Wikipage_DominicaTransport() {
             Approvals.Verify(utils.StripWikiMarkup(@"{{Unreferenced|date=December 2009}}
 {{CIA}}
@@ -164,7 +165,7 @@ Dominica has three ports of entry: Portsmouth, Roseau, and Anse-de-Mai. Portsmou
 [[lt:Dominikos transportas]]"));
         }
 
-        [Fact]
+        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
         public void Wikipage_Disperser() {
             Approvals.Verify(utils.StripWikiMarkup(@"A '''disperser''' is a one-sided [[randomness extractor|extractor]].<ref>Ronen Shaltiel. Recent developments in explicit construction of extractors. P. 7.</ref> Where an extractor requires that every event gets the same [[probability]] under the [[uniform distribution]] and the extracted distribution, only the latter is required for a disperser. So for a disperser, an event <math>A \subseteq \{0,1\}^{m}</math> we have:
 <math>Pr_{U_{m}}[A] > 1 - \epsilon</math>
@@ -196,7 +197,7 @@ A disperser is a high-speed mixing device used to disperse or dissolve pigments 
 {{Combin-stub}}"));
         }
 
-        [Fact]
+        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
         public void Wikipage_FeaturedList() {
             Approvals.Verify(utils.StripWikiMarkup(@"<noinclude>{| style=""float:right; padding:1em; border:1px solid #A3B1BF; background-color:#E6F2FF; margin:0 0 0.5em 1em""
 |{{Shortcut|WP:WIAFL|WP:FL?|WP:FLCR}}
@@ -233,7 +234,7 @@ A [[WP:Featured lists|featured list]] exemplifies our very best work. It covers 
 </noinclude>"));
         }
 
-        [Fact]
+        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
         public void Wikipage_Glottis() {
             Approvals.Verify(utils.StripWikiMarkup(@"{{Infobox Anatomy |
   Name         = Glottis |
