@@ -4,28 +4,43 @@ using AvsAnLib.Internals;
 
 namespace WikipediaAvsAnTrieExtractor {
     public static class SimplifyExtension {
-        public static MutableNode Simplify(this MutableNode node, int scaleFactor) {
-            Dictionary<char, MutableNode> simpleKids = null;
-            if (node.Kids != null)
-                foreach (var kidEntry in node.Kids) {
-                    var kid = kidEntry.Value;
-                    var diff = kid.ratio.anCount - kid.ratio.aCount;
-                    var occurence = kid.ratio.anCount + kid.ratio.aCount;
-                    if (Math.Abs(occurence) < scaleFactor)
-                        continue;
-                    var simpleKid = kid.Simplify(scaleFactor);
-                    if (simpleKid.Kids != null ||
-                        diff*(long) diff >= scaleFactor*(long) occurence
-                        //&& simpleKid.Annotation() != node.Annotation()
-                        ) {
-                        simpleKids = simpleKids ?? new Dictionary<char, MutableNode>();
-                        simpleKids.Add(kidEntry.Key, simpleKid);
-                    }
+        public static Node Simplify(this Node node, int scaleFactor) {
+            if (node.SortedKids == null)
+                return new Node {
+                    c = node.c,
+                    ratio = node.ratio,
+                };
+
+            Node[] simpleKids = null;
+            int kidCount = 0;
+            foreach (var kidEntry in node.SortedKids) {
+                var kid = kidEntry;
+                var diff = kid.ratio.anCount - kid.ratio.aCount;
+                var occurence = kid.ratio.anCount + kid.ratio.aCount;
+                if (Math.Abs(occurence) < scaleFactor)
+                    continue;
+                var simpleKid = kid.Simplify(scaleFactor);
+                if (simpleKid.SortedKids != null ||
+                    diff * (long)diff >= scaleFactor * (long)occurence
+                    && Annotation(simpleKid) != Annotation(node)
+                    ) {
+                    if (simpleKids == null)
+                        simpleKids = new Node[node.SortedKids.Length];
+                    simpleKids[kidCount++] = simpleKid;
                 }
-            return new MutableNode {
+            }
+            if (simpleKids != null)
+                Array.Resize(ref simpleKids, kidCount);
+
+            return new Node {
+                c = node.c,
                 ratio = node.ratio,
-                Kids = simpleKids
+                SortedKids = simpleKids
             };
+        }
+
+        static bool Annotation(Node node) {
+            return node.ratio.anCount > node.ratio.aCount;
         }
     }
 }
