@@ -1,39 +1,40 @@
-﻿
-The glottis is defined as the combination of the vocal folds and the space in between the folds (the rima glottidis).
+﻿__
+The "glottis" is defined as the combination of the vocal folds and the space in between the folds (the rima glottidis).
 
 Function
-As the vocal folds vibrate, the resulting vibration produces a "buzzing" quality to the speech, called voice or voicing or pronunciation. 
+As the vocal folds vibrate, the resulting vibration produces a "buzzing" quality to the speech, called "voice" or "voicing" or "pronunciation". 
 
-Sound production involving only the glottis is called glottal. English has a voiceless glottal fricative spelled "h". In many accents of English the glottal stop (made by pressing the folds together) is used as a variant allophone of the phoneme  (and in some dialects, occasionally of  and ); in some languages, this sound is a phoneme of its own.
+Sound production involving only the glottis is called "glottal". English has a voiceless glottal fricative spelled "h". In many accents of English the glottal stop (made by pressing the folds together) is used as a variant allophone of the phoneme __ (and in some dialects, occasionally of __ and __); in some languages, this sound is a phoneme of its own.
 
 Skilled players of the Australian didgeridoo restrict their glottal opening in order to produce the full range of timbres available on the instrument. 
 
 
-The vibration produced is an essential component of voiced consonants as well as vowels. If the vocal folds are drawn apart, air flows between them causing no vibration, as in the production of voiceless consonants. 
+The vibration produced is an essential component of "voiced" consonants as well as vowels. If the vocal folds are drawn apart, air flows between them causing no vibration, as in the production of voiceless consonants. 
 
 The glottis is also important in the valsalva maneuver.
 
-Voiced consonants include 
-Voiceless consonants include 
+Voiced consonants include __
+Voiceless consonants include __
 
 Additional images
-
+<gallery>
  Image:Illu07 larynx01.jpg|Larynx
  Image:Gray955.png|The entrance to the larynx, viewed from behind.
  Image:Gray1204.png|The entrance to the larynx.
-
+</gallery>
 
 See also
 Phonation
 
 References
-
+__
 
 References of Glottis Simulator
-de Menezes Lyra R. Glottis simulator. Anesth Analg. 1999 Jun;88(6):1422-3.
+de Menezes Lyra R. Glottis simulator. Anesth Analg. 1999 Jun;88(6):1422-3.[http://www.anesthesia-analgesia.org/cgi/reprint/88/6/1424.pdf]
 
 Smith, N Ty. Simulation in anesthesia: the merits of large simulators versus small simulators. Current Opinion in Anaesthesiology. 13(6):659-665, December 2000.
 
+__
 
 
 
@@ -41,8 +42,7 @@ Smith, N Ty. Simulation in anesthesia: the merits of large simulators versus sma
 
 
 
-
-
+__
 
 
 
