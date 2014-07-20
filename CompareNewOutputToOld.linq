@@ -29,9 +29,9 @@
   <Namespace>WikipediaAvsAnTrieExtractor</Namespace>
 </Query>
 
-var node = MutableNodeExtensions.DeserializeReadable(File.ReadAllText(@"E:\avsan.log",Encoding.UTF8));
-var newLookup = node.Simplify(6).Finish(' ');  
-var dict = Dictionaries.LoadEnglishDictionary();
+var node = MutableNodeExtensions.DeserializeReadable(File.ReadAllText(@"E:\avsan-old.log",Encoding.UTF8));
+var newLookup = Node.CreateFromMutable( node.Simplify(6));  
+var dict = Dictionaries.AcronymsWithUpto4Letters();
 var badset= new HashSet<string>(@"
 contains each either enough enoughs exists ft fth fthm ftncmd ftnerr including includible 
 indicate instead instealing insteam it iud iuds dich
