@@ -9,7 +9,6 @@ namespace WikipediaAvsAnTrieExtractor {
         //Note: regexes are NOT static and shared between threads because of... http://stackoverflow.com/questions/7585087/multithreaded-use-of-regex
         //This code is bottlenecked by regexes, so this really matters, here.
 
-
         public string StripWikiMarkup(string wikiMarkedUpText) {
             var markupWithQuotesNotEmphasis = markupToReplaceWithQuotes.Replace(wikiMarkedUpText, "\"");
             var withoutNonTrivialMarkup = markupToStripRegex.Replace(markupWithQuotesNotEmphasis, "");
@@ -19,7 +18,7 @@ namespace WikipediaAvsAnTrieExtractor {
             return DecodeEntities(plainTextMarkupReplacedByContent);
         }
 
-        string DecodeEntities(string text) {
+        public string DecodeEntities(string text) {
             return decodeEntitiesRegex.Replace(text, m => {
                 char c;
                 var key = text.Substring(m.Index + 1, m.Length - 2);
@@ -29,6 +28,43 @@ namespace WikipediaAvsAnTrieExtractor {
                     return m.Value;
                 }
             });
+        }
+
+        public string DecodeEntities2(string text) {
+            var sb = new StringBuilder();
+            int pos = 0;
+            while (true) {
+                int nextAmp = text.IndexOf('&', pos);
+                if (nextAmp < 0) {
+                    sb.Append(text, pos, text.Length - pos);
+                    break;
+                } else {
+                    int end = nextAmp + 1;
+                    while (end < text.Length &&
+                        (text[end] >= 'a' && text[end] <= 'z' ||
+                            text[end] >= 'A' && text[end] <= 'Z' ||
+                            text[end] >= '0' && text[end] <= '9'))
+                        end++;
+                    if (end == text.Length) {
+                        sb.Append(text, pos, end - pos);
+                        break;
+                    } else if (text[end] == ';' && end - nextAmp < 10) {
+                        var key = text.Substring(nextAmp + 1, end - (nextAmp + 1));
+                        char c;
+                        if (HtmlEntities.EntityLookup.TryGetValue(key, out c)) {
+                            sb.Append(text, pos, nextAmp - pos);
+                            sb.Append(c);
+                        } else {
+                            sb.Append(text, pos, end - pos + 1);
+                        }
+                        pos = end + 1;
+                    } else {
+                        sb.Append(text, pos, end - pos);
+                        pos = end;
+                    }
+                }
+            }
+            return sb.ToString();
         }
 
         static string CutBraces(string wikiMarkedUpText) {
@@ -43,7 +79,7 @@ namespace WikipediaAvsAnTrieExtractor {
                 if (nextOpen < nextClose) {
                     if (numOpen == 0) {
                         sb.Append(wikiMarkedUpText.Substring(startAt, nextOpen - startAt));
-                        sb.Append("__");
+                        sb.Append(" __ ");
                         //we replace templated content by "something" so that later interpretation
                         //doesn't mistakenly think the word right before and right after the template
                         //are actually adjacent in the text.
@@ -95,7 +131,7 @@ namespace WikipediaAvsAnTrieExtractor {
         )>
       )
   |/?[a-z0-9]+(?<=[</](
-h1|h2|h3|h4|h5|h6|p|br|hr|comment|abbr|b|bdi|blockquote|cite|code|data|del|dfn|em|i|ins|kbd|mark|pre|rb|rp|rt|ruby|s|samp|small|strong|sub|sup|time|u|var|wbr|dl|dt|dd|ol|ul|li|div|span|table|td|tr|th|caption|thead|tfoot|tbody|elements|big|center|font|strike|tt|noinclude))( [^>]*)?>
+h1|h2|h3|h4|h5|h6|p|br|hr|comment|abbr|b|bdi|blockquote|cite|code|data|del|dfn|em|i|ins|kbd|mark|pre|rb|rp|rt|ruby|s|samp|small|strong|sub|sup|time|u|var|wbr|dl|dt|dd|ol|ul|li|div|span|table|td|tr|th|caption|thead|tfoot|tbody|elements|big|center|font|strike|tt|noinclude|nowiki))( [^>]*)?>
   )
 |=+[ ]*$
 |&[nN]([bB][sS][pP]|[dD][aA][sS][hH]);
