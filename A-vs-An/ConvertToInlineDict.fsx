@@ -10,10 +10,10 @@ open AvsAnLib
 open AvsAnLib.Internals
 open ExpressionToCodeLib
 
-let rawDictPath = @"E:\avsan-old.log"
+let rawDictPath = @"E:\avsan.log"
 
 let newLookup =
-    File.ReadAllText(@"E:\avsan-old.log",Encoding.UTF8)
+    File.ReadAllText(rawDictPath, Encoding.UTF8)
     |> ReadableSerializationExtension.DeserializeReadable
     |> Node.CreateFromMutable
     |> (fun n -> n.Simplify(6))
