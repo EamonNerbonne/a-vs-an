@@ -78,6 +78,7 @@
     <Compile Include="RegexTextUtils.StripWikiMarkup.cs" />
     <Compile Include="RegexTextUtils.ExtractWordsAfterAOrAn.cs" />
     <Compile Include="SimplifyExtension.cs" />
+    <Compile Include="ToMutableExtension.cs" />
     <Compile Include="WhitespaceNormalizer.cs" />
     <Compile Include="RegexTextUtils.cs" />
   </ItemGroup>
