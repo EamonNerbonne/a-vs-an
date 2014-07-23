@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DenseHexExtension.cs" />
+    <Compile Include="HtmlEntities.cs" />
     <Compile Include="IncrementPrefixExtensions.cs" />
     <Compile Include="AvsAnSighting.cs" />
     <Compile Include="NodeCountExtension.cs" />
