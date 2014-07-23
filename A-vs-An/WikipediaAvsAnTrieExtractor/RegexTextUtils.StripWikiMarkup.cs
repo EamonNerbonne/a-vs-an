@@ -16,7 +16,19 @@ namespace WikipediaAvsAnTrieExtractor {
             var withoutBraces = CutBraces(withoutNonTrivialMarkup);
             var plainTextMarkupReplacedByContent =
                 markupToReplaceRegex.Replace(withoutBraces, m => m.Groups["txt"].Value);
-            return plainTextMarkupReplacedByContent;
+            return DecodeEntities(plainTextMarkupReplacedByContent);
+        }
+
+        string DecodeEntities(string text) {
+            return decodeEntitiesRegex.Replace(text, m => {
+                char c;
+                var key = text.Substring(m.Index + 1, m.Length - 2);
+                if (HtmlEntities.EntityLookup.TryGetValue(key, out c)) {
+                    return c.ToString();
+                } else {
+                    return m.Value;
+                }
+            });
         }
 
         static string CutBraces(string wikiMarkedUpText) {
@@ -29,8 +41,7 @@ namespace WikipediaAvsAnTrieExtractor {
             int startAt = 0;
             while (true) {
                 if (nextOpen < nextClose) {
-                    if (numOpen == 0)
-                    {
+                    if (numOpen == 0) {
                         sb.Append(wikiMarkedUpText.Substring(startAt, nextOpen - startAt));
                         sb.Append("__");
                         //we replace templated content by "something" so that later interpretation
@@ -59,6 +70,8 @@ namespace WikipediaAvsAnTrieExtractor {
 
             return sb.ToString();
         }
+
+        readonly Regex decodeEntitiesRegex = new Regex(@"&[A-Za-z0-9]+;", options);
 
         readonly Regex markupToReplaceWithQuotes = new Regex(@"
     ''+ #For a vs. an: important that emphasis isn't around article
