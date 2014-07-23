@@ -17,8 +17,7 @@ namespace WikipediaAvsAnTrieExtractor {
             if (node.Kids != null)
                 foreach (
                     var kidEntry in
-                        node.Kids.OrderBy(kv => kv.Key.ToString(CultureInfo.InvariantCulture),
-                            StringComparer.InvariantCultureIgnoreCase))
+                        node.Kids.OrderBy(kv => kv.Key))
                     kidEntry.Value.SerializeToReadableImpl(sb, prefix + kidEntry.Key);
             sb.Append(prefix);
 
