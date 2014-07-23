@@ -11,8 +11,9 @@ namespace WikipediaAvsAnTrieExtractor {
 
             foreach (var sentence in FindEnglishSentences(plaintextPage)) {
                 if (GradeEnglishSentence(sentence) > 1.0) {
-                    foreach (var entry in ExtractWordsPrecededByAOrAn(sentence))
+                    foreach (var entry in ExtractWordsPrecededByAOrAn(sentence)) {
                         retval.Add(entry);
+                    }
                 }
             }
             return retval.ToArray();

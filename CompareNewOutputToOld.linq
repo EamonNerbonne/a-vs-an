@@ -72,9 +72,9 @@ haut
 ".Split(" \r\n".ToCharArray(),StringSplitOptions.RemoveEmptyEntries);
 //sf?x?
 (from word in dict
- where !badset.Contains(word)
- where !badprefixes.Any(p=>word.StartsWith(p))
- let classification = AvsAn.Query(word)
+ //where !badset.Contains(word)
+// where !badprefixes.Any(p=>word.StartsWith(p))
+ let classification = WordQuery.Query(oldLookup,word,0)
  let newclassification= WordQuery.Query(newLookup,word,0)
  where classification.Article != newclassification.Article
  where classification.aCount+classification.anCount > 40

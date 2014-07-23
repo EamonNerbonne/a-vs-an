@@ -24,7 +24,6 @@ namespace AvsAnLib.Internals {
             }
         }
 
-
         public static MutableNode DeserializeDenseHex(string rawDict) {
             var mutableRoot = new MutableNode();
             foreach (
