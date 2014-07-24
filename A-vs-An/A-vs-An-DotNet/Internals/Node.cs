@@ -10,7 +10,7 @@ namespace AvsAnLib.Internals {
         public Node[] SortedKids;
         public int CompareTo(Node other) { return c.CompareTo(other.c); }
 
-        public static Node CreateFromMutable(MutableNode node, char key=' ') {
+        public static Node CreateFromMutable(MutableNode node, char key = ' ') {
             Node[] sortedKids = null;
             if (node.Kids != null) {
                 sortedKids = new Node[node.Kids.Count];
