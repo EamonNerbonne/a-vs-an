@@ -19,18 +19,6 @@ namespace WikipediaAvsAnTrieExtractor {
         }
 
         public string DecodeEntities(string text) {
-            return decodeEntitiesRegex.Replace(text, m => {
-                char c;
-                var key = text.Substring(m.Index + 1, m.Length - 2);
-                if (HtmlEntities.EntityLookup.TryGetValue(key, out c)) {
-                    return c.ToString();
-                } else {
-                    return m.Value;
-                }
-            });
-        }
-
-        public string DecodeEntities2(string text) {
             var sb = new StringBuilder();
             int pos = 0;
             while (true) {
@@ -106,8 +94,6 @@ namespace WikipediaAvsAnTrieExtractor {
 
             return sb.ToString();
         }
-
-        readonly Regex decodeEntitiesRegex = new Regex(@"&[A-Za-z0-9]+;", options);
 
         readonly Regex markupToReplaceWithQuotes = new Regex(@"
     ''+ #For a vs. an: important that emphasis isn't around article
