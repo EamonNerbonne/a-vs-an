@@ -30,5 +30,28 @@ namespace WikipediaAvsAnTrieExtractor {
                 node.Kids.Add(c, kid = new MutableNode());
             return kid;
         }
+
+        public static void IncrementPrefix(ref Node node, bool isAn, string word, int level) {
+            if (isAn) node.ratio.anCount++;
+            else node.ratio.aCount++;
+
+            if (level < 40)
+                if (word.Length > level) {
+                    int nextKidIdx = node.GetOrAddKidIdx(word[level]);
+                    IncrementPrefix(
+                        ref node.SortedKids[nextKidIdx],
+                        isAn, word, level + 1);
+                } else if (word.Length == level) {
+                    int nextKidIdx = node.GetOrAddKidIdx(' ');
+                    IncrementTerminator(
+                        ref node.SortedKids[nextKidIdx],
+                        isAn);
+                }
+        }
+
+        static void IncrementTerminator(ref Node node, bool isAn) {
+            if (isAn) node.ratio.anCount++;
+            else node.ratio.aCount++;
+        }
     }
 }
