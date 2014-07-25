@@ -27,36 +27,40 @@ namespace AvsAnLib.Internals {
             if (prefix.Length == depth) {
                 ratio = prefixRatio;
             } else {
-                int idx;
                 char kidC = prefix[depth];
-                if (SortedKids == null) {
-                    SortedKids = new[] { new Node { c = kidC, } };
-                    idx = 0;
-                } else {
-                    var nearestIdx = FindNearestNode(kidC);
-                    idx = nearestIdx;
-                    if (SortedKids[nearestIdx].c != kidC) {
-                        if (SortedKids[nearestIdx].c < kidC) {
-                            idx = nearestIdx + 1;
-                        }
-                        InsertBefore(idx, kidC);
-                    }
-                }
+                var idx = GetOrAddKidIdx(kidC);
                 SortedKids[idx].LoadPrefixRatio(prefix, depth + 1, prefixRatio);
             }
         }
 
-        int FindNearestNode(char c) {
+        public int GetOrAddKidIdx(char kidC) {
+            if (SortedKids == null) {
+                SortedKids = new[] { new Node { c = kidC, } };
+                return 0;
+            } else {
+                int idx = IdxAfterLastLtNode(kidC);
+
+                if (idx == SortedKids.Length || SortedKids[idx].c != kidC)
+                    InsertBefore(idx, kidC);
+                return idx;
+            }
+        }
+
+        int IdxAfterLastLtNode(char needle) {
             int start = 0, end = SortedKids.Length;
-            while (end - start > 1) {
+            //invariant: only LT nodes before start
+            //invariant: only GTE nodes at or past end
+
+            while (end != start) {
                 int midpoint = end + start >> 1;
-                if (SortedKids[midpoint].c <= c) {
-                    start = midpoint;
+                // start <= midpoint < end
+                if (SortedKids[midpoint].c < needle) {
+                    start = midpoint + 1;//i.e.  midpoint < start1 so start0 < start1
                 } else {
-                    end = midpoint;
+                    end = midpoint;//i.e end1 = midpoint so end1 < end0
                 }
             }
-            return start;
+            return end;
         }
 
         void InsertBefore(int idx, char c) {
