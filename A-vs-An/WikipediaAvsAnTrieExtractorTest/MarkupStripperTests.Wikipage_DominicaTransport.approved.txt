@@ -1,5 +1,5 @@
-﻿__
-__
+﻿ __ 
+ __ 
 
 "Railways:"
 
@@ -26,10 +26,10 @@ Dominica has three ports of entry: Portsmouth, Roseau, and Anse-de-Mai. Portsmou
 
 Dominica
 
-__
-__
+ __ 
+ __ 
 
-__
+ __ 
  
 
 

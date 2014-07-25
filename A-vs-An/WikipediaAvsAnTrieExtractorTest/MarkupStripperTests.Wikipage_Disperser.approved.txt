@@ -9,7 +9,7 @@
 
 Graph Theory
 An "("N", "M", "D", "K", "e")-disperser" is a bipartite
-graph with "N" vertices on the left side, each with degree "D", and "M" vertices on the right side, such that every subset of "K" vertices on the left side is connected to more than (1&minus;"e")"M" vertices on the right.
+graph with "N" vertices on the left side, each with degree "D", and "M" vertices on the right side, such that every subset of "K" vertices on the left side is connected to more than (1−"e")"M" vertices on the right.
 
 An extractor is a related type of graph that guarantees an even stronger property; every "("N", "M", "D", "K", "e")-extractor" is also an "("N", "M", "D", "K", "e")-disperser".
 
@@ -25,4 +25,4 @@ References
 
 
 
-__
+ __ 

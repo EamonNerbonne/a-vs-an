@@ -1,10 +1,10 @@
-﻿__
+﻿ __ 
 The "glottis" is defined as the combination of the vocal folds and the space in between the folds (the rima glottidis).
 
 Function
 As the vocal folds vibrate, the resulting vibration produces a "buzzing" quality to the speech, called "voice" or "voicing" or "pronunciation". 
 
-Sound production involving only the glottis is called "glottal". English has a voiceless glottal fricative spelled "h". In many accents of English the glottal stop (made by pressing the folds together) is used as a variant allophone of the phoneme __ (and in some dialects, occasionally of __ and __); in some languages, this sound is a phoneme of its own.
+Sound production involving only the glottis is called "glottal". English has a voiceless glottal fricative spelled "h". In many accents of English the glottal stop (made by pressing the folds together) is used as a variant allophone of the phoneme  __  (and in some dialects, occasionally of  __  and  __ ); in some languages, this sound is a phoneme of its own.
 
 Skilled players of the Australian didgeridoo restrict their glottal opening in order to produce the full range of timbres available on the instrument. 
 
@@ -13,8 +13,8 @@ The vibration produced is an essential component of "voiced" consonants as well 
 
 The glottis is also important in the valsalva maneuver.
 
-Voiced consonants include __
-Voiceless consonants include __
+Voiced consonants include  __ 
+Voiceless consonants include  __ 
 
 Additional images
 <gallery>
@@ -27,14 +27,14 @@ See also
 Phonation
 
 References
-__
+ __ 
 
 References of Glottis Simulator
 de Menezes Lyra R. Glottis simulator. Anesth Analg. 1999 Jun;88(6):1422-3.[http://www.anesthesia-analgesia.org/cgi/reprint/88/6/1424.pdf]
 
 Smith, N Ty. Simulation in anesthesia: the merits of large simulators versus small simulators. Current Opinion in Anaesthesiology. 13(6):659-665, December 2000.
 
-__
+ __ 
 
 
 
@@ -42,7 +42,7 @@ __
 
 
 
-__
+ __ 
 
 
 
