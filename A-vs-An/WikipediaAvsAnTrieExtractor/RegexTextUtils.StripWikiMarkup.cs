@@ -43,7 +43,7 @@ namespace WikipediaAvsAnTrieExtractor {
                             sb.Append(text, pos, nextAmp - pos);
                             sb.Append(c);
                         } else {
-                            sb.Append(text, pos, end - pos + 1);
+                            sb.Append(text, pos, end + 1 - pos);
                         }
                         pos = end + 1;
                     } else {
