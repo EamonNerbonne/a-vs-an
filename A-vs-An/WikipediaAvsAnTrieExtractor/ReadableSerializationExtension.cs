@@ -29,6 +29,12 @@ namespace WikipediaAvsAnTrieExtractor {
             sb.Append("]\n");
         }
 
+        public static string SerializeToReadable(this Node node) {
+            var sb = new StringBuilder();
+            SerializeToReadableImpl(node, sb, "");
+            return sb.ToString();
+        }
+
         static void SerializeToReadableImpl(this Node node, StringBuilder sb, string prefix) {
             if (node.SortedKids != null)
                 foreach (var kidEntry in node.SortedKids)
