@@ -49,7 +49,7 @@ namespace WikipediaAvsAnTrieExtractor {
             var wikiPageQueue = LoadWikiPagesAsync(wikiPath);
             var entriesTodo = ExtractAvsAnSightingsAsync(wikiPageQueue);
             var trieBuilder = BuildAvsAnTrie(entriesTodo);
-            MutableNode result = trieBuilder.Result;
+            var result = trieBuilder.Result;
             Console.WriteLine("Raw trie of # nodes" + trieBuilder.Result.Count());
             File.WriteAllText(outputFilePath, result.SerializeToReadable(), Encoding.UTF8);
         }
@@ -77,7 +77,7 @@ namespace WikipediaAvsAnTrieExtractor {
             return entriesTodo;
         }
 
-        static Task<MutableNode> BuildAvsAnTrie(BlockingCollection<AvsAnSighting[]> entriesTodo) {
+        static Task<Node> BuildAvsAnTrie(BlockingCollection<AvsAnSighting[]> entriesTodo) {
             int wordCount = 0;
 
             Stopwatch sw = Stopwatch.StartNew();
@@ -85,10 +85,10 @@ namespace WikipediaAvsAnTrieExtractor {
 
 
             var trieBuilder = Task.Factory.StartNew(() => {
-                var trie = new MutableNode();
+                var trie = new Node();
                 foreach (var entries in entriesTodo.GetConsumingEnumerable())
                     foreach (var entry in entries) {
-                        trie.IncrementPrefix(entry.PrecededByAn, entry.Word, 0);
+                        IncrementPrefixExtensions.IncrementPrefix(ref trie, entry.PrecededByAn, entry.Word, 0);
                         wordCount++;
                     }
                 return trie;
