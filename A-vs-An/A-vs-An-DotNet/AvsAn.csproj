@@ -37,7 +37,6 @@
   <ItemGroup>
     <Compile Include="AvsAn.cs" />
     <Compile Include="Internals\BuiltInDictionary.cs" />
-    <Compile Include="Internals\MutableNode.cs" />
     <Compile Include="Internals\Node.cs" />
     <Compile Include="Internals\WordQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
