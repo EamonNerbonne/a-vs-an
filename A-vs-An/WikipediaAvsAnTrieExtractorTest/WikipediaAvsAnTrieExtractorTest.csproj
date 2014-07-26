@@ -59,6 +59,7 @@
     <Compile Include="SerializeToDenseHexTest.cs" />
     <Compile Include="MarkupStripperTests.cs" />
     <Compile Include="SentenceFinderTest.cs" />
+    <Compile Include="UtilsInstance.cs" />
     <Compile Include="WhitespaceNormalizerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

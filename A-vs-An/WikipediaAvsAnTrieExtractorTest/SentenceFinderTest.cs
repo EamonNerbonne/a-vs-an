@@ -8,7 +8,7 @@ using Xunit;
 
 namespace WikipediaAvsAnTrieExtractorTest {
     public class SentenceFinderTest {
-        readonly RegexTextUtils utils = new RegexTextUtils();
+        static readonly RegexTextUtils utils = UtilsInstance.Utils;
 
         [Fact]
         public void FindsTrivialSentences() {

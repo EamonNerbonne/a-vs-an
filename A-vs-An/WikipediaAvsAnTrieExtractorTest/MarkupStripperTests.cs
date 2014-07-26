@@ -10,7 +10,7 @@ using Xunit;
 namespace WikipediaAvsAnTrieExtractorTest {
     [UseReporter(typeof(DiffReporter))]
     public class MarkupStripperTests {
-        readonly RegexTextUtils utils = new RegexTextUtils();
+        static readonly RegexTextUtils utils = UtilsInstance.Utils;
 
         [Fact, MethodImpl(MethodImplOptions.NoInlining)]
         public void Wikipage_AaRiver() {
