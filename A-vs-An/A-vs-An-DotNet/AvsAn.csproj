@@ -38,6 +38,7 @@
     <Compile Include="AvsAn.cs" />
     <Compile Include="Internals\BuiltInDictionary.cs" />
     <Compile Include="Internals\Node.cs" />
+    <Compile Include="Internals\NodeSerializer.cs" />
     <Compile Include="Internals\WordQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internals\Ratio.cs" />

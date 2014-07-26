@@ -32,16 +32,16 @@ namespace WikipediaAvsAnTrieExtractorTest {
 
         [Fact]
         public void SingleNodeWorks() {
-            var node = new Node {ratio = {aCount = 0x2468ad, anCount = 0x12345}};
+            var node = new Node { ratio = { aCount = 0x2468ad, anCount = 0x12345 } };
             const string serializedNode = @"(2468ad:12345)";
-            Assert.Equal(serializedNode, node.SerializeToDenseHex());
-            Assert.Equal(node, Node.DeserializeDenseHex(serializedNode), NodeEq);
+            Assert.Equal(serializedNode, NodeSerializer.Serialize(node));
+            Assert.Equal(node, NodeSerializer.Deserialize(serializedNode), NodeEq);
         }
 
         [Fact]
         public void RootNodeWithKidsWorks() {
             var node = new Node {
-                ratio = {aCount = 1, anCount = 11},
+                ratio = { aCount = 1, anCount = 11 },
                 SortedKids = new[] {
                     new Node {
                         c = 'b',
@@ -55,14 +55,14 @@ namespace WikipediaAvsAnTrieExtractorTest {
             };
 
             const string serializedNode = @"(1:b)b(5:0)u(2:f)";
-            Assert.Equal(serializedNode, node.SerializeToDenseHex());
-            Assert.Equal(node, Node.DeserializeDenseHex(serializedNode), NodeEq);
+            Assert.Equal(serializedNode, NodeSerializer.Serialize(node));
+            Assert.Equal(node, NodeSerializer.Deserialize(serializedNode), NodeEq);
         }
 
         [Fact]
         public void SerializeFourLevelTree() {
             var node = new Node {
-                ratio = {aCount = 1, anCount = 11},
+                ratio = { aCount = 1, anCount = 11 },
                 SortedKids = new[] {
                     new Node {
                         c = 'b',
@@ -88,8 +88,8 @@ namespace WikipediaAvsAnTrieExtractorTest {
             };
             const string serializedNode = @"(1:b)b(5:0)bc(3:4)bcd(100:80)bu(2:f)";
 
-            Assert.Equal(serializedNode, node.SerializeToDenseHex());
-            Assert.Equal(node, Node.DeserializeDenseHex(serializedNode), NodeEq);
+            Assert.Equal(serializedNode, NodeSerializer.Serialize(node));
+            Assert.Equal(node, NodeSerializer.Deserialize(serializedNode), NodeEq);
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Globalization;
-using System.Text.RegularExpressions;
 
 namespace AvsAnLib.Internals {
     /// <summary>
@@ -11,24 +9,6 @@ namespace AvsAnLib.Internals {
         public Ratio ratio;
         public Node[] SortedKids;
         public int CompareTo(Node other) { return c.CompareTo(other.c); }
-
-        public static Node DeserializeDenseHex(string rawDict) {
-            var mutableRoot = new Node();
-            foreach (
-                Match m in Regex.Matches(rawDict, @"([^(]*)\(([0-9a-f]*):([0-9a-f]*)\)", RegexOptions.CultureInvariant)
-                )
-                mutableRoot.LoadPrefixRatio(
-                    m.Groups[1].Value,
-                    0,
-                    new Ratio {
-                        aCount = parseHex(m.Groups[2].Value),
-                        anCount = parseHex(m.Groups[3].Value)
-                    });
-            return mutableRoot;
-        }
-        static int parseHex(string str) {
-            return str == "" ? 0 : int.Parse(str, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture);
-        }
 
         public void LoadPrefixRatio(string prefix, int depth, Ratio prefixRatio) {
             if (prefix.Length == depth) {
