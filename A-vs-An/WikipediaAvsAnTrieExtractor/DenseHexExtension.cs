@@ -11,11 +11,11 @@ namespace WikipediaAvsAnTrieExtractor {
 
         static void SerializeToDenseHex(this Node node, StringBuilder sb, string prefix) {
             sb.Append(prefix);
-            sb.Append('[');
+            sb.Append('(');
             sb.Append(node.ratio.aCount.ToString("x"));
             sb.Append(':');
             sb.Append(node.ratio.anCount.ToString("x"));
-            sb.Append(']');
+            sb.Append(')');
             if (node.SortedKids != null)
                 foreach (var kidEntry in node.SortedKids)
                     kidEntry.SerializeToDenseHex(sb, prefix + kidEntry.c);

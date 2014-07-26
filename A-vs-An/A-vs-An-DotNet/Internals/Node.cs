@@ -15,7 +15,7 @@ namespace AvsAnLib.Internals {
         public static Node DeserializeDenseHex(string rawDict) {
             var mutableRoot = new Node();
             foreach (
-                Match m in Regex.Matches(rawDict, @"([^\[]*)\[([0-9a-f]*):([0-9a-f]*)\]", RegexOptions.CultureInvariant)
+                Match m in Regex.Matches(rawDict, @"([^(]*)\(([0-9a-f]*):([0-9a-f]*)\)", RegexOptions.CultureInvariant)
                 )
                 mutableRoot.LoadPrefixRatio(
                     m.Groups[1].Value,
