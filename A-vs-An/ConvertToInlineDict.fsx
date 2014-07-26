@@ -14,10 +14,10 @@ let rawDictPath = @"E:\avsan.log"
 
 let newLookup =
     File.ReadAllText(rawDictPath, Encoding.UTF8)
-    |> ReadableSerializationExtension.DeserializeReadable
-    |> Node.CreateFromMutable
+    |> NodeSerializer.Deserialize
     |> (fun n -> n.Simplify(6))
 
-newLookup.SerializeToDenseHex() 
+newLookup
+    |> NodeSerializer.Serialize
     |> ObjectToCode.PlainObjectToCode
     |> printfn "%s"
