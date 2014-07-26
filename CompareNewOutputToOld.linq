@@ -29,16 +29,9 @@
   <Namespace>WikipediaAvsAnTrieExtractor</Namespace>
 </Query>
 
-var newLookup = 
-	Node.CreateFromMutable( 
-		ReadableSerializationExtension.DeserializeReadable(File.ReadAllText(@"E:\avsan.log",Encoding.UTF8))
-		)
-	.Simplify(6);
-var oldLookup = 
-	Node.CreateFromMutable( 
-		ReadableSerializationExtension.DeserializeReadable(File.ReadAllText(@"E:\avsan-old.log",Encoding.UTF8))
-		)
-	.Simplify(6);
+var rawLookup = NodeSerializer.Deserialize(File.ReadAllText(@"E:\avsan.log",Encoding.UTF8));
+var newLookup = rawLookup.Simplify(6);
+var oldLookup = BuiltInDictionary.Root;
 var dict = Dictionaries.LoadEnglishDictionary();
 var badset= new HashSet<string>(@"
 contains each either enough enoughs exists ft fth fthm ftncmd ftnerr including includible 
@@ -77,10 +70,12 @@ haut
  let classification = WordQuery.Query(oldLookup,word,0)
  let newclassification= WordQuery.Query(newLookup,word,0)
  where classification.Article != newclassification.Article
- where classification.aCount+classification.anCount > 40
+ let rawClassification = WordQuery.Query(rawLookup, word,0)
  select new {word, 
   old=classification.Article+"|"+classification.Prefix+":"+classification.aCount+"/"+classification.anCount,
-  newC=newclassification.Article+"|"+newclassification.Prefix+":"+newclassification.aCount+"/"+newclassification.anCount}
+  @new=newclassification.Article+"|"+newclassification.Prefix+":"+newclassification.aCount+"/"+newclassification.anCount,
+  raw =rawClassification.Article+"|"+rawClassification.Prefix+":"+rawClassification.aCount+"/"+rawClassification.anCount,
+  }
  ).Dump();
  
  //an durin (59/46)
