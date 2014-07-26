@@ -19,19 +19,17 @@ namespace WikipediaAvsAnTrieExtractor {
                     kidEntry.SerializeToReadableImpl(sb, prefix + kidEntry.c);
             sb.Append(prefix);
 
-            sb.Append(node.ratio.anCount < node.ratio.aCount
-                ? "[a:"
-                : node.ratio.anCount > node.ratio.aCount ? "[an:" : "[?:");
+            sb.Append('(');
             sb.Append(node.ratio.aCount);
             sb.Append(':');
             sb.Append(node.ratio.anCount);
-            sb.Append("]\n");
+            sb.Append(")\n");
         }
 
         public static Node DeserializeReadableNode(string readableRepresentation) {
             var node = new Node();
             foreach (Match m in Regex.Matches(readableRepresentation,
-                @"^(.*?)\[an?:([0-9]*):([0-9]*)\]$", RegexOptions.Multiline))
+                @"^(.*?)\(([0-9]*):([0-9]*)\)$", RegexOptions.Multiline))
                 node.LoadPrefixRatio(
                     m.Groups[1].Value,
                     0,
