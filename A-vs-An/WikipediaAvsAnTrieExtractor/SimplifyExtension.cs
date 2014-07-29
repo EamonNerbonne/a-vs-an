@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AvsAnLib.Internals;
 
 namespace WikipediaAvsAnTrieExtractor {
@@ -41,6 +42,18 @@ namespace WikipediaAvsAnTrieExtractor {
 
         static bool Annotation(Node node) {
             return node.ratio.anCount > node.ratio.aCount;
+        }
+        public static Node UnmarkUnsure(this Node node, int scaleFactor) {
+            var copy = new Node { c = node.c };
+
+            if (node.SortedKids != null)
+                copy.SortedKids =
+                    node.SortedKids.Select(n => UnmarkUnsure(n, scaleFactor)).ToArray();
+
+            if (node.ratio.Quality() >= scaleFactor)
+                copy.ratio = node.ratio;
+
+            return copy;
         }
     }
 }
