@@ -7,8 +7,8 @@ using AvsAnLib.Internals;
 namespace WikipediaAvsAnTrieExtractor {
     public static class IncrementPrefixExtensions {
         public static void IncrementPrefix(ref Node node, bool isAn, string word, int level) {
-            if (isAn) node.ratio.anCount++;
-            else node.ratio.aCount++;
+            if (isAn) node.ratio.IncAn();
+            else node.ratio.IncA();
 
             if (level < 40)
                 if (word.Length > level) {
@@ -25,8 +25,8 @@ namespace WikipediaAvsAnTrieExtractor {
         }
 
         static void IncrementTerminator(ref Node node, bool isAn) {
-            if (isAn) node.ratio.anCount++;
-            else node.ratio.aCount++;
+            if (isAn) node.ratio.IncAn();
+            else node.ratio.IncA();
         }
     }
 }

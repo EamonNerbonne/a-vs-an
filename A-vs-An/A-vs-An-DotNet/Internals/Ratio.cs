@@ -3,14 +3,40 @@
     /// The ratio of a's vs. an's for a given prefix
     /// </summary>
     public struct Ratio {
-        public int aCount, anCount;
-        public bool isSet { get { return (aCount | anCount) != 0; } }
+        public int Occurence, AminAnDiff;
+
+        public int aCount {
+            get { return (Occurence + AminAnDiff) / 2; }
+            set {
+                var old_anCount = anCount;
+                Occurence = value + old_anCount;
+                AminAnDiff = value - old_anCount;
+            }
+        }
+
+        public int anCount {
+            get { return (Occurence - AminAnDiff) / 2; }
+            set {
+                var old_aCount = aCount;
+                Occurence = old_aCount + value;
+                AminAnDiff = old_aCount - value;
+            }
+        }
+
+        public void IncA() {
+            Occurence++;
+            AminAnDiff++;
+        }
+        public void IncAn() {
+            Occurence++;
+            AminAnDiff--;
+        }
+
+        public bool isSet { get { return Occurence != 0; } }
         public int Quality() {
-            long diff = anCount - aCount;
-            if (diff == 0)
+            if (AminAnDiff == 0)
                 return 0;
-            long occurence = anCount + aCount;
-            return (int)(diff * diff / occurence);
+            return (int)(AminAnDiff * (long) AminAnDiff / Occurence);
 
         }
     }

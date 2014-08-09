@@ -16,8 +16,8 @@ namespace WikipediaAvsAnTrieExtractor {
             int kidCount = 0;
             foreach (var kidEntry in node.SortedKids) {
                 var kid = kidEntry;
-                var diff = kid.ratio.anCount - kid.ratio.aCount;
-                var occurence = kid.ratio.anCount + kid.ratio.aCount;
+                var diff = -kid.ratio.AminAnDiff;
+                var occurence = kid.ratio.Occurence;
                 if (Math.Abs(occurence) < scaleFactor)
                     continue;
                 var simpleKid = kid.Simplify(scaleFactor);
@@ -41,7 +41,7 @@ namespace WikipediaAvsAnTrieExtractor {
         }
 
         static bool Annotation(Node node) {
-            return node.ratio.anCount > node.ratio.aCount;
+            return node.ratio.AminAnDiff < 0;
         }
         public static Node UnmarkUnsure(this Node node, int scaleFactor) {
             var copy = new Node { c = node.c };
@@ -55,5 +55,20 @@ namespace WikipediaAvsAnTrieExtractor {
 
             return copy;
         }
+
+        //public static Node UnmarkSameSignAnnotations(this Node node, int parentSign) {
+        //    var copy = new Node { c = node.c };
+
+
+        //    if (node.SortedKids != null)
+        //        copy.SortedKids =
+        //            node.SortedKids.Select(n => UnmarkUnsure(n, scaleFactor)).ToArray();
+
+        //    if (node.ratio.Quality() >= scaleFactor)
+        //        copy.ratio = node.ratio;
+
+        //    return copy;
+
+        //}
     }
 }
