@@ -45,11 +45,11 @@ namespace WikipediaAvsAnTrieExtractorTest {
                 SortedKids = new[] {
                     new Node {
                         c = 'b',
-                        ratio = {aCount = 5, anCount = 0}
+                        ratio = { aCount = 5, anCount = 0 },
                     },
                     new Node {
                         c = 'u',
-                        ratio = {aCount = 2, anCount = 15}
+                        ratio = { aCount = 2, anCount = 15 },
                     },
                 }
             };
@@ -66,21 +66,21 @@ namespace WikipediaAvsAnTrieExtractorTest {
                 SortedKids = new[] {
                     new Node {
                         c = 'b',
-                        ratio = {aCount = 5, anCount = 0},
+                        ratio = { aCount = 5, anCount = 0 },
                         SortedKids = new[] {
                             new Node {
                                 c = 'c',
-                                ratio = {aCount = 3, anCount = 4},
+                                ratio = { aCount = 3, anCount = 4 },
                                 SortedKids = new[] {
                                     new Node {
                                         c = 'd',
-                                        ratio = {aCount = 0x100, anCount = 0x80}
+                                        ratio = { aCount = 0x100, anCount = 0x80 }
                                     },
                                 },
                             },
                             new Node {
                                 c = 'u',
-                                ratio = {aCount = 2, anCount = 15}
+                                ratio = { aCount = 2, anCount = 15 }
                             },
                         },
                     },
