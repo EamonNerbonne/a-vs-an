@@ -22,7 +22,7 @@ namespace AvsAnLib.Internals {
 
         public int GetOrAddKidIdx(char kidC) {
             if (SortedKids == null) {
-                SortedKids = new[] { new Node { c = kidC, } };
+                SortedKids = new[] { new Node { c = kidC, } }; //expensive, so many arrays.
                 return 0;
             } else {
                 int idx = IdxAfterLastLtNode(kidC);
