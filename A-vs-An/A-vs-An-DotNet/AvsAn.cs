@@ -56,6 +56,42 @@ namespace AvsAnLib {
                 Depth = depth;
             }
         }
+
+        public static PlainResult PlainQuery(string word) {
+            return WordQuery.FastQuery(BuiltInDictionary.Root, word, 0);
+        }
+
+
+        public enum IndefiniteArticle { A=1, An=-1 }
+
+        //part of public nuget api, usages may be in external code.
+        public struct PlainResult {
+            public readonly IndefiniteArticle ArticleEnum;
+            public string Prefix {
+                get {
+                    return Depth > Word.Length
+                        ? Word + new string(' ', Depth - Word.Length)
+                        : Word.Substring(0, Depth);
+                }
+            }
+            /// <summary>
+            /// The tested word.
+            /// </summary>
+            public readonly string Word;
+            /// <summary>
+            /// How many letters of the tested word were used in determining the appropriate article.
+            /// </summary>
+            public readonly int Depth;
+            /// <summary>
+            /// The article you should use.
+            /// </summary>
+            public string Article { get { return ArticleEnum == IndefiniteArticle.A ? "a" : "an"; } }
+            public PlainResult(IndefiniteArticle article, string word, int depth) {
+                ArticleEnum = article;
+                Word = word;
+                Depth = depth;
+            }
+        }
         // ReSharper restore MemberCanBePrivate.Global
 
     }

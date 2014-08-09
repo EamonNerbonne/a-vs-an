@@ -17,16 +17,16 @@ namespace PerfTest {
             var tr = new Dictionary<string, int> { { "a", 0 }, { "an", 1 } };
             long sum = 0;
             Stopwatch sw = Stopwatch.StartNew();
-            var _ = AvsAn.Query("example").Article;
+            var _ = AvsAn.PlainQuery("example").Article;
             var init = sw.Elapsed;
             Console.WriteLine("initialization took " + init.TotalMilliseconds);
             sw.Restart();
-            const int iters = 50;
+            const int iters = 200;
             for (var k = 0; k < iters; k++) {
                 for (var i = 0; i < words.Length; i++)
-                    sum += AvsAn.Query(words[i]).Article == "an" ? 1 : 0;
+                    sum += AvsAn.PlainQuery(words[i]).Article == "an" ? 1 : 0;
                 for (var i = words.Length - 1; i >= 0; i--)
-                    sum += AvsAn.Query(words[i]).Article == "an" ? 1 : 0;
+                    sum += AvsAn.PlainQuery(words[i]).Article == "an" ? 1 : 0;
             }
             var duration = sw.Elapsed.TotalMilliseconds;
             var clockrateMHz =
