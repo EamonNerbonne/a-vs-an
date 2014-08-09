@@ -1,9 +1,7 @@
 ﻿//by Eamon Nerbonne (from http://home.nerbonne.org/A-vs-An), Apache 2.0 license.
-using System;
-using System.Collections.Generic;
-using AvsAnLib.Internals;
-
 namespace AvsAnLib {
+    using Internals;
+
     public static class AvsAn {
         /// <summary>
         /// Determines whether an english word should be preceded by the indefinite article "a" or "an".

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AvsAnLib.Internals {
+﻿namespace AvsAnLib.Internals {
     /// <summary>
     /// The built-in dictionary derived from wikipedia that describes which prefixes have which article
     /// </summary>

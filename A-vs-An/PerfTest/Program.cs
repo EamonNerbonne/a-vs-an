@@ -4,13 +4,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using AvsAnLib;
 
 namespace PerfTest {
-    class Program {
+    static class Program {
         static void Main(string[] args) {
             var words = File.ReadAllLines(@"..\..\..\AvsAn-Test\354984si.ngl").Where(w => w != "").ToArray();
 

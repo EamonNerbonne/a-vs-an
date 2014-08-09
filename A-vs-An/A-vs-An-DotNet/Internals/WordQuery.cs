@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AvsAnLib.Internals {
+﻿namespace AvsAnLib.Internals {
     public static class WordQuery {
         /// <summary>
         /// Determines the article for a given prefix by looking it up in the prefix trie.  Recursive.
