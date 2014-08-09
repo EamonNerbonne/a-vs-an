@@ -5,7 +5,6 @@
   <Reference Relative="A-vs-An\AvsAn-Test\bin\Release\AvsAn-Test.dll">C:\VCS\remote\a-vs-an\A-vs-An\AvsAn-Test\bin\Release\AvsAn-Test.dll</Reference>
   <Reference Relative="..\..\emn\programs\EmnExtensions\bin\Release\EmnExtensions.dll">C:\VCS\emn\programs\EmnExtensions\bin\Release\EmnExtensions.dll</Reference>
   <Reference Relative="A-vs-An\AvsAn-Test\bin\Release\ExpressionToCodeLib.dll">C:\VCS\remote\a-vs-an\A-vs-An\AvsAn-Test\bin\Release\ExpressionToCodeLib.dll</Reference>
-  <Reference Relative="A-vs-An\AvsAn-Test\bin\Release\nunit.framework.dll">C:\VCS\remote\a-vs-an\A-vs-An\AvsAn-Test\bin\Release\nunit.framework.dll</Reference>
   <Reference Relative="A-vs-An\WikipediaAvsAnTrieExtractor\bin\Release\WikipediaAvsAnTrieExtractor.exe">C:\VCS\remote\a-vs-an\A-vs-An\WikipediaAvsAnTrieExtractor\bin\Release\WikipediaAvsAnTrieExtractor.exe</Reference>
   <NuGetReference>ExpressionToCodeLib</NuGetReference>
   <NuGetReference>morelinq</NuGetReference>
@@ -30,7 +29,7 @@
 </Query>
 
 var rawLookup = NodeSerializer.Deserialize(File.ReadAllText(@"E:\avsan.log",Encoding.UTF8));
-var newLookup = rawLookup.Simplify(6);
+var newLookup = rawLookup.Simplify(5).UnmarkUnsure(2);
 var oldLookup = BuiltInDictionary.Root;
 var dict = Dictionaries.LoadEnglishDictionary();
 var badset= new HashSet<string>(@"
@@ -38,30 +37,8 @@ contains each either enough enoughs exists ft fth fthm ftncmd ftnerr including i
 indicate instead instealing insteam it iud iuds dich
 abouchement aboudikro aboulia an are if on than un honed onza states
 ".Split(" \r\n".ToCharArray(),StringSplitOptions.RemoveEmptyEntries));
-var badprefixes = @"
-abou
-aga
-amo
-ulu
-usur 
-hong
-anot
-hond
-honi
-onf
-lvalue
-yl
-herbal
-ona
-and
-unillu
-ukiyo
-unanc
-ust
-unissu
-unidiomatic
-onei
-haut
+var badprefixes = @"abou aga amo ulu usur  hong anot hond honi onf lvalue yl herbal ona and unillu
+ukiyo unanc ust unissu unidiomatic onei haut
 ".Split(" \r\n".ToCharArray(),StringSplitOptions.RemoveEmptyEntries);
 //sf?x?
 (from word in dict
