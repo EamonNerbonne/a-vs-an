@@ -19,6 +19,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{80E21813-AD4B-42DC-9ADD-BA5BE20CD006}"
 	ProjectSection(SolutionItems) = preProject
 		ConvertToInlineDict.fsx = ConvertToInlineDict.fsx
+		Performance2.psess = Performance2.psess
+		Performance3.psess = Performance3.psess
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
