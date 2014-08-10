@@ -8,34 +8,13 @@ using WikipediaAvsAnTrieExtractor;
 using Xunit;
 
 namespace WikipediaAvsAnTrieExtractorTest {
-    public class SerializeToDenseHexTest {
-        static readonly NodeEqC NodeEq = new NodeEqC();
-
-        class NodeEqC : IEqualityComparer<Node> {
-            public bool Equals(Node x, Node y) {
-                return
-                    x.c == y.c
-                        && x.ratio.Occurence == y.ratio.Occurence
-                        && x.ratio.AminAnDiff == y.ratio.AminAnDiff
-                        && (x.SortedKids == null) == (y.SortedKids == null)
-                        && (x.SortedKids == null ||
-                            x.SortedKids.Length == y.SortedKids.Length
-                                && x.SortedKids.SequenceEqual(y.SortedKids, NodeEq)
-                            )
-                    ;
-            }
-
-            public int GetHashCode(Node obj) {
-                return obj.c;
-            }
-        }
-
+    public class DenseSerializerTest {
         [Fact]
         public void SingleNodeWorks() {
             var node = new Node { ratio = { aCount = 0x2468ad, anCount = 0x12345 } };
-            const string serializedNode = @"(2468ad:12345)";
-            Assert.Equal(serializedNode, NodeSerializer.Serialize(node));
-            Assert.Equal(node, NodeSerializer.Deserialize(serializedNode), NodeEq);
+            const string serializedNode = @"2468ad:12345:;";
+            Assert.Equal(serializedNode, NodeSerializer.SerializeDense(node));
+            Assert.Equal(node, NodeSerializer.DeserializeDense(serializedNode), NodeEqualityComparer.Instance);
         }
 
         [Fact]
@@ -54,10 +33,10 @@ namespace WikipediaAvsAnTrieExtractorTest {
                 }
             };
 
-            const string serializedNode = @"(1:b)b(5:0)u(2:f)";
-            Assert.Equal(serializedNode, NodeSerializer.Serialize(node));
-            Node deserialized = NodeSerializer.Deserialize(serializedNode);
-            Assert.Equal(node, deserialized, NodeEq);
+            const string serializedNode = @"1:b:2;b5:0:;u2:f:;";
+            Assert.Equal(serializedNode, NodeSerializer.SerializeDense(node));
+            Node deserialized = NodeSerializer.DeserializeDense(serializedNode);
+            Assert.Equal(node, deserialized, NodeEqualityComparer.Instance);
         }
 
         [Fact]
@@ -87,10 +66,10 @@ namespace WikipediaAvsAnTrieExtractorTest {
                     },
                 }
             };
-            const string serializedNode = @"(1:b)b(5:0)bc(3:4)bcd(100:80)bu(2:f)";
+            const string serializedNode = @"1:b:1;b5:0:2;c3:4:1;d100:80:;u2:f:;";
 
-            Assert.Equal(serializedNode, NodeSerializer.Serialize(node));
-            Assert.Equal(node, NodeSerializer.Deserialize(serializedNode), NodeEq);
+            Assert.Equal(serializedNode, NodeSerializer.SerializeDense(node));
+            Assert.Equal(node, NodeSerializer.DeserializeDense(serializedNode), NodeEqualityComparer.Instance);
         }
     }
 }

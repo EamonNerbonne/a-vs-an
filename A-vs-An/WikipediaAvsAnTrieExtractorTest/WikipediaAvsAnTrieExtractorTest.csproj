@@ -57,7 +57,9 @@
   <ItemGroup>
     <Compile Include="EntityDecoderTest.cs" />
     <Compile Include="MarkupStripperUnitTests.cs" />
-    <Compile Include="SerializeToDenseHexTest.cs" />
+    <Compile Include="NodeEqualityComparer.cs" />
+    <Compile Include="DenseSerializerTest.cs" />
+    <Compile Include="SerializerTest.cs" />
     <Compile Include="MarkupStripperTests.cs" />
     <Compile Include="SentenceFinderTest.cs" />
     <Compile Include="TriePrefixIncrementorTest.cs" />
