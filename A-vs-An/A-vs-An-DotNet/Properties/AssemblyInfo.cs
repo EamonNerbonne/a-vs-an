@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Find the english language indeterminate article ('a' or 'an') for a word.  Based on real usage patterns extracted from the wikipedia text dump; can therefore even deal with tricky edge cases such as acronyms (FIAT vs. FAA, NASA vs. NSA) and odd symbols.  (Requires .NET 2.0 or higher)")]
 [assembly: AssemblyCompany("Eamon Nerbonne")]
 [assembly: AssemblyProduct("AvsAn")]
-[assembly: AssemblyCopyright("Copyright Eamon Nerbonne ©  2013")]
+[assembly: AssemblyCopyright("Copyright Eamon Nerbonne ©  2014")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -31,4 +31,4 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.1.1")]
+[assembly: AssemblyVersion("2.2.0")]
