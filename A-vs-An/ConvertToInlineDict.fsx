@@ -18,6 +18,6 @@ let newLookup =
     |> (fun n -> n.Simplify(5).UnmarkUnsure(3))
 
 newLookup
-    |> NodeSerializer.Serialize
+    |> NodeSerializer.SerializeDense
     |> ObjectToCode.PlainObjectToCode
     |> printfn "%s"

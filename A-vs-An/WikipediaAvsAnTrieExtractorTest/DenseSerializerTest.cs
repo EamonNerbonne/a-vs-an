@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AvsAnLib.Internals;
-using WikipediaAvsAnTrieExtractor;
 using Xunit;
 
 namespace WikipediaAvsAnTrieExtractorTest {
