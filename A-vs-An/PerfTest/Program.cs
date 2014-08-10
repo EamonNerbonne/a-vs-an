@@ -11,19 +11,18 @@ namespace PerfTest {
         static void Main(string[] args) {
             var words = File.ReadAllLines(@"..\..\..\AvsAn-Test\354984si.ngl").Where(w => w != "").ToArray();
 
-            var tr = new Dictionary<string, int> { { "a", 0 }, { "an", 1 } };
             long sum = 0;
             Stopwatch sw = Stopwatch.StartNew();
-            var _ = AvsAn.PlainQuery("example").Article;
+            var _ = AvsAn.Query("example").Article;
             var init = sw.Elapsed;
             Console.WriteLine("initialization took " + init.TotalMilliseconds);
             sw.Restart();
             const int iters = 200;
             for (var k = 0; k < iters; k++) {
                 for (var i = 0; i < words.Length; i++)
-                    sum += AvsAn.PlainQuery(words[i]).Article == "an" ? 1 : 0;
+                    sum += AvsAn.Query(words[i]).Article == "an" ? 1 : 0;
                 for (var i = words.Length - 1; i >= 0; i--)
-                    sum += AvsAn.PlainQuery(words[i]).Article == "an" ? 1 : 0;
+                    sum += AvsAn.Query(words[i]).Article == "an" ? 1 : 0;
             }
             var duration = sw.Elapsed.TotalMilliseconds;
             var clockrateMHz =
