@@ -19,7 +19,7 @@
       Statistics are now up to date with the Wikipedia dump of 2014-07-07.
       Various improvements to the Wikipedia scanner and sentence parser have improved the accuracy of the statistics.
       Example changes: a->an andouillette; an->a honduran; a->an lcd; a->an obrogation; a->an unidiomatic; a->an unignitable; an->a xmas.
-      Performance improvements: initialization overhead down to 1.3ms from 10ms; throughput up 14% to 4.3 million queries per second (measured on an i7-4770k @ 4.1GHz).
+      Performance improvements: initialization overhead down to 1.3ms from 10ms; throughput up 14% to 43 million queries per second (measured on an i7-4770k @ 4.1GHz).
     </releaseNotes>
     <copyright>Copyright 2014 © Eamon Nerbonne</copyright>
     <tags>english NLP text-processing library indeterminate-article AvsAn an a-vs-an</tags>
