@@ -58,6 +58,5 @@
             }
             return new AvsAn.Result(result, word, depth);
         }
-
     }
 }
