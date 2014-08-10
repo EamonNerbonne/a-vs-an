@@ -51,7 +51,7 @@ namespace WikipediaAvsAnTrieExtractor {
             var trieBuilder = BuildAvsAnTrie(entriesTodo);
             var result = trieBuilder.Result;
             Console.WriteLine("Raw trie of # nodes" + trieBuilder.Result.Count());
-            File.WriteAllText(outputFilePath, NodeSerializer.SerializeReadably(result), Encoding.UTF8);
+            File.WriteAllText(outputFilePath, NodeSerializer.SerializeDense(result), Encoding.UTF8);
         }
 
         static BlockingCollection<AvsAnSighting[]> ExtractAvsAnSightingsAsync(BlockingCollection<string[]> wikiPageQueue) {

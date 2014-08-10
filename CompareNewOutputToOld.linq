@@ -28,7 +28,7 @@
   <Namespace>WikipediaAvsAnTrieExtractor</Namespace>
 </Query>
 
-var rawLookup = NodeSerializer.Deserialize(File.ReadAllText(@"E:\avsan.log",Encoding.UTF8));
+var rawLookup = NodeSerializer.DeserializeDense(File.ReadAllText(@"E:\avsan.log",Encoding.UTF8));
 var newLookup = rawLookup.Simplify(5).UnmarkUnsure(3);
 var oldLookup = BuiltInDictionary.Root;
 var dict = Dictionaries.LoadEnglishDictionary();
