@@ -5,7 +5,22 @@ var AvsAn = (function () {
 	var ignore = { '(': 1, '"': 1, "'": 1 };
 
 	var root = {};
-	var prefLines = dict.replace(/([^\[]*)\[([0-9a-f]*):([0-9a-f]*)\]/g, function (m, prefix, aCountStr, anCountStr) {
+	function fill(prefix, node, s){
+		var a=s.split(';',3)
+			,n=a.map(function(i){return parseInt(i,16);})
+		node.data={ 
+					aCount:n[0],
+					anCount:n[1],
+					prefix:prefix,
+					article:n[0]>=n[1]?"a":"an"
+					}
+		s=s.substr(1+a.join(';').length)
+		for(var i=0;i<n[2];i++)
+			s = fill(prefix+s[0],node[s[0]]={},s.substr(1))
+		return s
+	}
+	//fill("",root,dict);
+	dict.replace(/([^\[]*)\[([0-9a-f]*):([0-9a-f]*)\]/g, function (m, prefix, aCountStr, anCountStr) {
 		var node = root, aCount = parseInt(aCountStr, 16) || 0, anCount = parseInt(anCountStr, 16) || 0;
 		for (var sI = 0; sI < prefix.length; sI++)
 			node = node[prefix[sI]] || (node[prefix[sI]] = {});
