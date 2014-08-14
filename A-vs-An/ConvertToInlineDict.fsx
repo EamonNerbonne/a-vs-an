@@ -14,7 +14,7 @@ let rawDictPath = @"E:\avsan.log"
 
 let newLookup =
     File.ReadAllText(rawDictPath, Encoding.UTF8)
-    |> NodeSerializer.DeserializeDense
+    |> NodeDeserializer.DeserializeDense
     |> (fun n -> n.Simplify(5).UnmarkUnsure(3))
 
 newLookup
