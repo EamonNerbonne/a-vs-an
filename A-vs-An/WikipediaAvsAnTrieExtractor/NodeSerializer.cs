@@ -111,6 +111,24 @@ namespace WikipediaAvsAnTrieExtractor {
             }
         }
 
+        public static string SerializeDenseNoStats(Node node) {
+            var sb = new StringBuilder();
+            SerializeDenseNoStatsImpl(sb, node);
+            return sb.ToString();
+        }
+
+        public static void SerializeDenseNoStatsImpl(StringBuilder sb, Node node) {
+            DenseIntDigitToString(sb, node.SortedKids == null ? 0 : node.SortedKids.Length);
+            sb.Append(node.ratio.AminAnDiff >= 0 ? '.' : ';');
+            if (node.SortedKids != null) {
+                foreach (var kid in node.SortedKids) {
+                    sb.Append(kid.c);
+                    SerializeDenseNoStatsImpl(sb, kid);
+                }
+            }
+        }
+
+
         public static string SerializeReadably(Node node) {
             return SerializeImpl(node, true);
         }
