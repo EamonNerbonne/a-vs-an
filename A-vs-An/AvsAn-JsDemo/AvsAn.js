@@ -40,7 +40,7 @@ var AvsAn = (function () {
 				else break;
 			}
 			while (1) {
-				node = word[sI];
+				node = node[word[sI]];
 				if (!node) break;
 				if (node.data) data = node.data;
 				if (++sI >= word.length) {
