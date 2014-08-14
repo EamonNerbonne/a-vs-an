@@ -79,46 +79,65 @@ namespace AvsAnLib.Internals {
             return retval;
         }
 
-        struct NodeWithIdx {
-            public int Idx;
-            public Node Node;
+        static ParseResult<T> Result<T>(int cursor, T value) {
+            return new ParseResult<T> { Cursor = cursor, Value = value };
         }
 
-        static NodeWithIdx DeserializeDenseImpl(string rawDict, int startACount) {
-            int afterACount = rawDict.IndexOf(':', startACount);
-            int aCount = parseHex(rawDict, startACount, afterACount);
+        struct ParseResult<T> {
+            public int Cursor;
+            public T Value;
+        }
 
-            int startAnCount = afterACount + 1;
-            int afterAnCount = rawDict.IndexOf(':', startAnCount);
-            int anCount = parseHex(rawDict, startAnCount, afterAnCount);
-            int startKidCount = afterAnCount + 1;
-            int afterKidCount = rawDict.IndexOf(';', startKidCount);
-            int kidCount = parseHex(rawDict, startKidCount, afterKidCount);
-            var ratio = new Ratio { aCount = aCount, anCount = anCount };
+        static ParseResult<int> DenseIntParse(string str, int cursor) {
+            int retval = 0;
+            char c = str[cursor++];
+            while (c != ';') {
+                retval = retval * 36;
+                retval += c - (c >= 'a' ? 'a' - 10 : '0');
+                c = str[cursor++];
+            }
+            return Result(cursor, retval);
+        }
+        static void DenseIntToString(StringBuilder sb, int num) {
+            DenseIntDigitToString(sb, num);
+            sb.Append(';');
+        }
 
-            int pos = afterKidCount + 1;
+        static void DenseIntDigitToString(StringBuilder sb, int num) {
+            if (num > 0) {
+                int digit = num % 36;
+                DenseIntDigitToString(sb, num / 36);
+                sb.Append((char)(digit + (digit < 10 ? '0' : 'a' - 10)));
+            }
+        }
+
+        static ParseResult<Node> DeserializeDenseImpl(string rawDict, int cursor) {
+            var aCountResult = DenseIntParse(rawDict, cursor);
+            var anCountResult = DenseIntParse(rawDict, aCountResult.Cursor);
+            var kidCountResult = DenseIntParse(rawDict, anCountResult.Cursor);
+            int kidCount = kidCountResult.Value;
+            var ratio = new Ratio { aCount = aCountResult.Value, anCount = anCountResult.Value };
+            cursor = kidCountResult.Cursor;
             Node[] kids = null;
             if (kidCount != 0) {
                 kids = new Node[kidCount];
                 for (int i = 0; i < kidCount; i++) {
-                    var c = rawDict[pos];
-                    var nodeWithIdx = DeserializeDenseImpl(rawDict, pos+1);
-                    kids[i] = nodeWithIdx.Node;
+                    var c = rawDict[cursor];
+                    var nodeWithIdx = DeserializeDenseImpl(rawDict, cursor + 1);
+                    kids[i] = nodeWithIdx.Value;
                     kids[i].c = c;
-                    pos = nodeWithIdx.Idx;
+                    cursor = nodeWithIdx.Cursor;
                 }
             }
-            return new NodeWithIdx {
-                Node = new Node {
+            return Result(cursor,
+                new Node {
                     ratio = ratio,
                     SortedKids = kids
-                },
-                Idx = pos
-            };
+                });
         }
 
         public static Node DeserializeDense(string rawDict) {
-            return DeserializeDenseImpl(rawDict, 0).Node;
+            return DeserializeDenseImpl(rawDict, 0).Value;
         }
 
 
@@ -130,14 +149,9 @@ namespace AvsAnLib.Internals {
 
 
         public static void SerializeDenseImpl(StringBuilder sb, Node node) {
-            sb.Append(node.ratio.aCount.ToString("x"));
-            sb.Append(':');
-            sb.Append(node.ratio.anCount.ToString("x"));
-            sb.Append(":");
-            if (node.SortedKids != null) {
-                sb.Append(node.SortedKids.Length.ToString("x"));
-            }
-            sb.Append(";");
+            DenseIntToString(sb, node.ratio.aCount);
+            DenseIntToString(sb, node.ratio.anCount);
+            DenseIntToString(sb, node.SortedKids == null ? 0 : node.SortedKids.Length);
             if (node.SortedKids != null) {
                 foreach (var kid in node.SortedKids) {
                     sb.Append(kid.c);

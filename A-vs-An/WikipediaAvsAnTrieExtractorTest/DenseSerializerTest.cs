@@ -11,7 +11,7 @@ namespace WikipediaAvsAnTrieExtractorTest {
         [Fact]
         public void SingleNodeWorks() {
             var node = new Node { ratio = { aCount = 0x2468ad, anCount = 0x12345 } };
-            const string serializedNode = @"2468ad:12345:;";
+            const string serializedNode = @"1f54d;1lj9;;";
             Assert.Equal(serializedNode, NodeSerializer.SerializeDense(node));
             Assert.Equal(node, NodeSerializer.DeserializeDense(serializedNode), NodeEqualityComparer.Instance);
         }
@@ -32,7 +32,7 @@ namespace WikipediaAvsAnTrieExtractorTest {
                 }
             };
 
-            const string serializedNode = @"1:b:2;b5:0:;u2:f:;";
+            const string serializedNode = @"1;b;2;b5;;;u2;f;;";
             Assert.Equal(serializedNode, NodeSerializer.SerializeDense(node));
             Node deserialized = NodeSerializer.DeserializeDense(serializedNode);
             Assert.Equal(node, deserialized, NodeEqualityComparer.Instance);
@@ -65,7 +65,7 @@ namespace WikipediaAvsAnTrieExtractorTest {
                     },
                 }
             };
-            const string serializedNode = @"1:b:1;b5:0:2;c3:4:1;d100:80:;u2:f:;";
+            const string serializedNode = @"1;b;1;b5;;2;c3;4;1;d74;3k;;u2;f;;";
 
             Assert.Equal(serializedNode, NodeSerializer.SerializeDense(node));
             Assert.Equal(node, NodeSerializer.DeserializeDense(serializedNode), NodeEqualityComparer.Instance);
