@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AvsAnLib.Internals;
+using WikipediaAvsAnTrieExtractor;
 using Xunit;
 
 namespace WikipediaAvsAnTrieExtractorTest {
@@ -13,7 +14,7 @@ namespace WikipediaAvsAnTrieExtractorTest {
             var node = new Node { ratio = { aCount = 0x2468ad, anCount = 0x12345 } };
             const string serializedNode = @"1f54d;1lj9;;";
             Assert.Equal(serializedNode, NodeSerializer.SerializeDense(node));
-            Assert.Equal(node, NodeSerializer.DeserializeDense(serializedNode), NodeEqualityComparer.Instance);
+            Assert.Equal(node, NodeDeserializer.DeserializeDense(serializedNode), NodeEqualityComparer.Instance);
         }
 
         [Fact]
@@ -34,7 +35,7 @@ namespace WikipediaAvsAnTrieExtractorTest {
 
             const string serializedNode = @"1;b;2;b5;;;u2;f;;";
             Assert.Equal(serializedNode, NodeSerializer.SerializeDense(node));
-            Node deserialized = NodeSerializer.DeserializeDense(serializedNode);
+            Node deserialized = NodeDeserializer.DeserializeDense(serializedNode);
             Assert.Equal(node, deserialized, NodeEqualityComparer.Instance);
         }
 
@@ -68,7 +69,7 @@ namespace WikipediaAvsAnTrieExtractorTest {
             const string serializedNode = @"1;b;1;b5;;2;c3;4;1;d74;3k;;u2;f;;";
 
             Assert.Equal(serializedNode, NodeSerializer.SerializeDense(node));
-            Assert.Equal(node, NodeSerializer.DeserializeDense(serializedNode), NodeEqualityComparer.Instance);
+            Assert.Equal(node, NodeDeserializer.DeserializeDense(serializedNode), NodeEqualityComparer.Instance);
         }
     }
 }
