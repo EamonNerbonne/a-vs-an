@@ -21,3 +21,7 @@ newLookup
     |> NodeSerializer.SerializeDense
     |> ObjectToCode.PlainObjectToCode
     |> printfn "%s"
+newLookup
+    |> NodeSerializer.SerializeDenseNoStats
+    |> ObjectToCode.PlainObjectToCode
+    |> printfn "%s"
