@@ -23,17 +23,19 @@
 <body>
 	Benchmark!
 
-	<label>Load Dictionary:
-        <input type="file" id="benchfile" /></label>
-	<button id="benchButton" disabled>bench</button>
-	<button id="benchChadButton" disabled>benchChad</button>
-	<button id="benchSimpleButton" disabled>benchSimple</button>
-	<div style="position:relative;"><textarea id="log" style="width:100%;height:20em;"></textarea></div>
-</body>
-<script src="AvsAn.js"></script>
-<script src="AvsAn-simple.js"></script>
-<script src="itertrie.js"></script>
-<script src="Articles.js"></script>
+	<button id="benchButton">benchFull</button>
+	<button id="benchSimpleButton">benchSimple</button>
+	<button id="benchChadButton">benchChadSimple</button>
+	<label>
+		Or load a different dictionary:
+		<input type="file" id="benchfile" />
+	</label>
+	<div style="position:relative;white-space: pre-line" id="log"></div>
+	<script src="AvsAn.js"></script>
+	<script src="AvsAn-simple.js"></script>
+	<script src="itertrie.js"></script>
+	<script src="Articles.js"></script>
+	<script type="content" id="defDict">@string.Join("\n", AvsAn_Test.Dictionaries.LoadEnglishDictionary())</script>
 <script>
 	(function () {
 		"use strict";
@@ -47,12 +49,10 @@
 			reader.onload = function (e) {
 				window.benchdict = e.target.result.split("\n");
 				log("done loading.");
-				benchButton.disabled = false;
-				benchChadButton.disabled = false;
-				benchSimpleButton.disabled = false;
 			};
 			reader.readAsText(e.target.files[0]);
 		});
+		window.benchdict = defDict.textContent.split("\n");
 		function bench(q) {
 			return function () {
 				var tr = { a: 0, an: 1 };
@@ -75,9 +75,6 @@
 		benchChadButton.onclick = bench(Articles.find);
 		benchSimpleButton.onclick = bench(AvsAnSimple.query);
 	})();
-
-
-
 </script>
-
+</body>
 </html>
