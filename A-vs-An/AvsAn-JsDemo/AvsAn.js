@@ -6,7 +6,7 @@ var AvsAn = (function () {
 
 	function fill(prefix, node, s) {
 		var a = s.split(';', 3)
-			, n = a.map(function (x) { return parseInt(x, 36); });
+			, n = a.map(function (x) { return parseInt(x, 36)||0; });
 		node.data={ 
 					aCount:n[0],
 					anCount:n[1],
