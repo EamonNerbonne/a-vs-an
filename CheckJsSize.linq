@@ -29,7 +29,7 @@
   <Namespace>System.IO.Compression</Namespace>
 </Query>
 
-var basename = "AvsAn-simple";
+var basename = "AvsAn";
 var dir = @"C:\VCS\remote\a-vs-an\A-vs-An\AvsAn-JsDemo\";
 var src = File.ReadAllText(dir+basename+".js",Encoding.UTF8);
 var ms = new Minifier();
@@ -40,19 +40,16 @@ var mini1=ms.MinifyJavaScript(src);
 
 src.Length.Dump();
 mini1.Length.Dump();
-File.WriteAllText(dir+basename+".min.js",mini1,Encoding.UTF8);
+File.WriteAllText(dir+basename+".min.js",mini1,new UTF8Encoding(false));
 var res = EmnExtensions.WinProcessUtil.ExecuteProcessSynchronously(
 @"C:\Program Files\7-zip\7z.exe",
-@"a DUMMY -tgzip -mfb=258 -mx=9 -mpass=15 -si -so",mini1, new ProcessStartOptions{
- StandardInputEncoding = Encoding.UTF8,
- StandardOutputAndErrorEncoding = Encoding.GetEncoding(1251)
-}); 
-res.StandardOutputContents.Length.Dump();
-res.StandardErrorContents.Dump();
-
-var bytes = Encoding.GetEncoding(1251).GetBytes(res.StandardOutputContents);
-var sink = new MemoryStream();
-new GZipStream(new MemoryStream(bytes),CompressionMode.Decompress).CopyTo(sink);
-var roundtripped = Encoding.UTF8.GetString(sink.ToArray());
+@"a """+dir+basename+".min.js.gz"+@""" -tgzip -mfb=258 -mx=9 -mpass=15 """+dir+basename+".min.js"+@"""",""); 
+var file = new FileInfo(dir+basename+".min.js.gz");
+file.Length.Dump();
+string roundtripped;
+using (var stream = file.OpenRead())
+	using(var unzip = new GZipStream(stream,CompressionMode.Decompress))
+		using(var reader = new StreamReader(unzip,Encoding.UTF8))
+			roundtripped = reader.ReadToEnd();
 
 (roundtripped == mini1).Dump();
