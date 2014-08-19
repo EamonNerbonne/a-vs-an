@@ -29,28 +29,28 @@
   <Namespace>System.IO.Compression</Namespace>
 </Query>
 
-var src = File.ReadAllText(@"C:\VCS\remote\a-vs-an\A-vs-An\AvsAn-JsDemo\AvsAn-simple.js",Encoding.UTF8);
-var yahoo=new JavaScriptCompressor();
-yahoo.LineBreakPosition = int.MaxValue;
+var basename = "AvsAn-simple";
+var dir = @"C:\VCS\remote\a-vs-an\A-vs-An\AvsAn-JsDemo\";
+var src = File.ReadAllText(dir+basename+".js",Encoding.UTF8);
 var ms = new Minifier();
 
 
 var mini1=ms.MinifyJavaScript(src);
-var mini2=yahoo.Compress(src);
 
 
 src.Length.Dump();
 mini1.Length.Dump();
-
+File.WriteAllText(dir+basename+".min.js",mini1,Encoding.UTF8);
 var res = EmnExtensions.WinProcessUtil.ExecuteProcessSynchronously(
 @"C:\Program Files\7-zip\7z.exe",
 @"a DUMMY -tgzip -mfb=258 -mx=9 -mpass=15 -si -so",mini1, new ProcessStartOptions{
  StandardInputEncoding = Encoding.UTF8,
- StandardOutputAndErrorEncoding = Encoding.Default
+ StandardOutputAndErrorEncoding = Encoding.GetEncoding(1251)
 }); 
 res.StandardOutputContents.Length.Dump();
 res.StandardErrorContents.Dump();
-var bytes = Encoding.Default.GetBytes(res.StandardOutputContents);
+
+var bytes = Encoding.GetEncoding(1251).GetBytes(res.StandardOutputContents);
 var sink = new MemoryStream();
 new GZipStream(new MemoryStream(bytes),CompressionMode.Decompress).CopyTo(sink);
 var roundtripped = Encoding.UTF8.GetString(sink.ToArray());
