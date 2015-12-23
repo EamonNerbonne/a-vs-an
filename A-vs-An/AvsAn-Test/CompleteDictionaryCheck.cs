@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Reporters;
 using AvsAnLib;
 using Xunit;
 
-namespace AvsAn_Test {
+namespace AvsAn_Test
+{
     [UseReporter(typeof(DiffReporter))]
     public class CompleteDictionaryCheck {
         [Fact, MethodImpl(MethodImplOptions.NoInlining)]

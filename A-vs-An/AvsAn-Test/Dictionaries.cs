@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AvsAn_Test {
+namespace AvsAn_Test
+{
     public static class Dictionaries {
         public static IEnumerable<string> AcronymsWithUpto4Letters() {
             var letters = Enumerable.Range('A', 'Z' - 'A' + 1).Select(i => (char)i).ToArray();

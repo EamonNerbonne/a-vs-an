@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AvsAnLib;
+﻿using AvsAnLib;
 using ExpressionToCodeLib;
-using Xunit.Extensions;
+using Xunit;
 
-namespace AvsAn_Test {
+namespace AvsAn_Test
+{
     public class StandardCasesWork {
         [Theory]
         [InlineData("an", "unanticipated result")]
