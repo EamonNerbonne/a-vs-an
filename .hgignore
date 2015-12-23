@@ -13,3 +13,5 @@ packages/
 *.nupkg
 *.received.txt
 *.approved.txt.bak
+A-vs-An/.vs
+*.orig
