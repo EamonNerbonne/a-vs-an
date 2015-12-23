@@ -73,10 +73,14 @@
   <ItemGroup>
     <Content Include="Articles.js" />
     <Content Include="AvsAn-simple.js" />
+    <Content Include="AvsAn-simple.min.js" />
     <Content Include="AvsAn.js" />
+    <Content Include="AvsAn.min.js" />
     <Content Include="emnicon.ico" />
     <Content Include="emnicon.png" />
     <Content Include="index.html" />
+    <Content Include="AvsAn-simple.min.js.gz" />
+    <Content Include="AvsAn.min.js.gz" />
     <None Include="benchmark.cshtml" />
     <Content Include="itertrie.js" />
     <Content Include="Web.config" />
