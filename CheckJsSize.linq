@@ -53,3 +53,10 @@ using (var stream = file.OpenRead())
 			roundtripped = reader.ReadToEnd();
 
 (roundtripped == mini1).Dump();
+new { roundtripped, mini1 }.Dump();
+
+mini1.Dump();
+roundtripped.ZipWith(mini1, (a, b) => new { a, b })
+	.Select((t, i) => new { t.a, t.b, i})
+	.Where(o=>o.a!=o.b)
+	.Dump();
