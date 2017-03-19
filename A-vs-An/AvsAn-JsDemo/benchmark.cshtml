@@ -25,7 +25,6 @@
 
 	<button id="benchButton">benchFull</button>
 	<button id="benchSimpleButton">benchSimple</button>
-	<button id="benchChadButton">benchChadSimple</button>
 	<label>
 		Or load a different dictionary:
 		<input type="file" id="benchfile" />
@@ -34,7 +33,6 @@
 	<script src="AvsAn.js"></script>
 	<script src="AvsAn-simple.js"></script>
 	<script src="itertrie.js"></script>
-	<script src="Articles.js"></script>
 	<script type="content" id="defDict">@string.Join("\n", AvsAn_Test.Dictionaries.LoadEnglishDictionary())</script>
 <script>
 	(function () {
@@ -72,7 +70,6 @@
 			}
 		}
 		benchButton.onclick = bench(function (s) { return AvsAn.query(s).article; });
-		benchChadButton.onclick = bench(Articles.find);
 		benchSimpleButton.onclick = bench(AvsAnSimple.query);
 	})();
 </script>
