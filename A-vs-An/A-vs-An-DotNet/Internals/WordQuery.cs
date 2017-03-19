@@ -14,7 +14,7 @@
                     return new AvsAn.Result(result, word, depth);
                 } else {
                     char c = word[depth];
-                    if (c == '"' || c == '‘' || c == '’' || c == '“' || c == '”' || c == '$' || c == '\'') {
+                    if (( c == '"' || c == '‘' || c == '’' || c == '“' || c == '”' || c == '$' || c == '\'' || c == '-' || c == '(')) {
                         //ignore these characters at the start of a word.
                         depth++;
                     } else {

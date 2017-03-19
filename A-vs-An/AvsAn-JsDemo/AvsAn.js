@@ -32,7 +32,7 @@ var AvsAn = (function () {
 			var node = root, sI = 0, result, c;
 			do {
 				c = word[sI++];
-			} while ('"‘’“”$\''.indexOf(c) >= 0);//also terminates on end-of-string "undefined".
+			} while ('"‘’“”$\'-('.indexOf(c) >= 0);//also terminates on end-of-string "undefined".
 
 			while (1) {
 				result = node.data || result;
