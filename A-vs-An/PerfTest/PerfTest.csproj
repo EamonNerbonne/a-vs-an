@@ -16,5 +16,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
     <ProjectReference Include="..\A-vs-An-DotNet\AvsAn.csproj" />
+    <ProjectReference Include="..\AvsAn-Test\AvsAn-Test.csproj" />
   </ItemGroup>
 </Project>

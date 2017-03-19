@@ -5,12 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using AvsAnLib;
+using AvsAn_Test;
 
 namespace PerfTest {
     static class Program {
         static void Main(string[] args) {
-            var words = File.ReadAllLines(@"..\..\..\AvsAn-Test\354984si.ngl").Where(w => w != "").ToArray();
-
+            var words = Dictionaries.LoadEnglishDictionary();
+            
             long sum = 0;
             Stopwatch sw = Stopwatch.StartNew();
             var _ = AvsAn.Query("example").Article;
