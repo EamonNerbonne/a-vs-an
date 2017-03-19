@@ -23,33 +23,31 @@ namespace AvsAnLib {
             /// <summary>
             /// How often this prefix was preceded by "a" on wikipedia.
             /// </summary>
-            public int aCount { get { return ratio.aCount; } }
+            public int aCount => ratio.aCount;
 
             /// <summary>
             /// How often this prefix was preceded by "an" on wikipedia.
             /// </summary>
-            public int anCount { get { return ratio.anCount; } }
+            public int anCount => ratio.anCount;
 
             /// <summary>
             /// How often this prefix occurred on wikipedia.  Equivalent to aCount+anCount
             /// </summary>
-            public int Occurence { get { return ratio.Occurence; } }
+            public int Occurence => ratio.Occurence;
 
             /// <summary>
             /// How many more "a"s occurred before this prefix than "an"s.
             /// </summary>
-            public int AminAnDiff { get { return ratio.AminAnDiff; } }
+            public int AminAnDiff => ratio.AminAnDiff;
 
             /// <summary>
             /// The prefix of the word on which the determination was based.
             /// </summary>
-            public string Prefix {
-                get {
-                    return Depth > Word.Length
-                        ? Word + new string(' ', Depth - Word.Length)
-                        : Word.Substring(0, Depth);
-                }
-            }
+            public string Prefix 
+                => Depth > Word.Length
+                ? Word + new string(' ', Depth - Word.Length)
+                : Word.Substring(0, Depth);
+
             /// <summary>
             /// The tested word.
             /// </summary>
@@ -61,7 +59,8 @@ namespace AvsAnLib {
             /// <summary>
             /// The article you should use.
             /// </summary>
-            public string Article { get { return ratio.AminAnDiff >= 0 ? "a" : "an"; } }
+            public string Article => ratio.AminAnDiff >= 0 ? "a" : "an";
+
             public Result(Ratio ratio, string word, int depth) {
                 Word = word;
                 Depth = depth;
