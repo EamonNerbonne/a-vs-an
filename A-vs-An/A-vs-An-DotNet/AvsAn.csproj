@@ -12,5 +12,6 @@
       This release brings compatibility to .NET Core with the use of .NET Standard.
     </PackageReleaseNotes>
     <Copyright>Copyright Eamon Nerbonne ©  2014</Copyright>
+    <RootNamespace>AvsAnLib</RootNamespace>
   </PropertyGroup>
 </Project>
