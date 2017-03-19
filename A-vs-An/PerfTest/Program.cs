@@ -17,7 +17,7 @@ namespace PerfTest {
             var init = sw.Elapsed;
             Console.WriteLine("initialization took " + init.TotalMilliseconds);
             sw.Restart();
-            const int iters = 200;
+            const int iters = 400;
             for (var k = 0; k < iters; k++) {
                 for (var i = 0; i < words.Length; i++)
                     sum += AvsAn.Query(words[i]).Article == "an" ? 1 : 0;
