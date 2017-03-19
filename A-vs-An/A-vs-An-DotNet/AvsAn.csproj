@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
     <Authors>Eamon Nerbonne</Authors>
@@ -10,13 +9,8 @@
     <PackageProjectUrl>https://github.com/EamonNerbonne/a-vs-an/</PackageProjectUrl>
     <PackageTags>english NLP text-processing library indeterminate-article AvsAn an a-vs-an</PackageTags>
     <PackageReleaseNotes>
-    This release brings compatibility to .NET Core with the use of .NET Standard.
+      This release brings compatibility to .NET Core with the use of .NET Standard.
     </PackageReleaseNotes>
     <Copyright>Copyright Eamon Nerbonne ©  2014</Copyright>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-
 </Project>

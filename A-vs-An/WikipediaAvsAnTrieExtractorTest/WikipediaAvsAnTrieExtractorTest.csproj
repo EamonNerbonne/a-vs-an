@@ -1,48 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B9F04F75-29C5-4608-814F-AC49A05550C9}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WikipediaAvsAnTrieExtractorTest</RootNamespace>
-    <AssemblyName>WikipediaAvsAnTrieExtractorTest</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFramework>net461</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ApprovalTests, Version=3.0.0.0, Culture=neutral, PublicKeyToken=11bd7d124fc62e0f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ApprovalTests.3.0.7\lib\net40\ApprovalTests.dll</HintPath>
-    </Reference>
-    <Reference Include="ApprovalUtilities, Version=3.0.0.0, Culture=neutral, PublicKeyToken=11bd7d124fc62e0f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ApprovalUtilities.3.0.7\lib\net35\ApprovalUtilities.dll</HintPath>
-    </Reference>
-    <Reference Include="ExpressionToCodeLib">
-      <HintPath>..\packages\ExpressionToCodeLib.1.4.5.0\lib\net40-Client\ExpressionToCodeLib.dll</HintPath>
-    </Reference>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,38 +11,15 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="xunit">
-      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="EntityDecoderTest.cs" />
-    <Compile Include="MarkupStripperUnitTests.cs" />
-    <Compile Include="NodeEqualityComparer.cs" />
-    <Compile Include="DenseSerializerTest.cs" />
-    <Compile Include="SerializerTest.cs" />
-    <Compile Include="MarkupStripperTests.cs" />
-    <Compile Include="SentenceFinderTest.cs" />
-    <Compile Include="TriePrefixIncrementorTest.cs" />
-    <Compile Include="UtilsInstance.cs" />
-    <Compile Include="WhitespaceNormalizerTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\A-vs-An-DotNet\AvsAn.csproj">
-      <Project>{CB925C3D-7ECE-48DE-AA24-A3FA2D00159E}</Project>
-      <Name>AvsAn</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WikipediaAvsAnTrieExtractor\WikipediaAvsAnTrieExtractor.csproj">
-      <Project>{41d551c9-7343-455a-abc4-26c02d41855e}</Project>
-      <Name>WikipediaAvsAnTrieExtractor</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <PackageReference Include="ApprovalTests" Version="3.0.7" />
+    <PackageReference Include="ApprovalUtilities" Version="3.0.7" />
+    <PackageReference Include="ExpressionToCodeLib" Version="1.4.5.0" />
+    <PackageReference Include="xunit" Version="1.9.2" />
+    <ProjectReference Include="..\A-vs-An-DotNet\AvsAn.csproj" />
+    <ProjectReference Include="..\WikipediaAvsAnTrieExtractor\WikipediaAvsAnTrieExtractor.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MarkupStripperTests.StripsRedirects.approved.txt" />
@@ -93,12 +31,4 @@
     <Content Include="MarkupStripperTests.Wikipage_DominicaTransport.approved.txt" />
     <Content Include="MarkupStripperTests.Wikipage_Glottis.approved.txt" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
