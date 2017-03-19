@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using ApprovalTests;
+using ApprovalTests.Approvers;
+using ApprovalTests.Core;
 using ApprovalTests.Reporters;
+using ApprovalTests.Writers;
 using WikipediaAvsAnTrieExtractor;
 using Xunit;
 
@@ -12,9 +16,26 @@ namespace WikipediaAvsAnTrieExtractorTest {
     public class MarkupStripperTests {
         static readonly RegexTextUtils utils = UtilsInstance.Utils;
 
-        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
+        class SaneNamer : IApprovalNamer
+        {
+            public string SourcePath { get; set; }
+            public string Name { get; set; }
+        }
+
+        static void MyApprove(string text, object IGNORE_PAST_THIS = null, [CallerFilePath] string filepath = null, [CallerMemberName] string membername = null)
+        {
+            var writer = WriterFactory.CreateTextWriter(text);
+            var filename = Path.GetFileNameWithoutExtension(filepath);
+            var filedir = Path.GetDirectoryName(filepath);
+            var namer = new SaneNamer { Name = filename + "." + membername, SourcePath = filedir };
+            var reporter = new DiffReporter();
+            Approver.Verify(new FileApprover(writer, namer, true), reporter);
+        }
+
+
+        [Fact]
         public void Wikipage_AaRiver() {
-            Approvals.Verify(utils.StripWikiMarkup(@"'''Aa River''' may refer to:
+            MyApprove(utils.StripWikiMarkup(@"'''Aa River''' may refer to:
 
 *[[Aa (France)]], in northern France
 *[[Aa (Meuse)]], in North Brabant, Netherlands
@@ -36,9 +57,9 @@ namespace WikipediaAvsAnTrieExtractorTest {
 [[zh:阿河]]"));
         }
 
-        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
+        [Fact]
         public void Wikipage_AfrikaIslam() {
-            Approvals.Verify(utils.StripWikiMarkup(@"'''Afrika Islam''' (born Charles Glenn, 1968, [[New York City]]) also known as the ""''Son of [[Afrika Bambaataa|Bambaataa]]''"", is an American [[hip hop production|hip-hop producer]] <ref>{{cite web|url=http://www.thedjlist.com/djs/AFRIKA_ISLAM/ |title=Afrika Islam |publisher=thedjlist.com |accessdate=2009-07-21}}</ref>. 
+            MyApprove(utils.StripWikiMarkup(@"'''Afrika Islam''' (born Charles Glenn, 1968, [[New York City]]) also known as the ""''Son of [[Afrika Bambaataa|Bambaataa]]''"", is an American [[hip hop production|hip-hop producer]] <ref>{{cite web|url=http://www.thedjlist.com/djs/AFRIKA_ISLAM/ |title=Afrika Islam |publisher=thedjlist.com |accessdate=2009-07-21}}</ref>. 
 
 ==Life==
 In the 1980s he moved to [[Los Angeles]] where he co-produced [[Ice T]]'s early albums ''[[Rhyme Pays]]'' and ''[[Power (Ice T album)|Power]]''.
@@ -62,9 +83,9 @@ In the late 1990s, Afrika Islam joined German [[techno music|techno]] icon [[Wes
 [[pl:Afrika Islam]]"));
         }
 
-        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
+        [Fact]
         public void Wikipage_Abatement() {
-            Approvals.Verify(utils.StripWikiMarkup(@"{{wiktionarypar|abatement}}
+            MyApprove(utils.StripWikiMarkup(@"{{wiktionarypar|abatement}}
 <!--{{Wikisource1911Enc|Abatement}}-->
 
 '''Abatement''' may refer to:
@@ -83,9 +104,9 @@ In the late 1990s, Afrika Islam joined German [[techno music|techno]] icon [[Wes
 
 
         //TODO: support definition lists.
-        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
+        [Fact]
         public void Wikipage_CookIslandsTransport() {
-            Approvals.Verify(utils.StripWikiMarkup(@"{{CIA}}
+            MyApprove(utils.StripWikiMarkup(@"{{CIA}}
 
 This article lists '''[[transport]] in the [[Cook Islands]]'''.
 
@@ -125,9 +146,9 @@ This article lists '''[[transport]] in the [[Cook Islands]]'''.
         }
 
 
-        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
+        [Fact]
         public void Wikipage_DominicaTransport() {
-            Approvals.Verify(utils.StripWikiMarkup(@"{{Unreferenced|date=December 2009}}
+            MyApprove(utils.StripWikiMarkup(@"{{Unreferenced|date=December 2009}}
 {{CIA}}
 
 '''Railways:'''
@@ -165,9 +186,9 @@ Dominica has three ports of entry: Portsmouth, Roseau, and Anse-de-Mai. Portsmou
 [[lt:Dominikos transportas]]"));
         }
 
-        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
+        [Fact]
         public void Wikipage_Disperser() {
-            Approvals.Verify(utils.StripWikiMarkup(@"A '''disperser''' is a one-sided [[randomness extractor|extractor]].<ref>Ronen Shaltiel. Recent developments in explicit construction of extractors. P. 7.</ref> Where an extractor requires that every event gets the same [[probability]] under the [[uniform distribution]] and the extracted distribution, only the latter is required for a disperser. So for a disperser, an event <math>A \subseteq \{0,1\}^{m}</math> we have:
+            MyApprove(utils.StripWikiMarkup(@"A '''disperser''' is a one-sided [[randomness extractor|extractor]].<ref>Ronen Shaltiel. Recent developments in explicit construction of extractors. P. 7.</ref> Where an extractor requires that every event gets the same [[probability]] under the [[uniform distribution]] and the extracted distribution, only the latter is required for a disperser. So for a disperser, an event <math>A \subseteq \{0,1\}^{m}</math> we have:
 <math>Pr_{U_{m}}[A] > 1 - \epsilon</math>
 
 '''Definition (Disperser):''' ''A'' <math>(k, \epsilon)</math>''-disperser is a function''
@@ -197,9 +218,9 @@ A disperser is a high-speed mixing device used to disperse or dissolve pigments 
 {{Combin-stub}}"));
         }
 
-        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
+        [Fact]
         public void Wikipage_FeaturedList() {
-            Approvals.Verify(utils.StripWikiMarkup(@"<noinclude>{| style=""float:right; padding:1em; border:1px solid #A3B1BF; background-color:#E6F2FF; margin:0 0 0.5em 1em""
+            MyApprove(utils.StripWikiMarkup(@"<noinclude>{| style=""float:right; padding:1em; border:1px solid #A3B1BF; background-color:#E6F2FF; margin:0 0 0.5em 1em""
 |{{Shortcut|WP:WIAFL|WP:FL?|WP:FLCR}}
 {{FLpages}}
 |}
@@ -234,9 +255,9 @@ A [[WP:Featured lists|featured list]] exemplifies our very best work. It covers 
 </noinclude>"));
         }
 
-        [Fact, MethodImpl(MethodImplOptions.NoInlining)]
+        [Fact]
         public void Wikipage_Glottis() {
-            Approvals.Verify(utils.StripWikiMarkup(@"{{Infobox Anatomy |
+            MyApprove(utils.StripWikiMarkup(@"{{Infobox Anatomy |
   Name         = Glottis |
   Latin        = |
   GraySubject  = |
