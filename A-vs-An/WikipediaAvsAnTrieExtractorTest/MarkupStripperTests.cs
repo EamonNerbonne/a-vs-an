@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using ApprovalTests;
 using ApprovalTests.Approvers;
 using ApprovalTests.Core;
 using ApprovalTests.Reporters;
