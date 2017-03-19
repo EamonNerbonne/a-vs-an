@@ -1,16 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvsAn", "A-vs-An-DotNet\AvsAn.csproj", "{CB925C3D-7ECE-48DE-AA24-A3FA2D00159E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvsAn-Test", "AvsAn-Test\AvsAn-Test.csproj", "{64F4736B-7037-4F2C-B8D9-0B2DB7313E0B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{EBF2D8F7-19A1-4F40-BAB9-17A850811ACC}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvsAn-JsDemo", "AvsAn-JsDemo\AvsAn-JsDemo.csproj", "{C60ED821-A93B-45E1-9B2E-8E4C17AB0A7F}"
 EndProject
@@ -29,9 +24,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikipediaAvsAnTrieExtractorTest", "WikipediaAvsAnTrieExtractorTest\WikipediaAvsAnTrieExtractorTest.csproj", "{B9F04F75-29C5-4608-814F-AC49A05550C9}"
 EndProject
 Global
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -64,5 +56,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal
