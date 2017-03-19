@@ -1,6 +1,5 @@
 using System.Text;
 using AvsAnLib.Internals;
-using JetBrains.Annotations;
 
 namespace WikipediaAvsAnTrieExtractor {
     public static class NodeSerializer {
@@ -128,7 +127,7 @@ namespace WikipediaAvsAnTrieExtractor {
             }
         }
 
-        [UsedImplicitly]//For debugging dictionary issues
+        // ReSharper disable once UnusedMember.Global
         public static string SerializeReadably(Node node) {
             return SerializeImpl(node, true);
         }
