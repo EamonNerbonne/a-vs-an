@@ -30,10 +30,10 @@ namespace PerfTest
             sw.Restart();
             const int iters = 100;
             for (var k = 0; k < iters; k++) {
-                for (var i = 0; i < words.Length; i++)
-                    sum += AvsAn.Query(words[i]).Article == "an" ? 1 : 0;
-                for (var i = 0; i < borkedWords.Length; i++)
-                    sum += AvsAn.Query(borkedWords[i]).Article == "an" ? 1 : 0;
+                foreach (string word in words)
+                    sum += AvsAn.Query(word).Article == "an" ? 1 : 0;
+                foreach (string word in borkedWords)
+                    sum += AvsAn.Query(word).Article == "an" ? 1 : 0;
             }
             var duration = sw.Elapsed.TotalMilliseconds;
             var clockrateMHz =
