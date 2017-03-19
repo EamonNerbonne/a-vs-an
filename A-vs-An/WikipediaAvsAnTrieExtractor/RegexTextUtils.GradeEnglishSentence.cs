@@ -1,9 +1,9 @@
 ﻿using System.Globalization;
 using System.Linq;
 using System;
-using System.Collections.Generic;
 
-namespace WikipediaAvsAnTrieExtractor {
+namespace WikipediaAvsAnTrieExtractor
+{
     public partial class RegexTextUtils {
         static readonly bool[] isSeparatorChar =
             Enumerable.Range(0, 65536)
@@ -14,7 +14,7 @@ namespace WikipediaAvsAnTrieExtractor {
                     || cat >= UnicodeCategory.ConnectorPunctuation && cat <= UnicodeCategory.OtherPunctuation
                 ).ToArray();
 
-        public double GradeEnglishSentence(string sentenceCandidate) {
+        static double GradeEnglishSentence(string sentenceCandidate) {
             var charCount = sentenceCandidate.Length;
             int capCount = 0, numCount = 0, wordCharCount = 0;
             var inDictScore = 0;

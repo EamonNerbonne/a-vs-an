@@ -25,7 +25,7 @@ namespace WikipediaAvsAnTrieExtractor {
         //In particular, some symbolic math and logic expressions use the word "a" followed by things
         //like parentheses and that throws the statistics a little (but enough in rarely occuring 
         //prefixes to matter).  Therefore, don't detect a/an + word when separated by "(".
-        public IEnumerable<AvsAnSighting> ExtractWordsPrecededByAOrAn(string text) {
+        IEnumerable<AvsAnSighting> ExtractWordsPrecededByAOrAn(string text) {
             //TODO: ignore uppercase "A" -it's just too hard to get right.
             return
                 from Match m in followingAn.Matches(text)

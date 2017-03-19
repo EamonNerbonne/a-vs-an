@@ -98,8 +98,7 @@ namespace WikipediaAvsAnTrieExtractor {
             return sb.ToString();
         }
 
-
-        public static void SerializeDenseImpl(StringBuilder sb, Node node) {
+        static void SerializeDenseImpl(StringBuilder sb, Node node) {
             DenseIntToString(sb, node.ratio.aCount);
             DenseIntToString(sb, node.ratio.anCount);
             DenseIntToString(sb, node.SortedKids == null ? 0 : node.SortedKids.Length);
@@ -117,7 +116,7 @@ namespace WikipediaAvsAnTrieExtractor {
             return sb.ToString();
         }
 
-        public static void SerializeDenseNoStatsImpl(StringBuilder sb, Node node) {
+        static void SerializeDenseNoStatsImpl(StringBuilder sb, Node node) {
             DenseIntDigitToString(sb, node.SortedKids == null ? 0 : node.SortedKids.Length);
             sb.Append(node.ratio.AminAnDiff >= 0 ? '.' : ';');
             if (node.SortedKids != null) {
