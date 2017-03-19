@@ -28,6 +28,7 @@ namespace WikipediaAvsAnTrieExtractor {
 
         static RegexTextUtils() {
             var myType = typeof(RegexTextUtils);
+            // ReSharper disable once AssignNullToNotNullAttribute
             using (var dictStream = myType.Assembly.GetManifestResourceStream(myType.Namespace + ".english.ngl"))
             using (var reader = new StreamReader(dictStream))
                 dictionary = new HashSet<string>(ReadWordsFromDictionary(reader));
