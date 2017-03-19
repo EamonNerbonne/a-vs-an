@@ -14,10 +14,10 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
-    <PackageReference Include="ApprovalTests" Version="3.0.7" />
-    <PackageReference Include="ApprovalUtilities" Version="3.0.7" />
-    <PackageReference Include="ExpressionToCodeLib" Version="1.4.5.0" />
-    <PackageReference Include="xunit" Version="1.9.2" />
+    <PackageReference Include="ApprovalTests" Version="3.0.13" />
+    <PackageReference Include="ApprovalUtilities" Version="3.0.13" />
+    <PackageReference Include="ExpressionToCodeLib" Version="1.5.4" />
+    <PackageReference Include="xunit" Version="2.2.0" />
     <ProjectReference Include="..\A-vs-An-DotNet\AvsAn.csproj" />
     <ProjectReference Include="..\WikipediaAvsAnTrieExtractor\WikipediaAvsAnTrieExtractor.csproj" />
   </ItemGroup>
