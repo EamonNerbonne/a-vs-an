@@ -4,7 +4,7 @@ var AvsAnSimple = (function (root) {
 	function fill(node) {
 		var kidCount = parseInt(dict, 36) || 0,
 			offset = kidCount && kidCount.toString(36).length;
-		node.article = dict[offset] == "." ? "a" : "an";
+		node.article = dict[offset] === "." ? "a" : "an";
 		dict = dict.substr(1 + offset);
 		for (var i = 0; i < kidCount; i++) {
 			var kid = node[dict[0]] = {}
