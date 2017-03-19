@@ -91,19 +91,19 @@
         (function () {
             "use strict";
             function recompute() {
-                var input = searchqueryEl.value.trim();
+                var input = window.searchqueryEl.value.trim();
                 var res = AvsAn.query(input);
                 var article = AvsAnSimple.query(input);
                 if (article !== res.article) //bug; AvsAn and AvsAnSimple are out of sync!
                     article = article + '!';
-                articleOut.textContent = article;
-                articleDetail.textContent = "matching prefix: \"" + res.prefix + "\" (" + res.aCount + " vs. " + res.anCount + ")";
+                window.articleOut.textContent = article;
+                window.articleDetail.textContent = "matching prefix: \"" + res.prefix + "\" (" + res.aCount + " vs. " + res.anCount + ")";
             }
-            examples.onclick = function (e) {
-                searchqueryEl.value = e.target.textContent;
+            window.examples.onclick = function (e) {
+                window.searchqueryEl.value = e.target.textContent;
                 recompute();
             }
-            searchqueryEl.onkeyup = searchqueryEl.oninput = recompute;
+            window.searchqueryEl.onkeyup = window.searchqueryEl.oninput = recompute;
             window.onload = recompute;
         })();
     </script>

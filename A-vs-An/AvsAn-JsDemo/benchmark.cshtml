@@ -50,7 +50,7 @@
 			};
 			reader.readAsText(e.target.files[0]);
 		});
-		window.benchdict = defDict.textContent.split("\n");
+		window.benchdict = window.defDict.textContent.split("\n");
 		function bench(q) {
 			return function () {
 				var tr = { a: 0, an: 1 };
@@ -69,8 +69,8 @@
 				log("took " + duration + "ms");
 			}
 		}
-		benchButton.onclick = bench(function (s) { return AvsAn.query(s).article; });
-		benchSimpleButton.onclick = bench(AvsAnSimple.query);
+	    window.benchButton.onclick = bench(function (s) { return AvsAn.query(s).article; });
+	    window.benchSimpleButton.onclick = bench(AvsAnSimple.query);
 	})();
 </script>
 </body>
