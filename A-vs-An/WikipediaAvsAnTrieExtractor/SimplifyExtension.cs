@@ -55,20 +55,5 @@ namespace WikipediaAvsAnTrieExtractor {
 
             return copy;
         }
-
-        //public static Node UnmarkSameSignAnnotations(this Node node, int parentSign) {
-        //    var copy = new Node { c = node.c };
-
-
-        //    if (node.SortedKids != null)
-        //        copy.SortedKids =
-        //            node.SortedKids.Select(n => UnmarkUnsure(n, scaleFactor)).ToArray();
-
-        //    if (node.ratio.Quality() >= scaleFactor)
-        //        copy.ratio = node.ratio;
-
-        //    return copy;
-
-        //}
     }
 }
