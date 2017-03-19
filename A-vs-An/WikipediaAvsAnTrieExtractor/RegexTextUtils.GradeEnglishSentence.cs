@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using System.Text;
+﻿using System.Globalization;
 using System.Linq;
 using System;
 using System.Collections.Generic;
@@ -18,13 +15,13 @@ namespace WikipediaAvsAnTrieExtractor {
                 ).ToArray();
 
         public double GradeEnglishSentence(string sentenceCandidate) {
-            int charCount = sentenceCandidate.Length;
+            var charCount = sentenceCandidate.Length;
             int capCount = 0, numCount = 0, wordCharCount = 0;
-            int inDictScore = 0;
+            var inDictScore = 0;
             int capWordCount = 0, wordCount = 0, spaceCount = 0;
-            bool seenWord = false;
-            bool inWord = false;
-            int wordStart = 0;
+            var seenWord = false;
+            var inWord = false;
+            var wordStart = 0;
             foreach (var c in sentenceCandidate) {
                 if (c >= 'A' && c <= 'Z')
                     capCount++;
@@ -36,7 +33,7 @@ namespace WikipediaAvsAnTrieExtractor {
                     spaceCount++;
             }
 
-            for (int i = 0; i <= sentenceCandidate.Length; i++) {
+            for (var i = 0; i <= sentenceCandidate.Length; i++) {
                 var shouldBeInWord = i < sentenceCandidate.Length
                     && (!isSeparatorChar[sentenceCandidate[i]]
                     || inWord && sentenceCandidate[i] == '\'');
@@ -64,14 +61,14 @@ namespace WikipediaAvsAnTrieExtractor {
             }
             wordCharCount += capCount;
 
-            double pref = (inDictScore - wordCount) / (double)wordCount;
+            var pref = (inDictScore - wordCount) / (double)wordCount;
 
-            double lineCost = sentenceCandidate.Length == 0 || sentenceCandidate[sentenceCandidate.Length - 1] == '\n' ? -0.4 : 0.0; //if they don't end with punctuation... hmmm.
+            var lineCost = sentenceCandidate.Length == 0 || sentenceCandidate[sentenceCandidate.Length - 1] == '\n' ? -0.4 : 0.0; //if they don't end with punctuation... hmmm.
 
-            double capRate = wordCount == 1 ? 0.5 :
+            var capRate = wordCount == 1 ? 0.5 :
                 capWordCount / (double)(wordCount - 1);
 
-            double grade = (
+            var grade = (
                 (wordCharCount - numCount - capCount) / (double)charCount
                            + 0.3 * Math.Min(wordCount - capWordCount, 6)
                            - 0.3 * capRate

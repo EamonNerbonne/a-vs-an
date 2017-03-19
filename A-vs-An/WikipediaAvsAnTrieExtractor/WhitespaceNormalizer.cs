@@ -20,8 +20,8 @@ namespace WikipediaAvsAnTrieExtractor {
 
             var s = new StringBuilder(text.Length);
 
-            for (int i = 0; i < text.Length; i++) {
-                char c = text[i];
+            for (var i = 0; i < text.Length; i++) {
+                var c = text[i];
 
                 if (c == ' ' || c == '\t') {
                     while (true) {

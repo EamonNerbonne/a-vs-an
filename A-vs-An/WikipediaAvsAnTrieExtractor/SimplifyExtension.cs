@@ -13,7 +13,7 @@ namespace WikipediaAvsAnTrieExtractor {
                 };
 
             Node[] simpleKids = null;
-            int kidCount = 0;
+            var kidCount = 0;
             foreach (var kidEntry in node.SortedKids) {
                 var kid = kidEntry;
                 var diff = -kid.ratio.AminAnDiff;

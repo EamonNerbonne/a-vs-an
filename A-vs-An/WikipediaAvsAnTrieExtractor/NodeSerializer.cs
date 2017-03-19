@@ -5,8 +5,8 @@ namespace WikipediaAvsAnTrieExtractor {
     public static class NodeSerializer {
         public static Node Deserialize(string rawDict) {
             var mutableRoot = new Node();
-            int pos = 0;
-            int len = rawDict.Length;
+            var pos = 0;
+            var len = rawDict.Length;
             while (true) {
                 while (true) {
                     if (pos >= len) {
@@ -17,7 +17,7 @@ namespace WikipediaAvsAnTrieExtractor {
                     }
                     pos++;
                 }
-                int start = pos;
+                var start = pos;
                 while (true) {
                     if (pos >= len) {
                         return mutableRoot;
@@ -27,7 +27,7 @@ namespace WikipediaAvsAnTrieExtractor {
                     }
                     pos++;
                 }
-                int paren0 = pos;
+                var paren0 = pos;
                 pos++;
                 while (true) {
                     if (pos >= len) {
@@ -38,7 +38,7 @@ namespace WikipediaAvsAnTrieExtractor {
                     }
                     pos++;
                 }
-                int sep = pos;
+                var sep = pos;
                 while (true) {
                     if (pos >= len) {
                         return mutableRoot;
@@ -48,7 +48,7 @@ namespace WikipediaAvsAnTrieExtractor {
                     }
                     pos++;
                 }
-                int paren1 = pos;
+                var paren1 = pos;
                 mutableRoot.LoadPrefixRatio(
                     rawDict.Substring(start, paren0 - start),
                     0,
@@ -61,10 +61,10 @@ namespace WikipediaAvsAnTrieExtractor {
         }
 
         static int parseHex(string str, int start, int end) {
-            int retval = 0;
+            var retval = 0;
             while (start < end) {
                 retval = retval << 4;
-                char c = str[start];
+                var c = str[start];
                 int charVal;
                 if (c <= '9') {
                     charVal = c - '0';
@@ -86,7 +86,7 @@ namespace WikipediaAvsAnTrieExtractor {
 
         static void DenseIntDigitToString(StringBuilder sb, int num) {
             if (num > 0) {
-                int digit = num % 36;
+                var digit = num % 36;
                 DenseIntDigitToString(sb, num / 36);
                 sb.Append((char)(digit + (digit < 10 ? '0' : 'a' - 10)));
             }

@@ -1,10 +1,9 @@
 ﻿using System.Text.RegularExpressions;
-using System.Linq;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
-namespace WikipediaAvsAnTrieExtractor {
+namespace WikipediaAvsAnTrieExtractor
+{
     public partial class RegexTextUtils {
         //Note: regexes are NOT static and shared between threads because of... http://stackoverflow.com/questions/7585087/multithreaded-use-of-regex
         //This code is bottlenecked by regexes, so this really matters, here.
@@ -20,14 +19,14 @@ namespace WikipediaAvsAnTrieExtractor {
 
         public string DecodeEntities(string text) {
             var sb = new StringBuilder();
-            int pos = 0;
+            var pos = 0;
             while (true) {
-                int nextAmp = text.IndexOf('&', pos);
+                var nextAmp = text.IndexOf('&', pos);
                 if (nextAmp < 0) {
                     sb.Append(text, pos, text.Length - pos);
                     break;
                 } else {
-                    int end = nextAmp + 1;
+                    var end = nextAmp + 1;
                     while (end < text.Length &&
                         (text[end] >= 'a' && text[end] <= 'z' ||
                             text[end] >= 'A' && text[end] <= 'Z' ||
@@ -38,11 +37,13 @@ namespace WikipediaAvsAnTrieExtractor {
                         break;
                     } else if (text[end] == ';' && end - nextAmp < 10) {
                         var key = text.Substring(nextAmp + 1, end - (nextAmp + 1));
-                        char c;
-                        if (HtmlEntities.EntityLookup.TryGetValue(key, out c)) {
+                        if (HtmlEntities.EntityLookup.TryGetValue(key, out char c))
+                        {
                             sb.Append(text, pos, nextAmp - pos);
                             sb.Append(c);
-                        } else {
+                        }
+                        else
+                        {
                             sb.Append(text, pos, end + 1 - pos);
                         }
                         pos = end + 1;
@@ -56,13 +57,13 @@ namespace WikipediaAvsAnTrieExtractor {
         }
 
         static string CutBraces(string wikiMarkedUpText) {
-            int numOpen = 0;
-            int nextOpen = wikiMarkedUpText.IndexOf("{{", StringComparison.Ordinal);
-            int nextClose = wikiMarkedUpText.IndexOf("}}", StringComparison.Ordinal);
+            var numOpen = 0;
+            var nextOpen = wikiMarkedUpText.IndexOf("{{", StringComparison.Ordinal);
+            var nextClose = wikiMarkedUpText.IndexOf("}}", StringComparison.Ordinal);
             nextOpen = nextOpen == -1 ? int.MaxValue : nextOpen;
             nextClose = nextClose == -1 ? int.MaxValue : nextClose;
             var sb = new StringBuilder();
-            int startAt = 0;
+            var startAt = 0;
             while (true) {
                 if (nextOpen < nextClose) {
                     if (numOpen == 0) {

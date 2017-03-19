@@ -35,7 +35,7 @@ namespace WikipediaAvsAnTrieExtractorTest {
 
             const string serializedNode = @"(1:b)b(5:0)u(2:f)";
             Assert.Equal(serializedNode, NodeSerializer.Serialize(node));
-            Node deserialized = NodeSerializer.Deserialize(serializedNode);
+            var deserialized = NodeSerializer.Deserialize(serializedNode);
             Assert.Equal(node, deserialized, NodeEqualityComparer.Instance);
         }
 

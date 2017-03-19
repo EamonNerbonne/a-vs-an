@@ -14,7 +14,7 @@ namespace AvsAnLib.Internals {
             if (prefix.Length == depth) {
                 ratio = prefixRatio;
             } else {
-                char kidC = prefix[depth];
+                var kidC = prefix[depth];
                 var idx = GetOrAddKidIdx(kidC);
                 SortedKids[idx].LoadPrefixRatio(prefix, depth + 1, prefixRatio);
             }
@@ -25,7 +25,7 @@ namespace AvsAnLib.Internals {
                 SortedKids = new[] { new Node { c = kidC, } }; //expensive, so many arrays.
                 return 0;
             } else {
-                int idx = IdxAfterLastLtNode(kidC);
+                var idx = IdxAfterLastLtNode(kidC);
 
                 if (idx == SortedKids.Length || SortedKids[idx].c != kidC)
                     InsertBefore(idx, kidC);
@@ -39,7 +39,7 @@ namespace AvsAnLib.Internals {
             //invariant: only GTE nodes at or past end
 
             while (end != start) {
-                int midpoint = end + start >> 1;
+                var midpoint = end + start >> 1;
                 // start <= midpoint < end
                 if (SortedKids[midpoint].c < needle) {
                     start = midpoint + 1;//i.e.  midpoint < start1 so start0 < start1
@@ -50,13 +50,13 @@ namespace AvsAnLib.Internals {
             return end;
         }
 
-        void InsertBefore(int idx, char c) {
+        void InsertBefore(int idx, char newC) {
             var newArr = new Node[SortedKids.Length + 1];
-            int i = 0;
+            var i = 0;
             for (; i < idx; i++) {
                 newArr[i] = SortedKids[i];
             }
-            newArr[idx].c = c;
+            newArr[idx].c = newC;
             for (; i < SortedKids.Length; i++) {
                 newArr[i + 1] = SortedKids[i];
             }

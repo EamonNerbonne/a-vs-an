@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Text;
@@ -8,10 +7,10 @@ using System.Collections.Concurrent;
 using System.Threading;
 using System.Xml;
 using System.Diagnostics;
-using AvsAnLib;
 using AvsAnLib.Internals;
 
-namespace WikipediaAvsAnTrieExtractor {
+namespace WikipediaAvsAnTrieExtractor
+{
     static class Program {
         static int Main(string[] args) {
             if (args.Length != 2) {
@@ -80,9 +79,9 @@ namespace WikipediaAvsAnTrieExtractor {
         }
 
         static Task<Node> BuildAvsAnTrie(BlockingCollection<AvsAnSighting[]> entriesTodo) {
-            int wordCount = 0;
+            var wordCount = 0;
 
-            Stopwatch sw = Stopwatch.StartNew();
+            var sw = Stopwatch.StartNew();
             ProgressReporters.Add(() => "words/ms: " + (wordCount / sw.Elapsed.TotalMilliseconds).ToString("f1"));
 
 
@@ -108,16 +107,16 @@ namespace WikipediaAvsAnTrieExtractor {
                 var sw = Stopwatch.StartNew();
                 using (var stream = File.OpenRead(wikiPath))
                 using (var reader = XmlReader.Create(stream)) {
-                    bool stopped = false;
+                    var stopped = false;
                     try {
                         long pageCount = 0;
-                        double percentScale = 100.0 / stream.Length;
+                        var percentScale = 100.0 / stream.Length;
                         // ReSharper disable once AccessToDisposedClosure
                         ProgressReporters.Add(() => stopped ? "" : (stream.Position * percentScale).ToString("f1") + "%");
                         ProgressReporters.Add(() => stopped ? "" : "MB/s: " + (stream.Position / 1024.0 / 1024.0 / sw.Elapsed.TotalSeconds).ToString("f1"));
                         ProgressReporters.Add(() => stopped ? "" : "pages/ms: " + (pageCount / sw.Elapsed.TotalMilliseconds).ToString("f1"));
                         var pages = new string[1];
-                        int i = 0;
+                        var i = 0;
 
                         while (reader.Read()) {
                             if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "page") {

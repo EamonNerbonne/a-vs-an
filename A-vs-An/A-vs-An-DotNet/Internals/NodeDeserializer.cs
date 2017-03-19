@@ -1,10 +1,8 @@
-using System.Text;
-
 namespace AvsAnLib.Internals {
     public static class NodeDeserializer {
         static int DenseIntParse(string str, ref int cursor) {
-            int retval = 0;
-            char c = str[cursor++];
+            var retval = 0;
+            var c = str[cursor++];
             while (c != ';') {
                 retval = retval * 36;
                 retval += c - (c >= 'a' ? 'a' - 10 : '0');
@@ -18,12 +16,12 @@ namespace AvsAnLib.Internals {
                 aCount = DenseIntParse(rawDict, ref cursor), 
                 anCount = DenseIntParse(rawDict, ref cursor) };
            
-            int kidCount = DenseIntParse(rawDict, ref cursor);
+            var kidCount = DenseIntParse(rawDict, ref cursor);
             Node[] kids = null;
             
             if (kidCount != 0) {
                 kids = new Node[kidCount];
-                for (int i = 0; i < kidCount; i++) {
+                for (var i = 0; i < kidCount; i++) {
                     var c = rawDict[cursor++];
                     var nodeWithIdx = DeserializeDenseImpl(rawDict, ref cursor);
                     kids[i] = nodeWithIdx;
@@ -37,7 +35,7 @@ namespace AvsAnLib.Internals {
         }
 
         public static Node DeserializeDense(string rawDict) {
-            int cursor = 0;
+            var cursor = 0;
             return DeserializeDenseImpl(rawDict, ref cursor);
         }
     }
