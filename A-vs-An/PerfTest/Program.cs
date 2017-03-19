@@ -10,7 +10,7 @@ namespace PerfTest
 {
     internal static class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var words = Dictionaries.LoadEnglishDictionary();
             var borkedWords = words.Select(w => new string(w.Reverse().ToArray())).ToArray();

@@ -19,6 +19,7 @@ namespace AvsAn_Test
             public string Name { get; set; }
         }
 
+        // ReSharper disable once UnusedParameter.Local
         static void MyApprove(string text, object IGNORE_PAST_THIS = null, [CallerFilePath] string filepath = null, [CallerMemberName] string membername = null)
         {
             var writer = WriterFactory.CreateTextWriter(text);
