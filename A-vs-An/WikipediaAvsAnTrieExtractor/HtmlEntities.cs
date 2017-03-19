@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WikipediaAvsAnTrieExtractor {
-    static class HtmlEntities {
+    internal static class HtmlEntities {
         public static readonly Dictionary<string, char> EntityLookup = new Dictionary<string, char> {
             {"quot", (char) 0x0022},
             {"amp", (char) 0x0026},

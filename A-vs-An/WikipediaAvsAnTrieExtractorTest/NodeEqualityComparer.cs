@@ -3,7 +3,7 @@ using System.Linq;
 using AvsAnLib.Internals;
 
 namespace WikipediaAvsAnTrieExtractorTest {
-    class NodeEqualityComparer : IEqualityComparer<Node> {
+    internal class NodeEqualityComparer : IEqualityComparer<Node> {
         public static readonly NodeEqualityComparer Instance = new NodeEqualityComparer();
 
         public bool Equals(Node x, Node y) {

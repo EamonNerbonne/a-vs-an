@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using WikipediaAvsAnTrieExtractor;
 
 namespace WikipediaAvsAnTrieExtractorTest {
-    static class UtilsInstance {
+    internal static class UtilsInstance {
         public static readonly RegexTextUtils Utils = new RegexTextUtils();
     }
 }

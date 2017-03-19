@@ -11,7 +11,7 @@ using AvsAnLib.Internals;
 
 namespace WikipediaAvsAnTrieExtractor
 {
-    static class Program {
+    internal static class Program {
         static int Main(string[] args) {
             if (args.Length != 2) {
                 Console.Error.WriteLine("Usage: AvsAnTrie <wikidumpfile> <outputfile>");

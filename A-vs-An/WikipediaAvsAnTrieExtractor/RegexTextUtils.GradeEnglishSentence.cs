@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace WikipediaAvsAnTrieExtractor {
     public partial class RegexTextUtils {
-        private static readonly bool[] isSeparatorChar =
+        static readonly bool[] isSeparatorChar =
             Enumerable.Range(0, 65536)
                 .Select(c => CharUnicodeInfo.GetUnicodeCategory((char)c))
                 .Select(cat =>
