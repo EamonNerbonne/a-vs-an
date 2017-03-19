@@ -17,7 +17,7 @@ namespace WikipediaAvsAnTrieExtractor {
             if (args.Length != 2) {
                 Console.Error.WriteLine("Usage: AvsAnTrie <wikidumpfile> <outputfile>");
                 Console.Error.WriteLine("The dump is available at http://dumps.wikimedia.org/enwiki/latest/");
-                Console.Error.WriteLine("The appropriate dump is dump is enwiki-latest-pages-articles.xml.bz2, though some others will work too (in particular, pages-meta-current includes talk pages).");
+                Console.Error.WriteLine("The appropriate dump is enwiki-latest-pages-articles.xml.bz2, though some others will work too (in particular, pages-meta-current includes talk pages).");
                 return 1;
             }
             var wikiPath = args[0];
