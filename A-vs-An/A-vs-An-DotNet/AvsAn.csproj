@@ -2,16 +2,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.1</TargetFramework>
     <Authors>Eamon Nerbonne</Authors>
-    <Description>Find the english language indeterminate article ('a' or 'an') for a word.  Based on real usage patterns extracted from the wikipedia text dump; can therefore even deal with tricky edge cases such as acronyms (FIAT vs. FAA, NASA vs. NSA) and odd symbols.  (Requires .NET Core or .NET 4.6.1)</Description>
-    <Version>2.3.0</Version>
+    <Description>Find the english language indeterminate article ('a' or 'an') for a word.  Based on real usage patterns extracted from the wikipedia text dump; can therefore even deal with tricky edge cases such as acronyms (FIAT vs. FAA, NASA vs. NSA) and odd symbols.  (Requires .NET Core 1.0 or .NET 4.5)</Description>
+    <Version>3.0.0</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/EamonNerbonne/a-vs-an/</PackageProjectUrl>
     <PackageTags>english NLP text-processing library indeterminate-article AvsAn an a-vs-an</PackageTags>
-    <PackageReleaseNotes>
-      This release brings compatibility to .NET Core with the use of .NET Standard.
-    </PackageReleaseNotes>
-    <Copyright>Copyright Eamon Nerbonne ©  2014</Copyright>
+    <PackageReleaseNotes>A-vs-An is now compatible with .net 4.5 (and higher) or .net core 1.0 (and higher).</PackageReleaseNotes>
+    <Copyright>Copyright Eamon Nerbonne ©  2017</Copyright>
     <RootNamespace>AvsAnLib</RootNamespace>
   </PropertyGroup>
 </Project>
