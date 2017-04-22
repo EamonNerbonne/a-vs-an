@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard1.1</TargetFramework>
+    <TargetFrameworks>net45;netstandard1.1</TargetFrameworks>
     <Authors>Eamon Nerbonne</Authors>
     <Description>Find the english language indeterminate article ('a' or 'an') for a word.  Based on real usage patterns extracted from the wikipedia text dump; can therefore even deal with tricky edge cases such as acronyms (FIAT vs. FAA, NASA vs. NSA) and odd symbols.  (Requires .NET Core 1.0 or .NET 4.5)</Description>
-    <Version>3.0.0</Version>
+    <Version>3.0.1</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/EamonNerbonne/a-vs-an/</PackageProjectUrl>
