@@ -16,7 +16,7 @@
     <Reference Include="System.Management" />
     <PackageReference Include="ApprovalTests" Version="3.0.13" />
     <PackageReference Include="ApprovalUtilities" Version="3.0.13" />
-    <PackageReference Include="ExpressionToCodeLib" Version="1.5.4" />
+    <PackageReference Include="ExpressionToCodeLib" Version="3.2.0" />
     <PackageReference Include="xunit" Version="2.2.0" />
     <ProjectReference Include="..\A-vs-An-DotNet\AvsAn.csproj" />
     <ProjectReference Include="..\WikipediaAvsAnTrieExtractor\WikipediaAvsAnTrieExtractor.csproj" />

@@ -14,7 +14,7 @@
     <Reference Include="System.Xml" />
     <PackageReference Include="ApprovalTests" Version="3.0.13" />
     <PackageReference Include="ApprovalUtilities" Version="3.0.13" />
-    <PackageReference Include="ExpressionToCodeLib" Version="1.5.4.0" />
+    <PackageReference Include="ExpressionToCodeLib" Version="3.2.0" />
     <PackageReference Include="xunit" Version="2.2.0" />
     <PackageReference Include="xunit.abstractions" Version="2.0.1" />
     <PackageReference Include="xunit.assert" Version="2.2.0" />
