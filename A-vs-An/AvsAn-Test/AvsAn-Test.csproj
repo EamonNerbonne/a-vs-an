@@ -13,7 +13,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <PackageReference Include="ApprovalTests" Version="4.5.2" />
-    <PackageReference Include="ApprovalUtilities" Version="4.5.1" />
+    <PackageReference Include="ApprovalUtilities" Version="4.5.2" />
     <PackageReference Include="ExpressionToCodeLib" Version="3.3.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
