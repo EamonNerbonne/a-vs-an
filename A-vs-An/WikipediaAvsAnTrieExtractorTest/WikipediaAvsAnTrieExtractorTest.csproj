@@ -15,7 +15,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
     <PackageReference Include="ApprovalTests" Version="5.1.1" />
-    <PackageReference Include="ApprovalUtilities" Version="5.1.0" />
+    <PackageReference Include="ApprovalUtilities" Version="5.1.1" />
     <PackageReference Include="ExpressionToCodeLib" Version="3.3.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <ProjectReference Include="..\A-vs-An-DotNet\AvsAn.csproj" />
