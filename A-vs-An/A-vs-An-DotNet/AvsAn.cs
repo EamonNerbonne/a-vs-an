@@ -21,7 +21,7 @@ namespace AvsAnLib {
         // ReSharper disable MemberCanBePrivate.Global
         // ReSharper disable UnusedMember.Global
         //part of public nuget api, usages may be in external code.
-        public struct Result {
+        public readonly struct Result {
             readonly Ratio ratio;
 #pragma warning disable IDE1006 // Naming Styles
 
