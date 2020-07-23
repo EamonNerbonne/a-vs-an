@@ -1,5 +1,7 @@
 ﻿//by Eamon Nerbonne (from http://home.nerbonne.org/A-vs-An), Apache 2.0 license.
 
+using System;
+using System.ComponentModel;
 using AvsAnLib.Internals;
 
 namespace AvsAnLib {
@@ -36,7 +38,11 @@ namespace AvsAnLib {
             /// <summary>
             /// How often this prefix occurred on wikipedia.  Equivalent to aCount+anCount
             /// </summary>
-            public int Occurence => ratio.Occurence;
+            public int Occurrence => ratio.Occurrence;
+
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            [Obsolete("This is a typo, use Occurrence")]
+            public int Occurence => Occurrence;
 
             /// <summary>
             /// How many more "a"s occurred before this prefix than "an"s.

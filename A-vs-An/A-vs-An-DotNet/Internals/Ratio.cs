@@ -1,44 +1,58 @@
-﻿namespace AvsAnLib.Internals {
+﻿using System;
+using System.ComponentModel;
+
+namespace AvsAnLib.Internals {
     /// <summary>
     /// The ratio of a's vs. an's for a given prefix
     /// </summary>
     public struct Ratio {
-        public int Occurence, AminAnDiff;
+        public int Occurrence, AminAnDiff;
+
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("This is a typo, use Occurrence")]
+        public int Occurence {
+            get => Occurrence;
+            set => Occurrence = value;
+        }
+
 
         public int aCount {
-            get => (Occurence + AminAnDiff) / 2;
+            get => (Occurrence + AminAnDiff) / 2;
             set {
                 var old_anCount = anCount;
-                Occurence = value + old_anCount;
+                Occurrence = value + old_anCount;
                 AminAnDiff = value - old_anCount;
             }
         }
 
         public int anCount {
-            get => (Occurence - AminAnDiff) / 2;
+            get => (Occurrence - AminAnDiff) / 2;
             set {
                 var old_aCount = aCount;
-                Occurence = old_aCount + value;
+                Occurrence = old_aCount + value;
                 AminAnDiff = old_aCount - value;
             }
         }
 
         public void IncA() {
-            Occurence++;
+            Occurrence++;
             AminAnDiff++;
         }
+
         public void IncAn() {
-            Occurence++;
+            Occurrence++;
             AminAnDiff--;
         }
 
-        public bool isSet => Occurence != 0;
+        public bool isSet => Occurrence != 0;
 
         public int Quality() {
-            if (AminAnDiff == 0)
+            if (AminAnDiff == 0) {
                 return 0;
-            return (int)(AminAnDiff * (long) AminAnDiff / Occurence);
+            }
 
+            return (int)(AminAnDiff * (long)AminAnDiff / Occurrence);
         }
     }
 }
