@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvsAn-Test", "AvsAn-Test\Av
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{80E21813-AD4B-42DC-9ADD-BA5BE20CD006}"
 	ProjectSection(SolutionItems) = preProject
-		..\README.md = ..\README.md
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		_config.yml = _config.yml
+		LICENSE = LICENSE
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PerfTest", "PerfTest\PerfTest.csproj", "{7350BDA2-DBB9-4334-A488-0867145E83DB}"

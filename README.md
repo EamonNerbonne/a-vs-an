@@ -4,7 +4,7 @@ Find the english language indeterminate article ("a" or "an") for a word. Based 
 
 The implementations (C# and Javascript) in this project determine whether "a" or "an" should precede a word.  They are efficient and accurate (using the method described in [this stackoverflow response](http://stackoverflow.com/questions/1288291/how-can-i-correctly-prefix-a-word-with-a-and-an/1288473#1288473)).
 
-You can try the javascript implementation of this library online: [A-vs-An](https://eamonnerbonne.github.io/a-vs-an/A-vs-An/AvsAnDemo/).
+You can try the javascript implementation of this library online: [A-vs-An](./AvsAnDemo/).
 
 The dataset used is based on the [wikipedia-article-text dump](http://en.wikipedia.org/wiki/Wikipedia:Database_download#English-language_Wikipedia) of july 2014.  Some additional preprocessing was done to remove as much wiki-markup as possible and extract only things vaguely resembling sentences using regular expressions. If the word following 'a' or 'an' started with a quote or parenthesis, the initial quote or parenthesis was ignored. The resulting prefix-list with the code to query it is less than 10KB in size; excluding the actual counts would reduce the size still further.
 
