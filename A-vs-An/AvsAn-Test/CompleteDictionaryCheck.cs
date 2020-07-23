@@ -5,6 +5,7 @@ using ApprovalTests.Approvers;
 using ApprovalTests.Core;
 using ApprovalTests.Reporters;
 using ApprovalTests.Writers;
+using AvsAnDemo;
 using AvsAnLib;
 using Xunit;
 

@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvsAn", "A-vs-An-DotNet\Avs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvsAn-Test", "AvsAn-Test\AvsAn-Test.csproj", "{64F4736B-7037-4F2C-B8D9-0B2DB7313E0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvsAn-JsDemo", "AvsAn-JsDemo\AvsAn-JsDemo.csproj", "{C60ED821-A93B-45E1-9B2E-8E4C17AB0A7F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{80E21813-AD4B-42DC-9ADD-BA5BE20CD006}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
@@ -19,6 +17,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WikipediaAvsAnTrieExtractor", "WikipediaAvsAnTrieExtractor\WikipediaAvsAnTrieExtractor.csproj", "{41D551C9-7343-455A-ABC4-26C02D41855E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WikipediaAvsAnTrieExtractorTest", "WikipediaAvsAnTrieExtractorTest\WikipediaAvsAnTrieExtractorTest.csproj", "{B9F04F75-29C5-4608-814F-AC49A05550C9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvsAnDemo", "AvsAnDemo\AvsAnDemo.csproj", "{8D4D20BB-C3C2-4A80-8AAD-467CC7ADD4DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +34,6 @@ Global
 		{64F4736B-7037-4F2C-B8D9-0B2DB7313E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64F4736B-7037-4F2C-B8D9-0B2DB7313E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64F4736B-7037-4F2C-B8D9-0B2DB7313E0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C60ED821-A93B-45E1-9B2E-8E4C17AB0A7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C60ED821-A93B-45E1-9B2E-8E4C17AB0A7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C60ED821-A93B-45E1-9B2E-8E4C17AB0A7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C60ED821-A93B-45E1-9B2E-8E4C17AB0A7F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7350BDA2-DBB9-4334-A488-0867145E83DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7350BDA2-DBB9-4334-A488-0867145E83DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7350BDA2-DBB9-4334-A488-0867145E83DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,6 +46,10 @@ Global
 		{B9F04F75-29C5-4608-814F-AC49A05550C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9F04F75-29C5-4608-814F-AC49A05550C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9F04F75-29C5-4608-814F-AC49A05550C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D4D20BB-C3C2-4A80-8AAD-467CC7ADD4DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D4D20BB-C3C2-4A80-8AAD-467CC7ADD4DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D4D20BB-C3C2-4A80-8AAD-467CC7ADD4DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D4D20BB-C3C2-4A80-8AAD-467CC7ADD4DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

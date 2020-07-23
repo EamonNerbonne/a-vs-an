@@ -4,7 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-namespace AvsAn_Test
+namespace AvsAnDemo
 {
     public static class Dictionaries {
         public static IEnumerable<string> AcronymsWithUpto4Letters() {
@@ -29,7 +29,7 @@ namespace AvsAn_Test
 
         public static string[] LoadEnglishDictionary() {
             // ReSharper disable once AssignNullToNotNullAttribute
-            using (var stream = typeof(CompleteDictionaryCheck).Assembly.GetManifestResourceStream(typeof(CompleteDictionaryCheck), "354984si.ngl"))
+            using (var stream = typeof(Dictionaries).Assembly.GetManifestResourceStream(typeof(Dictionaries), "354984si.ngl"))
             using (var reader = new StreamReader(stream)) {
                 return reader
                     .ReadToEnd()

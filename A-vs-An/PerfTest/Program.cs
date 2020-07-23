@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Management;
 using AvsAnLib;
-using AvsAn_Test;
+using AvsAnDemo;
 
 namespace PerfTest
 {
@@ -30,10 +30,13 @@ namespace PerfTest
             sw.Restart();
             const int iters = 100;
             for (var k = 0; k < iters; k++) {
-                foreach (string word in words)
+                foreach (var word in words) {
                     sum += AvsAn.Query(word).Article == "an" ? 1 : 0;
-                foreach (string word in borkedWords)
+                }
+
+                foreach (var word in borkedWords) {
                     sum += AvsAn.Query(word).Article == "an" ? 1 : 0;
+                }
             }
             var duration = sw.Elapsed.TotalMilliseconds;
             var clockrateMHz =
