@@ -11,5 +11,13 @@
     <PackageReleaseNotes>A-vs-An is now compatible with .net 4.5 (and higher) or .net core 1.0 (and higher).</PackageReleaseNotes>
     <Copyright>Copyright Eamon Nerbonne ©  2017</Copyright>
     <RootNamespace>AvsAnLib</RootNamespace>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
 </Project>
