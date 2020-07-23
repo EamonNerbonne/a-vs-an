@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace WikipediaAvsAnTrieExtractor {
     public partial class RegexTextUtils {

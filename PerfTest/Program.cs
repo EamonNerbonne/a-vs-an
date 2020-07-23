@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Management;
@@ -8,7 +7,7 @@ using AvsAnDemo;
 
 namespace PerfTest
 {
-    internal static class Program
+    static class Program
     {
         static void Main()
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -27,7 +28,7 @@ namespace WikipediaAvsAnTrieExtractor {
             var myType = typeof(RegexTextUtils);
             // ReSharper disable once AssignNullToNotNullAttribute
             using var dictStream = myType.Assembly.GetManifestResourceStream(myType.Namespace + ".english.ngl");
-            using var reader = new StreamReader(dictStream);
+            using var reader = new StreamReader(dictStream ?? throw new Exception("english dictionary not found"));
             dictionary = new HashSet<string>(ReadWordsFromDictionary(reader));
         }
     }

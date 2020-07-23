@@ -47,10 +47,9 @@ namespace WikipediaAvsAnTrieExtractor {
                 } else {
                     inWord = false;
                     var word = sentenceCandidate.Substring(wordStart, i - wordStart);
-                    int ignore;
                     inDictScore +=
                         dictionary.Contains(word) ? 2
-                        : int.TryParse(word, out ignore) ? 1
+                        : int.TryParse(word, out _) ? 1
                             //numbers aren't quite valid words in the dictionary, but they're not nonsense either.
                         : word[0] >= 'A' && word[0] <= 'Z' ? 1 //don't quite expect proper nouns to be in the dictionary.
                         : 0;

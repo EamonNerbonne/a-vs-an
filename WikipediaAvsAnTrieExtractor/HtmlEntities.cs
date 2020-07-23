@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace WikipediaAvsAnTrieExtractor {
-    internal static class HtmlEntities {
+    static class HtmlEntities {
         public static readonly Dictionary<string, char> EntityLookup = new Dictionary<string, char> {
             {"quot", (char) 0x0022},
             {"amp", (char) 0x0026},

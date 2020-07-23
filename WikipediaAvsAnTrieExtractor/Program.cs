@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Xml;
 using AvsAnLib.Internals;
 using ExpressionToCodeLib;
+// ReSharper disable AccessToModifiedClosure
+// ReSharper disable AccessToDisposedClosure
 
 namespace WikipediaAvsAnTrieExtractor {
     static class Program {
