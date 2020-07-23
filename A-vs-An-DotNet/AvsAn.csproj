@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard1.1</TargetFrameworks>
+    <TargetFrameworks>netstandard20</TargetFrameworks>
     <Authors>Eamon Nerbonne</Authors>
     <Description>Find the english language indeterminate article ('a' or 'an') for a word.  Based on real usage patterns extracted from the wikipedia text dump; can therefore even deal with tricky edge cases such as acronyms (FIAT vs. FAA, NASA vs. NSA) and odd symbols.  (Requires .NET Core 1.0 or .NET 4.5)</Description>
     <Version>3.1.0</Version>

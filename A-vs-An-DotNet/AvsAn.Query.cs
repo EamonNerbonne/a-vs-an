@@ -1,10 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-using AvsAnLib.Internals;
+﻿using AvsAnLib.Internals;
 
 namespace AvsAnLib {
     public static partial class AvsAn {
-        static readonly Node rootNode = BuiltInDictionary.Root;
-
         /// <summary>
         /// Determines whether an english word should be preceded by the indefinite article "a" or "an".
         /// By Eamon Nerbonne; feedback can be reported to https://github.com/EamonNerbonne/a-vs-an/
@@ -16,58 +13,64 @@ namespace AvsAnLib {
         /// </param>
         /// <returns>A classification result indicating "a" or "an" with some wikipedia-derived statistics.</returns>
         public static Result Query(string word) {
-            var node = rootNode;
+            var length = word.Length;
+            ref readonly var node = ref BuiltInDictionary.Root();
             var depth = 0;
             var result = node.ratio;
-            while (true) {
-                if (depth < word.Length) {
-                    var c = word[depth];
-                    if (c == '"' || c == '‘' || c == '’' || c == '“' || c == '”' || c == '$' || c == '\'' || c == '-' || c == '(') {
-                        depth++;
-                    } else {
-                        break;
-                    }
+            if (length == 0) {
+                return new Result(result, word, depth);
+            }
+
+            var c = word[depth];
+
+            while (c == '"' || c == '‘' || c == '’' || c == '“' || c == '”' || c == '$' || c == '\'' || c == '-' || c == '(') {
+                depth++;
+                if (depth < length) {
+                    c = word[depth];
                 } else {
                     return new Result(result, word, depth);
                 }
             }
 
             while (true) {
-                if (node.SortedKids == null) {
-                    break;
-                }
-
-                var c = depth < word.Length ? word[depth] : ' ';
-                var candidateIdx = node.SortedKids.Length - 1;
-                var start = 0;
+                var lastIdx = node.SortedKids.Length - 1;
+                var firstIdx = 0;
                 //invariant: only LT nodes before start
                 //invariant: only GTE nodes at or past candidateIdx *OR* needle doesn't exist.
 
-                while (candidateIdx != start) {
-                    var midpoint = (candidateIdx + start) >> 1;
+                while (15 < lastIdx - firstIdx) {
+                    var midpoint = (lastIdx + firstIdx) >> 1;
                     if (node.SortedKids[midpoint].c < c) {
-                        start = midpoint + 1;
+                        firstIdx = midpoint + 1;
                     } else {
-                        candidateIdx = midpoint;
+                        lastIdx = midpoint;
                     }
                 }
 
-                if (node.SortedKids[candidateIdx].c != c) {
-                    break;
-                }
+                while (true) {
+                    if (node.SortedKids[firstIdx].c != c) {
+                        firstIdx++;
+                        if (firstIdx > lastIdx) {
+                            return new Result(result, word, depth);
+                        }
+                    } else {
+                        node = ref node.SortedKids[firstIdx];
 
-                node = node.SortedKids[candidateIdx];
-                if (node.ratio.isSet) {
-                    result = node.ratio;
-                }
+                        if (node.ratio.isSet) {
+                            result = node.ratio;
+                        }
 
-                depth++;
-                if (depth > word.Length) {
-                    break;
+                        depth++;
+                        if (depth > length || node.SortedKids == null) {
+                            return new Result(result, word, depth);
+                        }
+
+                        c = depth < length ? word[depth] : ' ';
+
+                        break;
+                    }
                 }
             }
-
-            return new Result(result, word, depth);
         }
     }
 }
