@@ -8,17 +8,16 @@
         public static AvsAn.Result Query(Node node, string word) {
             var depth = 0;
             var result = node.ratio;
-            var length = word.Length;
             while (true) {
-                if (depth >= length) {
-                    return new AvsAn.Result(result, word, depth);
-                }
-
-                var c = word[depth];
-                if (c == '"' || c == '‘' || c == '’' || c == '“' || c == '”' || c == '$' || c == '\'' || c == '-' || c == '(') {
-                    depth++;
+                if (depth < word.Length) {
+                    var c = word[depth];
+                    if (c == '"' || c == '‘' || c == '’' || c == '“' || c == '”' || c == '$' || c == '\'' || c == '-' || c == '(') {
+                        depth++;
+                    } else {
+                        break;
+                    }
                 } else {
-                    break;
+                    return new AvsAn.Result(result, word, depth);
                 }
             }
 
@@ -27,7 +26,7 @@
                     break;
                 }
 
-                var c = depth == length ? ' ' : word[depth];
+                var c = depth < word.Length ? word[depth] : ' ';
                 var candidateIdx = node.SortedKids.Length - 1;
                 var start = 0;
                 //invariant: only LT nodes before start
@@ -52,7 +51,7 @@
                 }
 
                 depth++;
-                if (depth > length) {
+                if (depth > word.Length) {
                     break;
                 }
             }
