@@ -1,9 +1,8 @@
-﻿using System.Text.RegularExpressions;
-using System;
+﻿using System;
 using System.Text;
+using System.Text.RegularExpressions;
 
-namespace WikipediaAvsAnTrieExtractor
-{
+namespace WikipediaAvsAnTrieExtractor {
     public partial class RegexTextUtils {
         //Note: regexes are NOT static and shared between threads because of... http://stackoverflow.com/questions/7585087/multithreaded-use-of-regex
         //This code is bottlenecked by regexes, so this really matters, here.
@@ -25,34 +24,37 @@ namespace WikipediaAvsAnTrieExtractor
                 if (nextAmp < 0) {
                     sb.Append(text, pos, text.Length - pos);
                     break;
-                } else {
-                    var end = nextAmp + 1;
-                    while (end < text.Length &&
-                        (text[end] >= 'a' && text[end] <= 'z' ||
-                            text[end] >= 'A' && text[end] <= 'Z' ||
-                            text[end] >= '0' && text[end] <= '9'))
-                        end++;
-                    if (end == text.Length) {
-                        sb.Append(text, pos, end - pos);
-                        break;
-                    } else if (text[end] == ';' && end - nextAmp < 10) {
-                        var key = text.Substring(nextAmp + 1, end - (nextAmp + 1));
-                        if (HtmlEntities.EntityLookup.TryGetValue(key, out char c))
-                        {
-                            sb.Append(text, pos, nextAmp - pos);
-                            sb.Append(c);
-                        }
-                        else
-                        {
-                            sb.Append(text, pos, end + 1 - pos);
-                        }
-                        pos = end + 1;
+                }
+
+                var end = nextAmp + 1;
+                while (end < text.Length &&
+                    (text[end] >= 'a' && text[end] <= 'z' ||
+                        text[end] >= 'A' && text[end] <= 'Z' ||
+                        text[end] >= '0' && text[end] <= '9')) {
+                    end++;
+                }
+
+                if (end == text.Length) {
+                    sb.Append(text, pos, end - pos);
+                    break;
+                }
+
+                if (text[end] == ';' && end - nextAmp < 10) {
+                    var key = text.Substring(nextAmp + 1, end - (nextAmp + 1));
+                    if (HtmlEntities.EntityLookup.TryGetValue(key, out var c)) {
+                        sb.Append(text, pos, nextAmp - pos);
+                        sb.Append(c);
                     } else {
-                        sb.Append(text, pos, end - pos);
-                        pos = end;
+                        sb.Append(text, pos, end + 1 - pos);
                     }
+
+                    pos = end + 1;
+                } else {
+                    sb.Append(text, pos, end - pos);
+                    pos = end;
                 }
             }
+
             return sb.ToString();
         }
 
@@ -73,6 +75,7 @@ namespace WikipediaAvsAnTrieExtractor
                         //doesn't mistakenly think the word right before and right after the template
                         //are actually adjacent in the text.
                     }
+
                     numOpen++;
                     nextOpen = wikiMarkedUpText.IndexOf("{{", nextOpen + 2, StringComparison.Ordinal);
                     nextOpen = nextOpen == -1 ? int.MaxValue : nextOpen;
@@ -80,8 +83,10 @@ namespace WikipediaAvsAnTrieExtractor
                     //if (numOpen == 0) 
                     //throw new Exception("Invalid Wiki Text: unbalanced braces");
                     numOpen = Math.Max(numOpen - 1, 0);
-                    if (numOpen == 0)
+                    if (numOpen == 0) {
                         startAt = nextClose + 2;
+                    }
+
                     nextClose = wikiMarkedUpText.IndexOf("}}", nextClose + 2, StringComparison.Ordinal);
                     nextClose = nextClose == -1 ? int.MaxValue : nextClose;
                 } else if (numOpen == 0) { // nextOpen==nextClose implies both are not present.
@@ -99,7 +104,9 @@ namespace WikipediaAvsAnTrieExtractor
         readonly Regex markupToReplaceWithQuotes = new Regex(@"
     ''+ #For a vs. an: important that emphasis isn't around article
     |</?code>
-", options);
+", options
+        );
+
         readonly Regex markupToStripRegex = new Regex(@"
 (?>
 '''*
@@ -126,7 +133,8 @@ h1|h2|h3|h4|h5|h6|p|br|hr|comment|abbr|b|bdi|blockquote|cite|code|data|del|dfn|e
 |(?<=&)[aA][mM][pP];
 |^(\#[rR][eE][dD][iI][rR][eE][cC][tT][^\n]*|\*+|=+)
 )
-", options);
+", options
+        );
 
         readonly Regex markupToReplaceRegex = new Regex(@"
   \[
@@ -142,6 +150,7 @@ h1|h2|h3|h4|h5|h6|p|br|hr|comment|abbr|b|bdi|blockquote|cite|code|data|del|dfn|e
         \]
     )
   \]
-", options);
+", options
+        );
     }
 }

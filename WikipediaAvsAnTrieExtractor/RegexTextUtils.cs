@@ -1,8 +1,6 @@
-﻿using System.Text.RegularExpressions;
-using System.Linq;
-using System;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace WikipediaAvsAnTrieExtractor {
     public partial class RegexTextUtils {
@@ -11,9 +9,9 @@ namespace WikipediaAvsAnTrieExtractor {
         const RegexOptions options = RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.Singleline | RegexOptions.CultureInvariant | RegexOptions.IgnorePatternWhitespace;
 
         static readonly Regex firstLetter = new Regex(@"(?<=^[^\s\w]*)\w", RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.CultureInvariant);
-        static string Capitalize(string word) {
-            return firstLetter.Replace(word, m => m.Value.ToUpperInvariant());
-        }
+
+        static string Capitalize(string word)
+            => firstLetter.Replace(word, m => m.Value.ToUpperInvariant());
 
         static readonly HashSet<string> dictionary;
 
@@ -28,9 +26,9 @@ namespace WikipediaAvsAnTrieExtractor {
         static RegexTextUtils() {
             var myType = typeof(RegexTextUtils);
             // ReSharper disable once AssignNullToNotNullAttribute
-            using (var dictStream = myType.Assembly.GetManifestResourceStream(myType.Namespace + ".english.ngl"))
-            using (var reader = new StreamReader(dictStream))
-                dictionary = new HashSet<string>(ReadWordsFromDictionary(reader));
+            using var dictStream = myType.Assembly.GetManifestResourceStream(myType.Namespace + ".english.ngl");
+            using var reader = new StreamReader(dictStream);
+            dictionary = new HashSet<string>(ReadWordsFromDictionary(reader));
         }
     }
 }

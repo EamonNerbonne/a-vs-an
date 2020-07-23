@@ -4,8 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-namespace AvsAnDemo
-{
+namespace AvsAnDemo {
     public static class Dictionaries {
         public static IEnumerable<string> AcronymsWithUpto4Letters() {
             var letters = Enumerable.Range('A', 'Z' - 'A' + 1).Select(i => (char)i).ToArray();
@@ -18,23 +17,22 @@ namespace AvsAnDemo
                                 from prefix in prefixes
                                 from suffix in chars
                                 select prefix + suffix
-                                ).ToArray()
+                            ).ToArray()
                         )
                 );
         }
 
-        public static IEnumerable<string> SmallNumberStrings() {
-            return Enumerable.Range(0, 100000).Select(i => i.ToString(CultureInfo.InvariantCulture));
-        }
+        public static IEnumerable<string> SmallNumberStrings()
+            => Enumerable.Range(0, 100000).Select(i => i.ToString(CultureInfo.InvariantCulture));
 
         public static string[] LoadEnglishDictionary() {
             // ReSharper disable once AssignNullToNotNullAttribute
-            using (var stream = typeof(Dictionaries).Assembly.GetManifestResourceStream(typeof(Dictionaries), "354984si.ngl"))
-            using (var reader = new StreamReader(stream)) {
-                return reader
-                    .ReadToEnd()
-                    .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            }
+            using var stream = typeof(Dictionaries).Assembly.GetManifestResourceStream(typeof(Dictionaries), "354984si.ngl");
+            using var reader = new StreamReader(stream);
+
+            return reader
+                .ReadToEnd()
+                .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

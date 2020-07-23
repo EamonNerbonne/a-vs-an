@@ -1,7 +1,5 @@
-﻿using System.Text.RegularExpressions;
-using System.Linq;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace WikipediaAvsAnTrieExtractor {
     public partial class RegexTextUtils {
@@ -40,11 +38,13 @@ namespace WikipediaAvsAnTrieExtractor {
 [)""]*
 (?=\s|$)
 ";
+
         readonly Regex sentenceFinderRegex = new Regex(sentenceRegex, options);
 
         public IEnumerable<string> FindEnglishSentences(string text) {
-            foreach (Match m in sentenceFinderRegex.Matches(text))
+            foreach (Match m in sentenceFinderRegex.Matches(text)) {
                 yield return m.Value;
+            }
         }
     }
 }
