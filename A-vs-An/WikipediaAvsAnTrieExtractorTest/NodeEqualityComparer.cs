@@ -9,7 +9,7 @@ namespace WikipediaAvsAnTrieExtractorTest {
         public bool Equals(Node x, Node y) {
             return
                 x.c == y.c
-                    && x.ratio.Occurence == y.ratio.Occurence
+                    && x.ratio.Occurrence == y.ratio.Occurrence
                     && x.ratio.AminAnDiff == y.ratio.AminAnDiff
                     && (x.SortedKids == null) == (y.SortedKids == null)
                     && (x.SortedKids == null ||
