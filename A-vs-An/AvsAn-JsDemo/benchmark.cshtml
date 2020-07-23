@@ -33,45 +33,41 @@
 	<script src="AvsAn.js"></script>
 	<script src="AvsAn-simple.js"></script>
 	<script src="itertrie.js"></script>
-	<script type="content" id="defDict">@string.Join("\n", AvsAn_Test.Dictionaries.LoadEnglishDictionary())</script>
 <script>
-	(function () {
+fetch('354984si.ngl').then(response =>
+	response.text().then(defDictText => {
 		"use strict";
-		var logEl = document.getElementById("log");
-		function log(str) {
-			logEl.appendChild(document.createTextNode(str + "\n"));
-		}
-		document.getElementById("benchfile").addEventListener("change", function (e) {
+		const logEl = document.getElementById("log");
+		const log = str => { logEl.appendChild(document.createTextNode(str + "\n")); };
+		document.getElementById("benchfile").addEventListener("change", () => {
 			log("file input");
-			var reader = new FileReader();
-			reader.onload = function (e) {
+			const reader = new FileReader();
+			reader.onload = e => {
 				window.benchdict = e.target.result.split("\n");
 				log("done loading.");
 			};
 			reader.readAsText(e.target.files[0]);
 		});
-		window.benchdict = window.defDict.textContent.split("\n");
-		function bench(q) {
-			return function () {
-				var tr = { a: 0, an: 1 };
-				var sum = 0;
-				var start = (new Date).getTime();
-				for (var k = 0; k < 5; k++) {
-					for (var i = 0; i < benchdict.length; i++)
-						sum += tr[q(benchdict[i])];
-					for (var i = benchdict.length - 1; i >= 0; i--)
-						sum += tr[q(benchdict[i])];
-				}
-				var duration = (new Date).getTime() - start;
-				log(sum + " / " + benchdict.length + " (" + (sum / benchdict.length / 5 / 2) + ") an rate.");
-				var nanoseconds = duration / benchdict.length / 5 / 2 * 1000.0 * 1000.0;
-				log(nanoseconds + " nanoseconds per lookup");
-				log("took " + duration + "ms");
+		window.benchdict = defDictText.split("\n");
+		const bench = q => () => {
+			const tr = { a: 0, an: 1 };
+			let sum = 0;
+			const start = (new Date).getTime();
+			for (let k = 0; k < 5; k++) {
+				for (let i = 0; i < benchdict.length; i++)
+					sum += tr[q(benchdict[i])];
+				for (let i = benchdict.length - 1; i >= 0; i--)
+					sum += tr[q(benchdict[i])];
 			}
-		}
-	    window.benchButton.onclick = bench(function (s) { return AvsAn.query(s).article; });
+			const duration = (new Date).getTime() - start;
+			log(sum + " / " + benchdict.length + " (" + (sum / benchdict.length / 5 / 2) + ") an rate.");
+			const nanoseconds = duration / benchdict.length / 5 / 2 * 1000.0 * 1000.0;
+			log(nanoseconds + " nanoseconds per lookup");
+			log("took " + duration + "ms");
+		};
+	    window.benchButton.onclick = bench(s => AvsAn.query(s).article);
 	    window.benchSimpleButton.onclick = bench(AvsAnSimple.query);
-	})();
+	}));
 </script>
 </body>
 </html>
