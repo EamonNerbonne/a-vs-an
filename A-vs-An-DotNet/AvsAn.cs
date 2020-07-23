@@ -2,10 +2,13 @@
 
 using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using AvsAnLib.Internals;
 
 namespace AvsAnLib {
     public static class AvsAn {
+        static readonly Node _root = BuiltInDictionary.Root;
+
         /// <summary>
         /// Determines whether an english word should be preceded by the indefinite article "a" or "an".
         /// By Eamon Nerbonne; feedback can be reported to https://github.com/EamonNerbonne/a-vs-an/
@@ -16,7 +19,8 @@ namespace AvsAnLib {
         /// non-word, non-space character such as the underscore "_" as a placeholder for further letters.
         /// </param>
         /// <returns>A classification result indicating "a" or "an" with some wikipedia-derived statistics.</returns>
-        public static Result Query(string word) => WordQuery.Query(BuiltInDictionary.Root, word);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Result Query(string word) => WordQuery.Query(_root, word);
 
         // ReSharper disable MemberCanBePrivate.Global
         // ReSharper disable UnusedMember.Global
