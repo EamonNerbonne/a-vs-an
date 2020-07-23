@@ -27,9 +27,7 @@ namespace WikipediaAvsAnTrieExtractor {
                     diff * (long)diff >= scaleFactor * (long)occurrence
                     && Annotation(simpleKid) != Annotation(node)
                 ) {
-                    if (simpleKids == null) {
-                        simpleKids = new Node[node.SortedKids.Length];
-                    }
+                    simpleKids ??= new Node[node.SortedKids.Length];
 
                     simpleKids[kidCount++] = simpleKid;
                 }
