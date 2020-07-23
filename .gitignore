@@ -1,23 +1,12 @@
-# User-specific files
+bin/
+obj/
+.vs/
 *.suo
 *.user
 
-# Build results
-[Bb]in/
-[Oo]bj/
-*.csproj.user
-*.pubxml.user
-
-A-vs-An/PerfTest/354984si.ngl
-
 *.vsp
 *.psess
-*.suo
 *.vspx
-packages/
-*.DotSettings.user
-*.nupkg
 *.received.txt
 *.approved.txt.bak
-A-vs-An/.vs
 *.orig
