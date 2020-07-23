@@ -5,9 +5,9 @@ namespace AvsAnLib.Internals {
     /// A node the article lookup trie. Do not mutate after construction.
     /// </summary>
     public struct Node : IComparable<Node> {
-        public char c;
-        public Ratio ratio;
         public Node[] SortedKids;
+        public Ratio ratio;
+        public char c;
 
         public int CompareTo(Node other)
             => c.CompareTo(other.c);
