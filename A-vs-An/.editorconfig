@@ -31,3 +31,6 @@ insert_final_newline=true
 # Microsoft .NET properties
 csharp_indent_braces=false
 csharp_new_line_before_open_brace=none
+
+# ReSharper properties
+resharper_place_expr_method_on_single_line=false
