@@ -1,4 +1,4 @@
-﻿//by Eamon Nerbonne (from http://home.nerbonne.org/A-vs-An), Apache 2.0 license.
+﻿//by Eamon Nerbonne (from https://eamonnerbonne.github.io/a-vs-an/), Apache 2.0 license.
 
 using System;
 using System.ComponentModel;
