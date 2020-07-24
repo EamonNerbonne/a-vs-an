@@ -8,15 +8,6 @@ namespace AvsAnLib.Internals {
     public struct Ratio {
         public int Occurrence, AminAnDiff;
 
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("This is a typo, use Occurrence")]
-        public int Occurence {
-            get => Occurrence;
-            set => Occurrence = value;
-        }
-
-
         public int aCount {
             get => (Occurrence + AminAnDiff) / 2;
             set {
