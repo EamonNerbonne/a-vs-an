@@ -2,11 +2,10 @@
   <PropertyGroup>
     <TargetFramework>net50</TargetFramework>
     <OutputType>Exe</OutputType>
+    <TieredCompilation>false</TieredCompilation>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.Management" Version="4.7.0" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\AvsAnDemo\AvsAnDemo.csproj" />
   </ItemGroup>
 </Project>
