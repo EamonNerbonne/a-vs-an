@@ -1,4 +1,6 @@
-﻿namespace AvsAnLib.Internals {
+﻿using AvsAnLib.Internals;
+
+namespace WikipediaAvsAnTrieExtractor {
     public static class NodeMutation {
         public static void LoadPrefixRatio(this ref Node node, string prefix, int depth, Ratio prefixRatio) {
             if (prefix.Length == depth) {
