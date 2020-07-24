@@ -49,8 +49,7 @@ namespace WikipediaAvsAnTrieExtractor {
                     pos++;
                 }
                 var paren1 = pos;
-                mutableRoot.LoadPrefixRatio(
-                    rawDict.Substring(start, paren0 - start),
+                Node.LoadPrefixRatio(ref mutableRoot, rawDict.Substring(start, paren0 - start),
                     0,
                     new Ratio {
                         aCount = parseHex(rawDict, paren0 + 1, sep),

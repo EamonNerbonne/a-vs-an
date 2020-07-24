@@ -11,13 +11,13 @@ namespace WikipediaAvsAnTrieExtractor {
 
             if (level < 40) {
                 if (word.Length > level) {
-                    var nextKidIdx = node.GetOrAddKidIdx(word[level]);
+                    var nextKidIdx = Node.GetOrAddKidIdx(ref node, word[level]);
                     IncrementPrefix(
                         ref node.SortedKids[nextKidIdx],
                         isAn, word, level + 1
                     );
                 } else if (word.Length == level) {
-                    var nextKidIdx = node.GetOrAddKidIdx(' ');
+                    var nextKidIdx = Node.GetOrAddKidIdx(ref node, ' ');
                     IncrementTerminator(
                         ref node.SortedKids[nextKidIdx],
                         isAn
