@@ -2,6 +2,8 @@
 
 namespace AvsAnLib {
     public static partial class AvsAn {
+        static readonly Node Dictionary = BuiltInDictionary.Dictionary;
+
         /// <summary>
         /// Determines whether an english word should be preceded by the indefinite article "a" or "an".
         /// By Eamon Nerbonne; feedback can be reported to https://github.com/EamonNerbonne/a-vs-an/
@@ -13,18 +15,17 @@ namespace AvsAnLib {
         /// </param>
         /// <returns>A classification result indicating "a" or "an" with some wikipedia-derived statistics.</returns>
         public static Result Query(string word) {
-            var length = word.Length;
-            ref readonly var node = ref BuiltInDictionary.Root();
+            var kids = Dictionary.SortedKids;
+            var result = Dictionary.ratio;
             var depth = 0;
-            var result = node.ratio;
             while (true) {
-                if (length == depth) {
+                if (word.Length == depth) {
                     return new Result(result, word, depth);
                 }
 
                 var c = word[depth];
-
-                if (c == '"' || c == '‘' || c == '’' || c == '“' || c == '”' || c == '$' || c == '\'' || c == '-' || c == '(') {
+                var needsCheck = '‘' <= c && c <= '”' || '"' <= c && c <= '-';
+                if (needsCheck && (c == '"'|| c == '$' || c == '\'' || c == '(' || c == '-' || c == '‘' || c == '’' || c == '“' || c == '”' )) {
                     depth++;
                     continue;
                 }
@@ -33,36 +34,40 @@ namespace AvsAnLib {
             }
 
             while (true) {
-                var c = depth < length ? word[depth] : ' ';
-                var lastIdx = node.SortedKids.Length - 1;
-                var firstIdx = 0;
-                //invariant: only LT nodes before start
-                //invariant: only GTE nodes at or past candidateIdx *OR* needle doesn't exist.
+                var c = depth < word.Length ? word[depth] : ' ';
 
-                while (13 < lastIdx - firstIdx) {
+                var firstIdx = 0;
+                var lastIdx = kids.Length - 1;
+
+                //We start with a binary search while the search space is "large" (14 elements or more)
+                //invariant: only LT nodes before firstIdx
+                //invariant: only GTE nodes at or past lastIdx *OR* needle doesn't exist.
+
+                while (13 <= lastIdx - firstIdx) {
                     var midpoint = (lastIdx + firstIdx) >> 1;
-                    if (node.SortedKids[midpoint].c < c) {
+                    if (kids[midpoint].c < c) {
                         firstIdx = midpoint + 1;
                     } else {
                         lastIdx = midpoint;
                     }
                 }
 
+                //With fewer than 14 elements, do a plain iterative scan.
                 while (true) {
-                    if (node.SortedKids[firstIdx].c != c) {
+                    if (kids[firstIdx].c != c) {
                         firstIdx++;
                         if (firstIdx > lastIdx) {
                             return new Result(result, word, depth);
                         }
                     } else {
-                        node = ref node.SortedKids[firstIdx];
-
-                        if (node.ratio.isSet) {
-                            result = node.ratio;
+                        if (kids[firstIdx].ratio.isSet) {
+                            result = kids[firstIdx].ratio;
                         }
 
+                        kids = kids[firstIdx].SortedKids;
+
                         depth++;
-                        if (depth > length || node.SortedKids == null) {
+                        if (depth > word.Length || kids == null) {
                             return new Result(result, word, depth);
                         }
 
