@@ -28,7 +28,7 @@ namespace AvsAnDemo {
         public static string[] LoadEnglishDictionary() {
             // ReSharper disable once AssignNullToNotNullAttribute
             using var stream = typeof(Dictionaries).Assembly.GetManifestResourceStream(typeof(Dictionaries), "354984si.ngl");
-            using var reader = new StreamReader(stream);
+            using var reader = new StreamReader(stream ?? throw new Exception("missing embedded 354984si.ngl"));
 
             return reader
                 .ReadToEnd()
