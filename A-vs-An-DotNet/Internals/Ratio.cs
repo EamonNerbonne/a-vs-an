@@ -23,15 +23,6 @@
             }
         }
 
-        public void IncA() {
-            Occurrence++;
-            AminAnDiff++;
-        }
-
-        public void IncAn() {
-            Occurrence++;
-            AminAnDiff--;
-        }
 
         public bool isSet => Occurrence != 0;
     }

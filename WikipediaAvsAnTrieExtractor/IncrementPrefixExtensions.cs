@@ -33,5 +33,15 @@ namespace WikipediaAvsAnTrieExtractor {
                 node.ratio.IncA();
             }
         }
+
+        static void IncAn(this ref Ratio ratio) {
+            ratio.Occurrence++;
+            ratio.AminAnDiff--;
+        }
+
+        static void IncA(this ref Ratio ratio) {
+            ratio.Occurrence++;
+            ratio.AminAnDiff++;
+        }
     }
 }
