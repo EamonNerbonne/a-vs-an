@@ -17,28 +17,29 @@ namespace AvsAnLib {
             ref readonly var node = ref BuiltInDictionary.Root();
             var depth = 0;
             var result = node.ratio;
-            if (length == 0) {
-                return new Result(result, word, depth);
-            }
-
-            var c = word[depth];
-
-            while (c == '"' || c == '‘' || c == '’' || c == '“' || c == '”' || c == '$' || c == '\'' || c == '-' || c == '(') {
-                depth++;
-                if (depth < length) {
-                    c = word[depth];
-                } else {
+            while (true) {
+                if (length == depth) {
                     return new Result(result, word, depth);
                 }
+
+                var c = word[depth];
+
+                if (c == '"' || c == '‘' || c == '’' || c == '“' || c == '”' || c == '$' || c == '\'' || c == '-' || c == '(') {
+                    depth++;
+                    continue;
+                }
+
+                break;
             }
 
             while (true) {
+                var c = depth < length ? word[depth] : ' ';
                 var lastIdx = node.SortedKids.Length - 1;
                 var firstIdx = 0;
                 //invariant: only LT nodes before start
                 //invariant: only GTE nodes at or past candidateIdx *OR* needle doesn't exist.
 
-                while (15 < lastIdx - firstIdx) {
+                while (13 < lastIdx - firstIdx) {
                     var midpoint = (lastIdx + firstIdx) >> 1;
                     if (node.SortedKids[midpoint].c < c) {
                         firstIdx = midpoint + 1;
@@ -64,8 +65,6 @@ namespace AvsAnLib {
                         if (depth > length || node.SortedKids == null) {
                             return new Result(result, word, depth);
                         }
-
-                        c = depth < length ? word[depth] : ' ';
 
                         break;
                     }
