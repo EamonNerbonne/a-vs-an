@@ -55,11 +55,19 @@ namespace WikipediaAvsAnTrieExtractor {
                     node.SortedKids.Select(n => UnmarkUnsure(n, scaleFactor)).ToArray();
             }
 
-            if (node.ratio.Quality() >= scaleFactor) {
+            if (Quality(node.ratio) >= scaleFactor) {
                 copy.ratio = node.ratio;
             }
 
             return copy;
+        }
+
+        static int Quality(Ratio ratio) {
+            if (ratio.AminAnDiff == 0) {
+                return 0;
+            }
+
+            return (int)(ratio.AminAnDiff * (long)ratio.AminAnDiff / ratio.Occurrence);
         }
     }
 }

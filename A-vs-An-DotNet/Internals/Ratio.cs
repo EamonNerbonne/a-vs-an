@@ -34,13 +34,5 @@
         }
 
         public bool isSet => Occurrence != 0;
-
-        public int Quality() {
-            if (AminAnDiff == 0) {
-                return 0;
-            }
-
-            return (int)(AminAnDiff * (long)AminAnDiff / Occurrence);
-        }
     }
 }
