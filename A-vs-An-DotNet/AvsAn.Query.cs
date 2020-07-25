@@ -15,65 +15,33 @@ namespace AvsAnLib {
         /// </param>
         /// <returns>A classification result indicating "a" or "an" with some wikipedia-derived statistics.</returns>
         public static Result Query(string word) {
-            var kids = Dictionary.SortedKids;
-            var result = Dictionary.ratio;
+            var node = Dictionary;
             var depth = 0;
             while (true) {
                 if (word.Length == depth) {
-                    return new Result(result, word, depth);
+                    return new Result(node.ratio, word, depth);
                 }
 
                 var c = word[depth];
                 var needsCheck = '‘' <= c && c <= '”' || '"' <= c && c <= '-';
-                if (needsCheck && (c == '"'|| c == '$' || c == '\'' || c == '(' || c == '-' || c == '‘' || c == '’' || c == '“' || c == '”' )) {
+                if (needsCheck && (c == '"' || c == '$' || c == '\'' || c == '(' || c == '-' || c == '‘' || c == '’' || c == '“' || c == '”')) {
                     depth++;
                     continue;
                 }
-
                 break;
             }
 
             while (true) {
                 var c = depth < word.Length ? word[depth] : ' ';
-
-                var firstIdx = 0;
-                var lastIdx = kids.Length - 1;
-
-                //We start with a binary search while the search space is "large" (14 elements or more)
-                //invariant: only LT nodes before firstIdx
-                //invariant: only GTE nodes at or past lastIdx *OR* needle doesn't exist.
-
-                while (13 <= lastIdx - firstIdx) {
-                    var midpoint = (lastIdx + firstIdx) >> 1;
-                    if (kids[midpoint].c < c) {
-                        firstIdx = midpoint + 1;
-                    } else {
-                        lastIdx = midpoint;
+                if (node.SortedKids.TryGetValue(c, out var kid)) {
+                    node = kid;
+                    depth++;
+                    if (depth <= word.Length && node.SortedKids != null) {
+                        continue;
                     }
                 }
 
-                //With fewer than 14 elements, do a plain iterative scan.
-                while (true) {
-                    if (kids[firstIdx].c != c) {
-                        firstIdx++;
-                        if (firstIdx > lastIdx) {
-                            return new Result(result, word, depth);
-                        }
-                    } else {
-                        if (kids[firstIdx].ratio.isSet) {
-                            result = kids[firstIdx].ratio;
-                        }
-
-                        kids = kids[firstIdx].SortedKids;
-
-                        depth++;
-                        if (depth > word.Length || kids == null) {
-                            return new Result(result, word, depth);
-                        }
-
-                        break;
-                    }
-                }
+                return new Result(node.ratio, word, depth);
             }
         }
     }

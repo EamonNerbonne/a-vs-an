@@ -1,3 +1,5 @@
+﻿using System.Collections.Generic;
+
 namespace AvsAnLib.Internals {
     public static class NodeDeserializer {
         static int DenseIntParse(string str, ref int cursor) {
@@ -11,32 +13,33 @@ namespace AvsAnLib.Internals {
             return retval;
         }
 
-        static Node DeserializeDenseImpl(string rawDict, ref int cursor) {
-            var ratio = new Ratio { 
-                aCount = DenseIntParse(rawDict, ref cursor), 
-                anCount = DenseIntParse(rawDict, ref cursor) };
-           
+        static Node DeserializeDenseImpl(string rawDict, ref int cursor, Ratio parentRatio) {
+            var retval = new Node {
+                ratio = new Ratio {
+                    aCount = DenseIntParse(rawDict, ref cursor),
+                    anCount = DenseIntParse(rawDict, ref cursor)
+                }
+            };
+            if (!retval.ratio.isSet) {
+                retval.ratio = parentRatio;
+            }
             var kidCount = DenseIntParse(rawDict, ref cursor);
-            Node[] kids = null;
-            
+
             if (kidCount != 0) {
-                kids = new Node[kidCount];
+                retval.SortedKids = new Dictionary<char, Node>();
                 for (var i = 0; i < kidCount; i++) {
                     var c = rawDict[cursor++];
-                    var nodeWithIdx = DeserializeDenseImpl(rawDict, ref cursor);
-                    kids[i] = nodeWithIdx;
-                    kids[i].c = c;
+                    var nodeWithIdx = DeserializeDenseImpl(rawDict, ref cursor, retval.ratio);
+                    retval.SortedKids.Add(c, nodeWithIdx);
                 }
             }
-            return new Node {
-                ratio = ratio,
-                SortedKids = kids
-            };
+
+            return retval;
         }
 
         public static Node DeserializeDense(string rawDict) {
             var cursor = 0;
-            return DeserializeDenseImpl(rawDict, ref cursor);
+            return DeserializeDenseImpl(rawDict, ref cursor, default);
         }
     }
 }
