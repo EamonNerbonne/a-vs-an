@@ -15,6 +15,13 @@ namespace PerfTest
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
             var benchdict = Dictionaries.LoadEnglishDictionary();
             var borkedWords = benchdict.Select(w => new string(w.Reverse().ToArray())).ToArray();
+            for (var i = 0; i < benchdict.Length; i++) {
+                //deterministically shuffle to avoid over-friendliness to the branch-predictor
+                var otherI = (i * 13379L + 42) % benchdict.Length;
+                var tmp = benchdict[i];
+                benchdict[i] = benchdict[otherI];
+                benchdict[otherI] = tmp;
+            }
 
             long sum = 0;
             var sw = Stopwatch.StartNew();
