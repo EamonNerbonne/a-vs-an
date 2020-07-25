@@ -11,6 +11,8 @@ namespace PerfTest
     static class Program
     {
         static void Main() {
+            Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
+            Thread.CurrentThread.Priority = ThreadPriority.Highest;
             var benchdict = Dictionaries.LoadEnglishDictionary();
             var borkedWords = benchdict.Select(w => new string(w.Reverse().ToArray())).ToArray();
 
