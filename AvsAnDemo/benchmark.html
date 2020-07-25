@@ -51,7 +51,7 @@ fetch('354984si.ngl').then(response =>
 		window.benchdict = defDictText.split("\n");
         for (let i = 0; i < benchdict.length; i++) {
             //deterministically shuffle to avoid over-friendliness to the branch-predictor
-            var otherI = (i * 13379 + 42) % benchdict.Length;
+            var otherI = (i * 13379 + 42) % benchdict.length;
 			var tmp = benchdict[i];
 			benchdict[i] = benchdict[otherI];
 			benchdict[otherI] = tmp;
