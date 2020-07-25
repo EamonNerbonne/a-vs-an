@@ -45,8 +45,8 @@ namespace PerfTest
                     .Cast<ManagementObject>()
                     .Select(mo => Convert.ToDouble(mo["CurrentClockSpeed"]))
                     .Max();
-            Console.WriteLine(sum + " / " + benchdict.Length + " (" + (double)sum / benchdict.Length / iters / 2 + ") an rate.");
-            var microseconds = duration / (benchdict.Length + borkedWords.Length) / iters * 1000.0;
+            Console.WriteLine($"{sum} / {benchdict.Length} / {iters} / 2 ({(double)sum / benchdict.Length / iters / 2}) an rate.");
+            var microseconds = duration / benchdict.Length / 2 / iters * 1000.0;
             Console.WriteLine(microseconds * 1000.0 + " nanoseconds per lookup");
 
             Console.WriteLine(clockrateMHz * microseconds + " cycles per lookup @ " + clockrateMHz + "MHz");
