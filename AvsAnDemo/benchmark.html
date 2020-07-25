@@ -48,33 +48,39 @@ fetch('354984si.ngl').then(response =>
 			};
 			reader.readAsText(e.target.files[0]);
 		});
-		window.benchdict = defDictText.split("\n");
-        for (let i = 0; i < benchdict.length; i++) {
-            //deterministically shuffle to avoid over-friendliness to the branch-predictor
-            var otherI = (i * 13379 + 42) % benchdict.length;
+		const benchdict = defDictText.split("\n").map(w => w.trim());
+		for (let i = 0; i < benchdict.length; i++) {
+			//deterministically shuffle to avoid over-friendliness to the branch-predictor
+			var otherI = (i * 13379 + 42) % benchdict.length;
 			var tmp = benchdict[i];
 			benchdict[i] = benchdict[otherI];
 			benchdict[otherI] = tmp;
-        }
+		}
+		const borkedWords = benchdict.map(w => Array.from(w).reverse().join(''));
+		window.borkedWords = borkedWords;
+		window.benchdict = benchdict;
+
+
 
 		const bench = q => () => {
 			const tr = { a: 0, an: 1 };
 			let sum = 0;
 			const start = (new Date).getTime();
-			for (let k = 0; k < 5; k++) {
+			const iters = 100;
+			for (let k = 0; k < iters; k++) {
 				for (let i = 0; i < benchdict.length; i++)
 					sum += tr[q(benchdict[i])];
-				for (let i = benchdict.length - 1; i >= 0; i--)
-					sum += tr[q(benchdict[i])];
+				for (let i = 0; i < borkedWords.length; i++)
+					sum += tr[q(borkedWords[i])];
 			}
 			const duration = (new Date).getTime() - start;
-			log(sum + " / " + benchdict.length + " (" + (sum / benchdict.length / 5 / 2) + ") an rate.");
-			const nanoseconds = duration / benchdict.length / 5 / 2 * 1000.0 * 1000.0;
+			log(sum + " / " + benchdict.length + " (" + (sum / benchdict.length / iters / 2) + ") an rate.");
+			const nanoseconds = duration / benchdict.length / iters / 2 * 1000.0 * 1000.0;
 			log(nanoseconds + " nanoseconds per lookup");
 			log("took " + duration + "ms");
 		};
-	    window.benchButton.onclick = bench(s => AvsAn.query(s).article);
-	    window.benchSimpleButton.onclick = bench(AvsAnSimple.query);
+		window.benchButton.onclick = bench(s => AvsAn.query(s).article);
+		window.benchSimpleButton.onclick = bench(AvsAnSimple.query);
 	}));
 </script>
 </body>
