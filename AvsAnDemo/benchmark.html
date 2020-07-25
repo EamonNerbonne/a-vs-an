@@ -49,6 +49,14 @@ fetch('354984si.ngl').then(response =>
 			reader.readAsText(e.target.files[0]);
 		});
 		window.benchdict = defDictText.split("\n");
+        for (let i = 0; i < benchdict.length; i++) {
+            //deterministically shuffle to avoid over-friendliness to the branch-predictor
+            var otherI = (i * 13379 + 42) % benchdict.Length;
+			var tmp = benchdict[i];
+			benchdict[i] = benchdict[otherI];
+			benchdict[otherI] = tmp;
+        }
+
 		const bench = q => () => {
 			const tr = { a: 0, an: 1 };
 			let sum = 0;
