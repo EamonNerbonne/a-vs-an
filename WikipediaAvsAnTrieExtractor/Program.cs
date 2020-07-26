@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using AvsAnLib.Internals;
 using ExpressionToCodeLib;
+using ICSharpCode.SharpZipLib.BZip2;
 // ReSharper disable AccessToModifiedClosure
 // ReSharper disable AccessToDisposedClosure
 
@@ -31,8 +32,8 @@ namespace WikipediaAvsAnTrieExtractor {
         }
 
         static void PrintUsage() {
-            Console.Error.WriteLine("Usage: AvsAnTrie <wikidumpfile> <outputfile>");
-            Console.Error.WriteLine("The dump is available at http://dumps.wikimedia.org/enwiki/latest/");
+            Console.Error.WriteLine("Usage: AvsAnTrie -extract <wikidumpfile> <outputfile>");
+            Console.Error.WriteLine("The dump is available at https://dumps.wikimedia.org/enwiki/latest/");
             Console.Error.WriteLine("The appropriate dump is enwiki-latest-pages-articles.xml.bz2, though some others will work too (in particular, pages-meta-current includes talk pages).");
         }
 
@@ -146,7 +147,8 @@ namespace WikipediaAvsAnTrieExtractor {
                 () => {
                     var sw = Stopwatch.StartNew();
                     using var stream = File.OpenRead(wikiPath);
-                    using var reader = XmlReader.Create(stream);
+                    using var decompressed = !wikiPath.EndsWith(".bz2") ? default(Stream) : new BZip2InputStream(stream);
+                    using var reader = XmlReader.Create(decompressed ?? stream);
 
                     var stopped = false;
                     try {

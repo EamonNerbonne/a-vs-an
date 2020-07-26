@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="ExpressionToCodeLib" Version="3.3.0" />
+    <PackageReference Include="SharpZipLib" Version="1.2.0" />
     <ProjectReference Include="..\A-vs-An-DotNet\AvsAn.csproj" />
   </ItemGroup>
   <ItemGroup>
