@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ApprovalTests" Version="5.4.1" />
-    <PackageReference Include="ApprovalUtilities" Version="5.2.5" />
+    <PackageReference Include="ApprovalUtilities" Version="5.4.1" />
     <PackageReference Include="ExpressionToCodeLib" Version="3.3.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
