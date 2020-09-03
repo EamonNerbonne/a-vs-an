@@ -163,9 +163,9 @@ namespace WikipediaAvsAnTrieExtractor {
 
                         while (reader.Read()) {
                             if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "page") {
-                                if (reader.ReadToDescendant("text") && reader.Read() && reader.Value != null) {
+                                if (reader.ReadToDescendant("text") && reader.Read() && reader.Value is {} value) {
                                     pageCount++;
-                                    pages[i] = reader.Value;
+                                    pages[i] = value;
                                     i++;
                                     if (i == pages.Length) {
                                         wikiPageQueue.Add(pages);
