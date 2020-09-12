@@ -8,7 +8,7 @@
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/EamonNerbonne/a-vs-an/</PackageProjectUrl>
     <PackageTags>english NLP text-processing library indeterminate-article AvsAn an a-vs-an</PackageTags>
-    <PackageReleaseNotes>Fix typo in propery name Occurence-&gt; Occurrence.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix typo in propery name Occurence-&gt; Occurrence; some performance improvements; source link support bumped.</PackageReleaseNotes>
     <Copyright>Copyright Eamon Nerbonne ©  2020</Copyright>
     <RootNamespace>AvsAnLib</RootNamespace>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
