@@ -2,14 +2,14 @@
 from AvsAn import AvsAn
 
 result = AvsAn.getInstance().query("")
-print result
+print(result)
 result = AvsAn.getInstance().query("x")
-print result
+print(result)
 result = AvsAn.getInstance().query("\"x")
-print result
+print(result)
 result = AvsAn.getInstance().query("unanticipated result")
-print result
+print(result)
 result = AvsAn.getInstance().query("unanimous vote")
-print result
+print(result)
 result = AvsAn.getInstance().query("honest decision")
-print result
+print(result)
