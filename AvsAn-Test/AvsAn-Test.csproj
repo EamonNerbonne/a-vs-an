@@ -4,7 +4,7 @@
     <RootNamespace>AvsAn_Test</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ApprovalTests" Version="5.4.4" />
+    <PackageReference Include="ApprovalTests" Version="5.4.5" />
     <PackageReference Include="ApprovalUtilities" Version="5.4.4" />
     <PackageReference Include="ExpressionToCodeLib" Version="3.3.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
