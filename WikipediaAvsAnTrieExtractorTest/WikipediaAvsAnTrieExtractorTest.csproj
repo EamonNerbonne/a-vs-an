@@ -5,7 +5,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
     <PackageReference Include="ApprovalTests" Version="5.7.1" />
-    <PackageReference Include="ApprovalUtilities" Version="5.7.0" />
+    <PackageReference Include="ApprovalUtilities" Version="5.7.1" />
     <PackageReference Include="ExpressionToCodeLib" Version="3.4.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
