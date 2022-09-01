@@ -7,7 +7,7 @@
     <PackageReference Include="ApprovalTests" Version="5.7.3" />
     <PackageReference Include="ApprovalUtilities" Version="5.7.3" />
     <PackageReference Include="ExpressionToCodeLib" Version="3.4.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <ProjectReference Include="..\A-vs-An-DotNet\AvsAn.csproj" />
     <ProjectReference Include="..\WikipediaAvsAnTrieExtractor\WikipediaAvsAnTrieExtractor.csproj" />
