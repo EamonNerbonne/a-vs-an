@@ -6,7 +6,7 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
     <PackageReference Include="ApprovalTests" Version="5.7.3" />
     <PackageReference Include="ApprovalUtilities" Version="5.7.3" />
-    <PackageReference Include="ExpressionToCodeLib" Version="3.4.1" />
+    <PackageReference Include="ExpressionToCodeLib" Version="3.5.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <ProjectReference Include="..\A-vs-An-DotNet\AvsAn.csproj" />
