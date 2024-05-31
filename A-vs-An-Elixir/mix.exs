@@ -10,7 +10,9 @@ defmodule AvsAn.MixProject do
       version: @version,
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
-      deps: [{:ex_doc, "~> 0.27", only: :dev, runtime: false}]
+      deps: [{:ex_doc, "~> 0.27", only: :dev, runtime: false}],
+      docs: docs(),
+      package: package()
     ]
   end
 
