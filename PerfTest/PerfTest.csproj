@@ -5,7 +5,7 @@
     <TieredCompilation>false</TieredCompilation>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Management" Version="8.0.0" />
+    <PackageReference Include="System.Management" Version="9.0.0" />
     <ProjectReference Include="..\AvsAnDemo\AvsAnDemo.csproj" />
   </ItemGroup>
 </Project>
