@@ -66,5 +66,53 @@ namespace WikipediaAvsAnTrieExtractorTest {
             Assert.Equal(serializedNode, NodeSerializer.SerializeDense(node));
             Assert.Equal(node, NodeDeserializer.DeserializeDense(serializedNode), NodeEqualityComparer.Instance);
         }
+
+        [Fact]
+        public void NoStatsUnsetNodesInheritArticle() {
+            var node = new Node {
+                ratio = { aCount = 10, anCount = 1 },
+                SortedKids = new[] {
+                    new Node {
+                        c = 'o',
+                        ratio = { aCount = 1, anCount = 10 },
+                        SortedKids = new[] {
+                            new Node {
+                                c = 'n',
+                                SortedKids = new[] {
+                                    new Node {
+                                        c = 'c',
+                                        ratio = { aCount = 10, anCount = 1 },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                }
+            };
+
+            Assert.Equal("1.o1;n1;c.", NodeSerializer.SerializeDenseNoStats(node));
+        }
+
+        [Fact]
+        public void NoStatsOmitsKidsThatCannotChangeArticle() {
+            var node = new Node {
+                ratio = { aCount = 10, anCount = 1 },
+                SortedKids = new[] {
+                    new Node {
+                        c = 'b',
+                        ratio = { aCount = 10, anCount = 0 },
+                        SortedKids = new[] {
+                            new Node { c = 'c' },
+                        },
+                    },
+                    new Node {
+                        c = 'u',
+                        ratio = { aCount = 2, anCount = 15 },
+                    },
+                }
+            };
+
+            Assert.Equal("1.u;", NodeSerializer.SerializeDenseNoStats(node));
+        }
     }
 }
