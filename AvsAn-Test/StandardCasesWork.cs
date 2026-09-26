@@ -10,7 +10,7 @@ namespace AvsAn_Test
         [InlineData("a", "unanimous vote")]
         [InlineData("an", "honest decision")]
         [InlineData("a", "honeysuckle shrub")]
-        [InlineData("an", "0800 number")]
+        //[InlineData("an", "0800 number")]//no longer reliable in the 2026-09 wikidump: "08" is 20 a vs 35 an, below the significance threshold
         //[InlineData("an", "∞ of oregano")]//no longer reliable in latest wikidump!
         [InlineData("a", "NASA scientist")]
         [InlineData("an", "NSA analyst")]
