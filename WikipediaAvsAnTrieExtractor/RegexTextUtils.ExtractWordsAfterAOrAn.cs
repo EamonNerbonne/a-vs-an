@@ -24,11 +24,16 @@ namespace WikipediaAvsAnTrieExtractor {
         //In particular, some symbolic math and logic expressions use the word "a" followed by things
         //like parentheses and that throws the statistics a little (but enough in rarely occuring 
         //prefixes to matter).  Therefore, don't detect a/an + word when separated by "(".
+        //English never uses "an" before a d-sound (not even for the letter: "dee"), yet wikipedia has thousands of such sightings:
+        //mostly German ("Frankfurt an der Oder", "Theater an der Wien"), some Gaelic ("Rubha an Dùnain"), and typos.
         IEnumerable<AvsAnSighting> ExtractWordsPrecededByAOrAn(string text) {
             //TODO: ignore uppercase "A" -it's just too hard to get right.
             return
                 from Match m in followingAn.Matches(text)
-                select new AvsAnSighting { Word = m.Groups["word"].Value, PrecededByAn = m.Groups["article"].Value.Length == 2 };
+                let word = m.Groups["word"].Value
+                let precededByAn = m.Groups["article"].Value.Length == 2
+                where !(precededByAn && (word[0] == 'd' || word[0] == 'D'))
+                select new AvsAnSighting { Word = word, PrecededByAn = precededByAn };
         }
     }
 }
