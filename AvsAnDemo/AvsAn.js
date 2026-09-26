@@ -5,12 +5,13 @@ var AvsAn = (function () {
 	function fill(prefix, node, dict) {
 		var a = dict.split(';', 3)
 			, n = a.map(function (x) { return parseInt(x, 36)||0; });
-		node.data={ 
-					aCount:n[0],
-					anCount:n[1],
-					prefix:prefix,
-					article:n[0]>=n[1]?"a":"an"
-					}
+		if (n[0] || n[1]) //prefixes without counts are unsure, so query falls back to the nearest ancestor's data
+			node.data={
+						aCount:n[0],
+						anCount:n[1],
+						prefix:prefix,
+						article:n[0]>=n[1]?"a":"an"
+						}
 		dict = dict.substr(1 + a.join(';').length);
 		for (var i = 0; i < n[2]; i++)
 			dict = fill(prefix + dict[0], node[dict[0]] = {}, dict.substr(1));

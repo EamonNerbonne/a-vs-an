@@ -39,10 +39,14 @@ class AvsAn:
         """ Return article info for a given word. """
         word = word.lstrip("'\"`-($")
         node = self.__root
+        data: dict[str, int | str] = node["data"]
         for char in word:
             try:
                 node = node[char]
             except KeyError:
                 break
-        data: dict[str, int | str] = node["data"]
+            # Prefixes without counts are unsure, so fall back to the nearest ancestor's data.
+            node_data = node.get("data")
+            if node_data and (node_data["aCount"] or node_data["anCount"]):
+                data = node_data
         return data

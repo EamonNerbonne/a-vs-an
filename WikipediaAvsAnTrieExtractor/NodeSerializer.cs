@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text;
 using AvsAnLib.Internals;
 
@@ -111,19 +112,28 @@ namespace WikipediaAvsAnTrieExtractor {
 
         public static string SerializeDenseNoStats(Node node) {
             var sb = new StringBuilder();
-            SerializeDenseNoStatsImpl(sb, node);
+            SerializeDenseNoStatsImpl(sb, node, IsAn(node, false));
             return sb.ToString();
         }
 
-        static void SerializeDenseNoStatsImpl(StringBuilder sb, Node node) {
-            DenseIntDigitToString(sb, node.SortedKids == null ? 0 : node.SortedKids.Length);
-            sb.Append(node.ratio.AminAnDiff >= 0 ? '.' : ';');
-            if (node.SortedKids != null) {
-                foreach (var kid in node.SortedKids) {
-                    sb.Append(kid.c);
-                    SerializeDenseNoStatsImpl(sb, kid);
-                }
+        //The no-stats format can't represent unset ("unsure") ratios, so like AvsAn.Query they inherit the nearest ancestor's article;
+        //kids that can't change the resulting article are omitted.
+        static void SerializeDenseNoStatsImpl(StringBuilder sb, Node node, bool isAn) {
+            var kids = node.SortedKids?.Where(kid => AffectsArticle(kid, isAn)).ToArray() ?? new Node[0];
+            DenseIntDigitToString(sb, kids.Length);
+            sb.Append(isAn ? ';' : '.');
+            foreach (var kid in kids) {
+                sb.Append(kid.c);
+                SerializeDenseNoStatsImpl(sb, kid, IsAn(kid, isAn));
             }
+        }
+
+        static bool IsAn(Node node, bool inheritedIsAn)
+            => node.ratio.isSet ? node.ratio.AminAnDiff < 0 : inheritedIsAn;
+
+        static bool AffectsArticle(Node node, bool inheritedIsAn) {
+            var isAn = IsAn(node, inheritedIsAn);
+            return isAn != inheritedIsAn || node.SortedKids != null && node.SortedKids.Any(kid => AffectsArticle(kid, isAn));
         }
 
         // ReSharper disable once UnusedMember.Global
